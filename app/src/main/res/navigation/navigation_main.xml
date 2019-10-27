@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/movieFragment"
-        android:name="com.example.mymovies.screens.content.MovieSerieFragment"
+        android:name="com.example.mymovies.screens.MovieSerie.MovieSerieFragment"
         android:label="MovieFragment" >
         <action
             android:id="@+id/action_movieFragment_to_searchFragment"

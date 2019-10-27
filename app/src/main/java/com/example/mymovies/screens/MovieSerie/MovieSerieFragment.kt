@@ -1,4 +1,4 @@
-package com.example.mymovies.screens.content
+package com.example.mymovies.screens.MovieSerie
 
 import androidx.fragment.app.Fragment
 
