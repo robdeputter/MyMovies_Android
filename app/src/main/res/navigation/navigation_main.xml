@@ -13,6 +13,7 @@
             android:id="@+id/action_searchFragment_to_movieFragment"
             app:destination="@id/movieFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/movieFragment"
         android:name="com.example.mymovies.screens.MovieSerie.MovieSerieFragment"
@@ -30,6 +31,7 @@
             android:id="@+id/action_movieFragment_to_wantToWatchFragment2"
             app:destination="@id/wantToWatchFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/favoritsFragment"
         android:name="com.example.mymovies.screens.favorits.FavoritsFragment"
@@ -38,6 +40,7 @@
             android:id="@+id/action_favoritsFragment_to_movieFragment"
             app:destination="@id/movieFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/wantToWatchFragment"
         android:name="com.example.mymovies.screens.wantToWatch.WantToWatchFragment"
@@ -46,4 +49,5 @@
             android:id="@+id/action_wantToWatchFragment_to_movieFragment"
             app:destination="@id/movieFragment" />
     </fragment>
+
 </navigation>

@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">MyMovies</string>
     <string name="searchTextview">Name of movie / serie</string>
+    <string name="about">About</string>
+    <string name="search">Search</string>
+    <string name="favorites">Favorites</string>
+    <string name="wantToWatch">Want to watch list</string>
+    <string name="title">MovieTitle</string>
+    <string name="testMovieSerie">Movie / Serie</string>
 </resources>

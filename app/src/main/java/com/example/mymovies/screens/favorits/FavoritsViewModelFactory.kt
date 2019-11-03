@@ -1,15 +1,15 @@
-package com.example.mymovies.screens.search
+package com.example.mymovies.screens.favorits
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.mymovies.screens.MovieSerie.MovieSerieViewModel
 
-class SearchViewModelFactory : ViewModelProvider.Factory{
+class  FavoritsViewModelFactory : ViewModelProvider.Factory{
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(SearchViewModel::class.java)) {
-            return SearchViewModel() as T
+        if (modelClass.isAssignableFrom(FavoritsViewModel::class.java)) {
+            return FavoritsViewModel() as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
