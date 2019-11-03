@@ -9,6 +9,9 @@
         android:id="@+id/searchFragment"
         android:name="com.example.mymovies.screens.search.SearchFragment"
         android:label="SearchFragment">
+        <argument
+            android:name="imdbId"
+            app:argType="string" />
         <action
             android:id="@+id/action_searchFragment_to_movieFragment"
             app:destination="@id/movieFragment" />
@@ -16,7 +19,7 @@
 
     <fragment
         android:id="@+id/movieFragment"
-        android:name="com.example.mymovies.screens.MovieSerie.MovieSerieFragment"
+        android:name="com.example.mymovies.screens.movieSerie.MovieSerieFragment"
         android:label="MovieFragment" >
         <action
             android:id="@+id/action_movieFragment_to_searchFragment"

@@ -2,7 +2,6 @@ package com.example.mymovies.screens.favorits
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.mymovies.screens.MovieSerie.MovieSerieViewModel
 
 class  FavoritsViewModelFactory : ViewModelProvider.Factory{
 

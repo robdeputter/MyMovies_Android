@@ -2,7 +2,6 @@ package com.example.mymovies.screens.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.mymovies.screens.MovieSerie.MovieSerieViewModel
 
 class SearchViewModelFactory : ViewModelProvider.Factory{
 

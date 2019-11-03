@@ -1,19 +1,14 @@
-package com.example.mymovies.screens.MovieSerie
+package com.example.mymovies.screens.movieSerie
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mymovies.database.MovieSerieDAO
-import com.example.mymovies.screens.MovieSerie.models.MovieSerie
-import com.example.mymovies.screens.MovieSerie.models.MovieSerieDetail
+import com.example.mymovies.screens.movieSerie.models.MovieSerieDetail
 import kotlinx.coroutines.*
 
-class MovieSerieViewModel(
-    val database: MovieSerieDAO,
-    application: Application,
-    val imdbId: String) : ViewModel(){
-
+ class MovieSerieViewModel(
+    val database: MovieSerieDAO) : ViewModel(){
 
     private var viewModelJob = Job()
 
@@ -42,9 +37,9 @@ class MovieSerieViewModel(
     }
 
 
-    private fun initializeMovieSerieDetail() {
+    fun getMovieSerieDetail(imdbId : String) {
         uiScope.launch {
-            _movieSerie.value = getMovieSerieFromDatabase()
+            _movieSerie.value = getMovieSerieFromDatabase(imdbId)
         }
     }
 
@@ -55,9 +50,14 @@ class MovieSerieViewModel(
      *  If the start time and end time are not the same, then we do not have an unfinished
      *  recording.
      */
-    private suspend fun getMovieSerieFromDatabase(): MovieSerieDetail? {
+
+    //HIER GAAN WE EEN REQUEST DOEN NAAR DE API OM DIE BEPAALDE FILM OF SERIE TE VERKRIJGEN!!! --> daarna in de databank steken en ophalen
+
+
+
+    private suspend fun getMovieSerieFromDatabase(imdbId: String): MovieSerieDetail? {
         return withContext(Dispatchers.IO) {
-            var movieSerieDetail = database.get(imdbId)
+            var movieSerieDetail = database.get(imdbId);
 
             movieSerieDetail
         }

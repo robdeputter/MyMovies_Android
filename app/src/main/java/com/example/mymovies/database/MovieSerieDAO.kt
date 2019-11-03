@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.example.mymovies.screens.MovieSerie.models.MovieSerieDetail
+import com.example.mymovies.screens.movieSerie.models.MovieSerieDetail
 
 @Dao
 interface MovieSerieDAO{

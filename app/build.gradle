@@ -29,6 +29,7 @@ android {
 
     dataBinding{
         enabled = true
+
     }
 }
 
@@ -49,6 +50,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android"
     implementation 'androidx.room:room-runtime:2.2.1'
     annotationProcessor 'androidx.room:room-compiler:2.2.1'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 
 
 }
