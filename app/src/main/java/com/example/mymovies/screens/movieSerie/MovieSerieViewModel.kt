@@ -19,22 +19,21 @@ import kotlinx.coroutines.*
     val movieSerie : LiveData<MovieSerieDetail>
         get() = _movieSerie;
 
-    private var moviesSeries = database.getAllMoviesSeries()
-
 
     //temporary = until the API call is implemented --> this has to come in the fragment
     init{
-        uiScope.launch {
-            var endGameAvengers = MovieSerieDetail("tt4154796","Avengers: Endgame",2019,"movie","","26 Apr 2019",
-                "181 min", "Action, Adventure, Drama, Sci-Fi", "Robert Downey Jr., Chris Evans, Mark Ruffalo, Chris Hemsworth",
-                null,8.5,589503)
-            database.insert(endGameAvengers);
+//        uiScope.launch {
+//            var endGameAvengers = MovieSerieDetail("tt4154796","Avengers: Endgame",2019,"movie","","26 Apr 2019",
+//                "181 min", "Action, Adventure, Drama, Sci-Fi", "Robert Downey Jr., Chris Evans, Mark Ruffalo, Chris Hemsworth",8.5,589503)
+//            database.insert(endGameAvengers);
+//
+//            var friends = MovieSerieDetail("tt0108778","Friends",1994,"serie","","22 Sep 1994",
+//                "22 min", "Comedy, Romance", "Jennifer Aniston, Courteney Cox, Lisa Kudrow, Matt LeBlanc",8.9,711227)
+//            database.insert(friends);
+//        }
+        _movieSerie.value = MovieSerieDetail("tt0108778","Friends",1994,"serie","","22 Sep 1994",
+        "22 min", "Comedy, Romance", "Jennifer Aniston, Courteney Cox, Lisa Kudrow, Matt LeBlanc",8.9,711227)
 
-            var friends = MovieSerieDetail("tt0108778","Friends",1994,"serie","","22 Sep 1994",
-                "22 min", "Comedy, Romance", "Jennifer Aniston, Courteney Cox, Lisa Kudrow, Matt LeBlanc",
-                null,8.9,711227)
-            database.insert(friends);
-        }
     }
 
 

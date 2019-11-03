@@ -23,7 +23,8 @@
         android:label="MovieFragment" >
         <argument
             android:name="imdbId"
-            app:argType="string" />
+            app:argType="string"
+            android:defaultValue="tt0108778"/> <!-- just for testing!!-->
         <action
             android:id="@+id/action_movieFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
@@ -44,7 +45,8 @@
         android:label="FavoritsFragment" >
         <argument
             android:name="imdbId"
-            app:argType="string"/>
+            app:argType="string"
+            android:defaultValue="tt0108778"/> <!-- just for testing!!-->
         <action
             android:id="@+id/action_favoritsFragment_to_movieFragment"
             app:destination="@id/movieFragment" />
@@ -52,11 +54,12 @@
 
     <fragment
         android:id="@+id/wantToWatchFragment"
-        android:name="com.example.mymovies.screens.wantToWatch.WantToWatchFragment"
+        android:name="com.example.mymovies.screens.watchList.WatchListFragment"
         android:label="WantToWatchFragment" >
         <argument
             android:name="imdbId"
-            app:argType="string" />
+            app:argType="string"
+            android:defaultValue="tt0108778"/> <!-- just for testing!!-->
         <action
             android:id="@+id/action_wantToWatchFragment_to_movieFragment"
             app:destination="@id/movieFragment" />

@@ -31,7 +31,7 @@ abstract class MovieSerieDatabase : RoomDatabase(){
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         MovieSerieDatabase::class.java,
-                        "sleep_history_database"
+                        "movie_serie_history"
                     )
                         // Wipes and rebuilds instead of migrating if no Migration object.
                         // Migration is not part of this lesson. You can learn more about

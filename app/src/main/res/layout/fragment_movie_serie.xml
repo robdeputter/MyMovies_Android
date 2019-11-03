@@ -2,7 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".screens.movieSerie.MovieSerieFragment"
     >
 
     <data>
@@ -14,18 +13,23 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:context=".screens.movieSerie.MovieSerieFragment"
        >
 
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="153dp"
-            android:layout_height="53dp"
+            android:layout_width="231dp"
+            android:layout_height="57dp"
             android:layout_marginTop="50dp"
+            android:contentDescription="@string/title_MovieSerie"
             android:text="@string/title"
+            android:textAlignment="center"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

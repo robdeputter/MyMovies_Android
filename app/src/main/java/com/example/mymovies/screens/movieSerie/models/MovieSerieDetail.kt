@@ -15,7 +15,6 @@ data class MovieSerieDetail(
     val runTime: String,
     val genre: String,
     val actors: String,
-    val ratings: Array<Rating>?,
     val imdbRating: Double,
     val imdbVotes: Int
 )

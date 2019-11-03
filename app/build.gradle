@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: "androidx.navigation.safeargs"
 
+apply plugin: 'kotlin-kapt'
+
 
 android {
     compileSdkVersion 29
@@ -56,7 +58,9 @@ dependencies {
 
     //ROOM
     implementation 'androidx.room:room-runtime:2.2.1'
+    kapt "androidx.room:room-compiler:2.2.1"
     annotationProcessor 'androidx.room:room-compiler:2.2.1'
+
 
 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'

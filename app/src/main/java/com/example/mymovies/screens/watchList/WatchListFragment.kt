@@ -1,4 +1,4 @@
-package com.example.mymovies.screens.wantToWatch
+package com.example.mymovies.screens.watchList
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.mymovies.R
-import com.example.mymovies.databinding.FragmentWantToWatchBinding
+import com.example.mymovies.databinding.FragmentWatchListBinding
 
-class WantToWatchFragment : Fragment(){
+class WatchListFragment : Fragment(){
 
 
     override fun onCreateView(
@@ -18,8 +18,8 @@ class WantToWatchFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
 
-        val binding: FragmentWantToWatchBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_want_to_watch, container, false)
+        val binding: FragmentWatchListBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_watch_list, container, false)
 
         return binding.root;
 
