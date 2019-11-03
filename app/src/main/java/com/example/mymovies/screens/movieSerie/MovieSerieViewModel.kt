@@ -8,7 +8,8 @@ import com.example.mymovies.screens.movieSerie.models.MovieSerieDetail
 import kotlinx.coroutines.*
 
  class MovieSerieViewModel(
-    val database: MovieSerieDAO) : ViewModel(){
+    val database: MovieSerieDAO,
+    val imdbId : String) : ViewModel(){
 
     private var viewModelJob = Job()
 
@@ -37,9 +38,9 @@ import kotlinx.coroutines.*
     }
 
 
-    fun getMovieSerieDetail(imdbId : String) {
+    fun getMovieSerieDetail() {
         uiScope.launch {
-            _movieSerie.value = getMovieSerieFromDatabase(imdbId)
+            _movieSerie.value = getMovieSerieFromDatabase()
         }
     }
 
@@ -55,7 +56,7 @@ import kotlinx.coroutines.*
 
 
 
-    private suspend fun getMovieSerieFromDatabase(imdbId: String): MovieSerieDetail? {
+    private suspend fun getMovieSerieFromDatabase(): MovieSerieDetail? {
         return withContext(Dispatchers.IO) {
             var movieSerieDetail = database.get(imdbId);
 

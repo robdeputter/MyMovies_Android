@@ -21,6 +21,9 @@
         android:id="@+id/movieFragment"
         android:name="com.example.mymovies.screens.movieSerie.MovieSerieFragment"
         android:label="MovieFragment" >
+        <argument
+            android:name="imdbId"
+            app:argType="string" />
         <action
             android:id="@+id/action_movieFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
@@ -39,6 +42,9 @@
         android:id="@+id/favoritsFragment"
         android:name="com.example.mymovies.screens.favorits.FavoritsFragment"
         android:label="FavoritsFragment" >
+        <argument
+            android:name="imdbId"
+            app:argType="string"/>
         <action
             android:id="@+id/action_favoritsFragment_to_movieFragment"
             app:destination="@id/movieFragment" />
@@ -48,6 +54,9 @@
         android:id="@+id/wantToWatchFragment"
         android:name="com.example.mymovies.screens.wantToWatch.WantToWatchFragment"
         android:label="WantToWatchFragment" >
+        <argument
+            android:name="imdbId"
+            app:argType="string" />
         <action
             android:id="@+id/action_wantToWatchFragment_to_movieFragment"
             app:destination="@id/movieFragment" />

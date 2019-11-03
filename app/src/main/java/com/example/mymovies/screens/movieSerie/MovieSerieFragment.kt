@@ -26,7 +26,8 @@ public class MovieSerieFragment : Fragment(){
 
         val dataSource = MovieSerieDatabase.getInstance(application).movieSerieDAO
 
-        val viewModelFactory = MovieSerieViewModelFactory(dataSource,application)
+        val arguments = MovieSerieFragmentArgs.fromBundle(arguments!!) // I need to get the imdbId from arguments!!!!!
+        val viewModelFactory = MovieSerieViewModelFactory(dataSource,application,arguments.imdbId)
 
         val viewModel = ViewModelProviders.of(this,viewModelFactory).get(MovieSerieViewModel::class.java)
 
