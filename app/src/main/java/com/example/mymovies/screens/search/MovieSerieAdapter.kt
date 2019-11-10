@@ -40,7 +40,7 @@ class MovieSerieAdapter(val clickListener: MovieSerieListener):
         }
 
         override fun areContentsTheSame(oldItem: MovieSerie, newItem: MovieSerie): Boolean {
-            return oldItem.imdbId == oldItem.imdbId
+            return oldItem.imdbID == oldItem.imdbID
         }
     }
 
@@ -55,7 +55,7 @@ class MovieSerieAdapter(val clickListener: MovieSerieListener):
 
 
     class MovieSerieListener(val clickListener: (imdbId: String) -> Unit) {
-        fun onClick(movieSerie: MovieSerie) = clickListener(movieSerie.imdbId)
+        fun onClick(movieSerie: MovieSerie) = clickListener(movieSerie.imdbID)
     }
 }
 

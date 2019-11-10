@@ -39,7 +39,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="@{movieSerie.title}"
-            android:textSize="24sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/poster"
             app:layout_constraintTop_toTopOf="@+id/poster" />
 

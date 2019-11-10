@@ -30,7 +30,7 @@ class MovieSerieViewModel(
 
     private val coroutineScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private fun getMovieSerieDetailObject() {
+    fun getMovieSerieDetailObject() {
         coroutineScope.launch {
             // Get the Deferred object for our Retrofit request
             var getPropertyDeferred = MyMoviesApi.retrofitService.getMovieSerieDetail(imdbId)

@@ -23,20 +23,26 @@ class SearchViewModel : ViewModel(){
     val movieSerieList : LiveData<List<MovieSerie>>
         get() = _moviesSeries
 
-    private val _navigateToSelectedMovieSerie = MutableLiveData<MovieSerie>()
-    val navigateToSelectedMovieSerie : LiveData<MovieSerie>
+    private val _navigateToSelectedMovieSerie = MutableLiveData<String>()
+    val navigateToSelectedMovieSerie : LiveData<String>
         get() = _navigateToSelectedMovieSerie
 
     private val _searchedName = MutableLiveData<String>()
     val searchedName : LiveData<String>
         get() = _searchedName
 
+    fun setSearchedName(text : String){
+        _searchedName.value = text
+    }
+
+
+
 
     private var viewModelJob = Job();
 
     private var coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main);
 
-    private fun getMoviesSeriesForName(name: String) {
+    fun getMoviesSeriesForName(name: String) {
         coroutineScope.launch {
             // Get the Deferred object for our Retrofit request
             var getMoviesSeriesDeferred = MyMoviesApi.retrofitService.getMovieSeriesForName(name)
@@ -44,8 +50,10 @@ class SearchViewModel : ViewModel(){
                 _status.value = MyMoviesApiStatus.LOADING
                 // this will run on a thread managed by Retrofit
                 val listResult = getMoviesSeriesDeferred.await()
+
+
+                _moviesSeries.value = listResult.Search
                 _status.value = MyMoviesApiStatus.DONE
-                _moviesSeries.value = listResult
             } catch (e: Exception) {
                 _status.value = MyMoviesApiStatus.ERROR
                 _moviesSeries.value = ArrayList()
@@ -58,8 +66,8 @@ class SearchViewModel : ViewModel(){
         viewModelJob.cancel()
     }
 
-    fun displayMovieSerieDetails(movieSerie: MovieSerie){
-        _navigateToSelectedMovieSerie.value = movieSerie
+    fun displayMovieSerieDetails(imdbId: String){
+        _navigateToSelectedMovieSerie.value = imdbId
     }
 
     fun displayMovieSerieDetailsComplete(){

@@ -36,6 +36,8 @@ public class MovieSerieFragment : Fragment(){
 
         binding.viewModel = viewModel
 
+        viewModel.getMovieSerieDetailObject()
+
         return binding.root;
     }
 

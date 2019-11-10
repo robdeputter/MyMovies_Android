@@ -8,10 +8,8 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.mymovies.screens.search.SearchFragment"
-        android:label="SearchFragment">
-        <argument
-            android:name="imdbId"
-            app:argType="string" />
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_searchFragment_to_movieFragment"
             app:destination="@id/movieFragment" />
@@ -20,11 +18,12 @@
     <fragment
         android:id="@+id/movieFragment"
         android:name="com.example.mymovies.screens.movieSerie.MovieSerieFragment"
-        android:label="MovieFragment" >
+        android:label="MovieFragment"
+        tools:layout="@layout/fragment_movie_serie">
         <argument
             android:name="imdbId"
             app:argType="string"
-            android:defaultValue="tt0108778"/> <!-- just for testing!!-->
+            android:defaultValue="tt0108778"/> <!-- just for testing!! you have to take this line away if you want to give a parameter -->
         <action
             android:id="@+id/action_movieFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
@@ -42,11 +41,9 @@
     <fragment
         android:id="@+id/favoritsFragment"
         android:name="com.example.mymovies.screens.favorits.FavoritsFragment"
-        android:label="FavoritsFragment" >
-        <argument
-            android:name="imdbId"
-            app:argType="string"
-            android:defaultValue="tt0108778"/> <!-- just for testing!!-->
+        android:label="FavoritsFragment"
+        tools:layout="@layout/fragment_favorits">
+        <!-- just for testing!!-->
         <action
             android:id="@+id/action_favoritsFragment_to_movieFragment"
             app:destination="@id/movieFragment" />
@@ -55,11 +52,8 @@
     <fragment
         android:id="@+id/wantToWatchFragment"
         android:name="com.example.mymovies.screens.watchList.WatchListFragment"
-        android:label="WantToWatchFragment" >
-        <argument
-            android:name="imdbId"
-            app:argType="string"
-            android:defaultValue="tt0108778"/> <!-- just for testing!!-->
+        android:label="WantToWatchFragment"
+        tools:layout="@layout/fragment_watch_list">
         <action
             android:id="@+id/action_wantToWatchFragment_to_movieFragment"
             app:destination="@id/movieFragment" />
