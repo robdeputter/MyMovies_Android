@@ -59,7 +59,7 @@ class SearchFragment : Fragment(){
         viewModel.navigateToSelectedMovieSerie.observe(this, Observer {
             if (it != null){
                 //this.findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToMovieFragment(it))
-                this.findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToMovieFragment())
+                this.findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToMovieFragment(it))
                 viewModel.displayMovieSerieDetailsComplete()
             }
         })

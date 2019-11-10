@@ -23,7 +23,7 @@
         <argument
             android:name="imdbId"
             app:argType="string"
-            android:defaultValue="tt0108778"/> <!-- just for testing!! you have to take this line away if you want to give a parameter -->
+            /> <!-- just for testing!! you have to take this line away if you want to give a parameter -->
         <action
             android:id="@+id/action_movieFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
