@@ -1,59 +1,66 @@
 package com.example.mymovies.screens.movieSerie
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mymovies.database.MovieSerieDAO
-import com.example.mymovies.screens.movieSerie.models.MovieSerieDetail
+import com.example.mymovies.models.MovieSerie
+import com.example.mymovies.models.MovieSerieDetail
+import com.example.mymovies.network.MyMoviesApi
 import kotlinx.coroutines.*
 
- class MovieSerieViewModel(
-    val database: MovieSerieDAO,
-    val imdbId : String) : ViewModel(){
+
+enum class MovieSerieApiStatus { LOADING, ERROR, DONE }
+
+class MovieSerieViewModel(
+    val imdbId: String,
+    private val application: Application
+) : ViewModel() {
+
+    private val _status = MutableLiveData<MovieSerieApiStatus>();
+    val status: LiveData<MovieSerieApiStatus>
+        get() = _status
+
+    private var _movieSerieDetail = MutableLiveData<MovieSerieDetail>()
+    val movieSerie: LiveData<MovieSerieDetail>
+        get() = _movieSerieDetail;
 
     private var viewModelJob = Job()
 
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    private val coroutineScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private var _movieSerie = MutableLiveData<MovieSerieDetail>()
-    val movieSerie : LiveData<MovieSerieDetail>
-        get() = _movieSerie;
+    private fun getMovieSerieDetailObject() {
+        coroutineScope.launch {
+            // Get the Deferred object for our Retrofit request
+            var getPropertyDeferred = MyMoviesApi.retrofitService.getMovieSerieDetail(imdbId)
+            try {
+                _status.value = MovieSerieApiStatus.LOADING
+                // this will run on a thread managed by Retrofit
+                val result = getPropertyDeferred.await()
+                _status.value = MovieSerieApiStatus.DONE
+                _movieSerieDetail.value = result
+            } catch (e: Exception) {
+                _status.value = MovieSerieApiStatus.ERROR
+                _movieSerieDetail.value = null
+            }
+        }
+    }
 
-
-    //temporary = until the API call is implemented --> this has to come in the fragment
-    init{
-//        uiScope.launch {
-//            var endGameAvengers = MovieSerieDetail("tt4154796","Avengers: Endgame",2019,"movie","","26 Apr 2019",
-//                "181 min", "Action, Adventure, Drama, Sci-Fi", "Robert Downey Jr., Chris Evans, Mark Ruffalo, Chris Hemsworth",8.5,589503)
-//            database.insert(endGameAvengers);
-//
-//            var friends = MovieSerieDetail("tt0108778","Friends",1994,"serie","","22 Sep 1994",
-//                "22 min", "Comedy, Romance", "Jennifer Aniston, Courteney Cox, Lisa Kudrow, Matt LeBlanc",8.9,711227)
-//            database.insert(friends);
-//        }
-        _movieSerie.value = MovieSerieDetail("tt0108778","Friends",1994,"serie","","22 Sep 1994",
-        "22 min", "Comedy, Romance", "Jennifer Aniston, Courteney Cox, Lisa Kudrow, Matt LeBlanc",8.9,711227)
-
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 
 
+    //HIER GAAN WE EEN REQUEST DOEN NAAR DE API OM DIE BEPAALDE FILM OF SERIE TE VERKRIJGEN!!! --> daarna in de databank steken en ophalen
+
+    /* DATABANK
     fun getMovieSerieDetail() {
         uiScope.launch {
             _movieSerie.value = getMovieSerieFromDatabase()
         }
     }
-
-    /**
-     *  Handling the case of the stopped app or forgotten recording,
-     *  the start and end times will be the same.j
-     *
-     *  If the start time and end time are not the same, then we do not have an unfinished
-     *  recording.
-     */
-
-    //HIER GAAN WE EEN REQUEST DOEN NAAR DE API OM DIE BEPAALDE FILM OF SERIE TE VERKRIJGEN!!! --> daarna in de databank steken en ophalen
-
-
 
     private suspend fun getMovieSerieFromDatabase(): MovieSerieDetail? {
         return withContext(Dispatchers.IO) {
@@ -80,9 +87,7 @@ import kotlinx.coroutines.*
             database.insert(movieSerieDetail)
         }
     }
+    */
 
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
+
 }

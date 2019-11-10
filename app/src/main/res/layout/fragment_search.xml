@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.example.mymovies.screens.search.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,9 +39,11 @@
             app:layout_constraintTop_toBottomOf="@+id/searchEditText">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/movieSerieList"
+                android:id="@+id/movies_series_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/movie_serie_view_item"
+                app:listData="@{viewModel.movieSerieList}" />
 
 
         </ScrollView>

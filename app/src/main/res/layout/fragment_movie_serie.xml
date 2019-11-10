@@ -16,20 +16,30 @@
         tools:context=".screens.movieSerie.MovieSerieFragment"
        >
 
+        <ImageView
+            android:id="@+id/poster"
+            android:layout_width="154dp"
+            android:layout_height="176dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="231dp"
             android:layout_height="57dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="8dp"
             android:contentDescription="@string/title_MovieSerie"
-            android:text="@string/title"
+            android:text="@{viewModel.movieSerie.title}"
             android:textAlignment="center"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/poster"
             />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

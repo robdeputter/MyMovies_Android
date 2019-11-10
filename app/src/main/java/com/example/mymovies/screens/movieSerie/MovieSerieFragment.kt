@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.mymovies.R
-import com.example.mymovies.database.MovieSerieDatabase
+//import com.example.mymovies.database.MovieSerieDatabase
 import com.example.mymovies.databinding.FragmentMovieSerieBinding
 
 public class MovieSerieFragment : Fragment(){
@@ -24,10 +24,10 @@ public class MovieSerieFragment : Fragment(){
 
         val application = requireNotNull(this.activity).application
 
-        val dataSource = MovieSerieDatabase.getInstance(application).movieSerieDAO
+        //val dataSource = MovieSerieDatabase.getInstance(application).movieSerieDAO
 
-        val arguments = MovieSerieFragmentArgs.fromBundle(arguments!!) // I need to get the imdbId from arguments!!!!!
-        val viewModelFactory = MovieSerieViewModelFactory(dataSource,application,arguments.imdbId)
+        val arguments = MovieSerieFragmentArgs.fromBundle(arguments!!).imdbId // I need to get the imdbId from arguments!!!!!
+        val viewModelFactory = MovieSerieViewModelFactory(arguments, application)
 
         val viewModel = ViewModelProviders.of(this,viewModelFactory).get(MovieSerieViewModel::class.java)
 

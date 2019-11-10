@@ -1,10 +1,11 @@
+/*
 package com.example.mymovies.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.mymovies.screens.movieSerie.models.MovieSerieDetail
+import com.example.mymovies.models.MovieSerieDetail
 
 @Database(entities = [MovieSerieDetail::class], version = 1, exportSchema = false)
 abstract class MovieSerieDatabase : RoomDatabase(){
@@ -49,4 +50,4 @@ abstract class MovieSerieDatabase : RoomDatabase(){
 
     }
 
-}
+}*/
