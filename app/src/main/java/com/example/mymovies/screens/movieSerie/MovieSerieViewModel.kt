@@ -4,10 +4,10 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.mymovies.database.MovieSerieDAO
-import com.example.mymovies.models.MovieSerie
+import androidx.lifecycle.viewModelScope
 import com.example.mymovies.models.MovieSerieDetail
 import com.example.mymovies.network.MyMoviesApi
+import com.example.mymovies.repository.MovieSerieDetailRepository
 import kotlinx.coroutines.*
 
 
@@ -26,30 +26,20 @@ class MovieSerieViewModel(
     val movieSerie: LiveData<MovieSerieDetail>
         get() = _movieSerieDetail;
 
-    private var viewModelJob = Job()
 
-    private val coroutineScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    private val movieSerieRepository = MovieSerieDetailRepository()
+
+
 
     fun getMovieSerieDetailObject() {
-        coroutineScope.launch {
-            // Get the Deferred object for our Retrofit request
-            var getPropertyDeferred = MyMoviesApi.retrofitService.getMovieSerieDetail(imdbId)
-            try {
-                _status.value = MovieSerieApiStatus.LOADING
-                // this will run on a thread managed by Retrofit
-                val result = getPropertyDeferred.await()
-                _status.value = MovieSerieApiStatus.DONE
-                _movieSerieDetail.value = result
-            } catch (e: Exception) {
-                _status.value = MovieSerieApiStatus.ERROR
-                _movieSerieDetail.value = null
-            }
-        }
+        movieSerieRepository.getMovieSerieDetail(imdbId)
+        _movieSerieDetail.value = movieSerieRepository.movieSerieDetail.value
+        _status.value = movieSerieRepository.status.value
     }
 
     override fun onCleared() {
         super.onCleared()
-        viewModelJob.cancel()
+
     }
 
 

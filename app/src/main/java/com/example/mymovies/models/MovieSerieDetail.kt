@@ -9,13 +9,13 @@ import kotlinx.android.parcel.Parcelize
 
 data class MovieSerieDetail(
     val imdbID: String,
-    val Title: String,
-    val Year: String,
-    val Type: String,
-    val Poster: String,
-    val Released: String,
-    val RunTime: String?,
-    val Genre: String,
-    val Actors: String,
+    val title: String,
+    val year: String,
+    val type: String,
+    val poster: String,
+    val released: String,
+    val runTime: String?,
+    val genre: String,
+    val actors: String,
     val imdbRating: String,
     val imdbVotes: String)

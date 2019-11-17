@@ -33,7 +33,7 @@ interface MyMoviesApiService {
 
     @Headers("x-rapidapi-key: a5f6b222camsh8d8cf36d4842c16p1e1b3cjsnba17b5622d41")
     @GET("/")
-    fun getMovieSerieDetail(@Query("i") imdbID : String) : Deferred<MovieSerieDetail>
+    fun getMovieSerieDetail(@Query("i") imdbID : String) : Deferred<NetworkMovieSerieDetail>
 
 }
 
