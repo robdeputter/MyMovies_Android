@@ -29,55 +29,28 @@ class MovieSerieViewModel(
 
     private val movieSerieRepository = MovieSerieDetailRepository()
 
+    private var job = Job()
 
+    private val coroutineScope = CoroutineScope(Dispatchers.Main + job)
 
     fun getMovieSerieDetailObject() {
-        movieSerieRepository.getMovieSerieDetail(imdbId)
-        _movieSerieDetail.value = movieSerieRepository.movieSerieDetail.value
-        _status.value = movieSerieRepository.status.value
+        coroutineScope.launch {
+            try {
+                _status.value = MovieSerieApiStatus.LOADING
+                // this will run on a thread managed by Retrofit
+                _movieSerieDetail.value = movieSerieRepository.getMovieSerieDetail(imdbId)
+                _status.value = MovieSerieApiStatus.DONE
+            } catch (e: Exception) {
+                _status.value = MovieSerieApiStatus.ERROR
+                _movieSerieDetail.value = null
+            }
+        }
     }
 
     override fun onCleared() {
         super.onCleared()
-
+        job.cancel()
     }
-
-
-    //HIER GAAN WE EEN REQUEST DOEN NAAR DE API OM DIE BEPAALDE FILM OF SERIE TE VERKRIJGEN!!! --> daarna in de databank steken en ophalen
-
-    /* DATABANK
-    fun getMovieSerieDetail() {
-        uiScope.launch {
-            _movieSerie.value = getMovieSerieFromDatabase()
-        }
-    }
-
-    private suspend fun getMovieSerieFromDatabase(): MovieSerieDetail? {
-        return withContext(Dispatchers.IO) {
-            var movieSerieDetail = database.get(imdbId);
-
-            movieSerieDetail
-        }
-    }
-
-    private suspend fun clear() {
-        withContext(Dispatchers.IO) {
-            database.clear()
-        }
-    }
-
-    private suspend fun update(movieSerieDetail: MovieSerieDetail) {
-        withContext(Dispatchers.IO) {
-            database.update(movieSerieDetail)
-        }
-    }
-
-    private suspend fun insert(movieSerieDetail: MovieSerieDetail) {
-        withContext(Dispatchers.IO) {
-            database.insert(movieSerieDetail)
-        }
-    }
-    */
 
 
 }

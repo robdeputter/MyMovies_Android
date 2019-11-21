@@ -8,7 +8,7 @@ import androidx.room.Update
 import com.example.mymovies.models.MovieSerieDetail
 
 @Dao
-interface MovieSerieFavoritsDAO{
+interface FavoritsDAO{
 
     @Insert
     fun insert(movieSerie: DatabaseMovieSerieDetail)
