@@ -36,3 +36,19 @@ fun List<DatabaseMovieSerieDetail>.asDomainModel(): List<MovieSerieDetail> {
         )
     }
 }
+
+fun DatabaseMovieSerieDetail.asDomainModel() : MovieSerieDetail{
+    return MovieSerieDetail(
+        imdbID = imdbID,
+        title = title,
+        year = year,
+        type = type,
+        poster = poster,
+        released = released,
+        runTime = runTime,
+        genre = genre,
+        actors = actors,
+        imdbRating = imdbRating,
+        imdbVotes = imdbVotes
+    )
+}

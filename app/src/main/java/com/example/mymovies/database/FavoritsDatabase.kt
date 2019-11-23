@@ -10,7 +10,7 @@ import com.example.mymovies.models.MovieSerieDetail
 abstract class FavoritsDatabase : RoomDatabase(){
 
 
-    abstract val movieSerieDAO:  FavoritsDAO
+    abstract val favoritsDAO:  FavoritsDAO
 
 
     companion object{

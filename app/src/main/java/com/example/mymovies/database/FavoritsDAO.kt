@@ -1,10 +1,7 @@
 package com.example.mymovies.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.example.mymovies.models.MovieSerieDetail
 
 @Dao
@@ -15,6 +12,9 @@ interface FavoritsDAO{
 
     @Update
     fun update(movieSerie: DatabaseMovieSerieDetail)
+
+    @Delete
+    fun delete(movieSerie: DatabaseMovieSerieDetail)
 
     @Query("SELECT * from databasemovieseriedetail WHERE imdbId = :key")
     fun get(key: String): DatabaseMovieSerieDetail?

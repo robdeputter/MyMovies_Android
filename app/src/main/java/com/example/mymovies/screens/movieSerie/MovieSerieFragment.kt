@@ -10,6 +10,7 @@ import androidx.navigation.ui.NavigationUI
 import com.example.mymovies.R
 //import com.example.mymovies.database.MovieSerieDatabase
 import com.example.mymovies.databinding.FragmentMovieSerieBinding
+import kotlinx.android.synthetic.main.fragment_movie_serie.*
 
 public class MovieSerieFragment : Fragment(){
 
@@ -24,7 +25,6 @@ public class MovieSerieFragment : Fragment(){
 
         val application = requireNotNull(this.activity).application
 
-        //val dataSource = MovieSerieDatabase.getInstance(application).movieSerieDAO
 
         val arguments = MovieSerieFragmentArgs.fromBundle(arguments!!).imdbId // I need to get the imdbId from arguments!!!!!
         val viewModelFactory = MovieSerieViewModelFactory(arguments, application)
@@ -37,6 +37,16 @@ public class MovieSerieFragment : Fragment(){
         binding.viewModel = viewModel
 
         viewModel.getMovieSerieDetailObject()
+
+
+
+        binding.addFavorit.setOnClickListener {view: View ->
+            viewModel.addOrRemoveToFavorits()
+        }
+
+        binding.addFavorit.setBackgroundResource(android.R.drawable.btn_star_big_off)
+
+
 
         return binding.root;
     }
@@ -52,6 +62,8 @@ public class MovieSerieFragment : Fragment(){
             view!!.findNavController()
         ) || super.onOptionsItemSelected(item)
     }
+
+
 
 
 }

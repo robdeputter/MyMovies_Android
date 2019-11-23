@@ -18,9 +18,23 @@ class FavoritsViewModel(val database: FavoritsDatabase) : ViewModel(){
 
     private val movieSerieRepository = FavoritsRepository(database)
 
-    private var job = Job()
-
-    private val coroutineScope = CoroutineScope(Dispatchers.Main + job)
-
     val favoritsList = movieSerieRepository.favorits
+
+
+    private val _navigateToSelectedMovieSerie = MutableLiveData<String>()
+    val navigateToSelectedMovieSerie : LiveData<String>
+        get() = _navigateToSelectedMovieSerie
+
+
+    fun displayMovieSerieDetails(imdbId: String){
+        _navigateToSelectedMovieSerie.value = imdbId
+    }
+
+    fun displayMovieSerieDetailsComplete(){
+        _navigateToSelectedMovieSerie.value = null
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+    }
 }
