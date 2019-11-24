@@ -12,8 +12,4 @@
     <item
         android:id="@+id/wantToWatchFragment"
         android:title="@string/wantToWatch" />
-
-    <item
-        android:id="@+id/movieFragment"
-        android:title="@string/testMovieSerie" />
 </menu>

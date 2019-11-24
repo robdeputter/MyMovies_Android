@@ -30,9 +30,18 @@ class MovieSerieViewModel(
     val movieSerie: LiveData<MovieSerieDetail>
         get() = _movieSerieDetail;
 
+    private var _inFavorits = MutableLiveData<Boolean>()
+    val inFavorits : LiveData<Boolean>
+        get() = _inFavorits
+
+    private var _showSnackbarEvent = MutableLiveData<Boolean>()
+    val showSnackbarEvent : LiveData<Boolean>
+        get() = _showSnackbarEvent
 
 
-
+    private var _favoritsAction = MutableLiveData<Boolean>()
+    val favoritsAction : LiveData<Boolean>
+        get() = _favoritsAction
 
 
     private val movieSerieRepository = MovieSerieDetailRepository()
@@ -42,18 +51,20 @@ class MovieSerieViewModel(
 
     private val coroutineScope = CoroutineScope(Dispatchers.Main + job)
 
-    private var _inFavorits = MutableLiveData<Boolean>()
-    val inFavorits : LiveData<Boolean>
-        get() = _inFavorits
 
+    init {
+        getMovieSerieDetailObject()
+    }
 
-    fun getMovieSerieDetailObject() {
+    private fun getMovieSerieDetailObject() {
         coroutineScope.launch {
             try {
                 _status.value = MovieSerieApiStatus.LOADING
                 // this will run on a thread managed by Retrofit
                 _movieSerieDetail.value = movieSerieRepository.getMovieSerieDetail(imdbId) //the movieSerieRepository is responsible for the data
                 _status.value = MovieSerieApiStatus.DONE
+
+                inFavorits()
             } catch (e: Exception) {
                 _status.value = MovieSerieApiStatus.ERROR
                 _movieSerieDetail.value = null
@@ -65,9 +76,13 @@ class MovieSerieViewModel(
         coroutineScope.launch {
             if(!inFavorits()){
                 favoritsRepository.addFavorit(imdbId)
+                _showSnackbarEvent.value = true
+                _favoritsAction.value = !_favoritsAction.value!!
             }
             else{
                 favoritsRepository.removeFavorit(_movieSerieDetail.value!!)
+                _showSnackbarEvent.value = true
+                _favoritsAction.value = !_favoritsAction.value!!
             }
         }
     }
@@ -77,8 +92,14 @@ class MovieSerieViewModel(
             var favorit = favoritsRepository.getFavorit(imdbId) != null
             favorit
         }
+        _favoritsAction.value = _inFavorits.value //if in favorits ==> true , when star_button pressed ==> removed
         return _inFavorits.value!!
     }
+
+    fun doneShowingSnackbar() {
+        _showSnackbarEvent.value = false
+    }
+
 
     override fun onCleared() {
         super.onCleared()

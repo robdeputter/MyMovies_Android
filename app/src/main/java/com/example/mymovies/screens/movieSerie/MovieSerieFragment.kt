@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.mymovies.R
 //import com.example.mymovies.database.MovieSerieDatabase
 import com.example.mymovies.databinding.FragmentMovieSerieBinding
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_movie_serie.*
 
 public class MovieSerieFragment : Fragment(){
@@ -36,9 +38,29 @@ public class MovieSerieFragment : Fragment(){
 
         binding.viewModel = viewModel
 
-        viewModel.getMovieSerieDetailObject()
 
+        viewModel.showSnackbarEvent.observe(this, Observer {
+            if (it == true) { // Observed state is true.
+                if (!viewModel.inFavorits.value!!){
+                    Snackbar.make(
+                        activity!!.findViewById(android.R.id.content),
+                        getString(R.string.added_to_favorits),
+                        Snackbar.LENGTH_SHORT // How long to display the message.
+                    ).show()
+                }
+                else{
+                    Snackbar.make(
+                        activity!!.findViewById(android.R.id.content),
+                        getString(R.string.removed_to_favorits),
+                        Snackbar.LENGTH_SHORT // How long to display the message.
+                    ).show()
+                }
 
+                // Reset state to make sure the snackbar is only shown once, even if the device
+                // has a configuration change.
+                viewModel.doneShowingSnackbar()
+            }
+        })
 
         binding.addFavorit.setOnClickListener {view: View ->
             viewModel.addOrRemoveToFavorits()

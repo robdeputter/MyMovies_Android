@@ -7,20 +7,20 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.mymovies.screens.favorits.FavoritsViewModel" />
+            type="com.example.mymovies.screens.favorites.FavoritesViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".screens.favorits.FavoritsFragment">
+        tools:context=".screens.favorites.FavoritesFragment">
 
         <TextView
             android:id="@+id/title"
             android:layout_width="153dp"
             android:layout_height="53dp"
             android:layout_marginTop="24dp"
-            android:text="Favorits"
+            android:text="Favorites"
             android:textAlignment="center"
             android:textSize="36sp"
             app:layout_constraintEnd_toEndOf="parent"

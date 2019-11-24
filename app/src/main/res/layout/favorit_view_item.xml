@@ -10,7 +10,7 @@
             type="com.example.mymovies.models.MovieSerieDetail" />
         <variable
             name="clickListener"
-            type="com.example.mymovies.screens.favorits.FavoritsAdapter.FavoritsListener"/>
+            type="com.example.mymovies.screens.favorites.FavoritesAdapter.FavoritesListener"/>
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout

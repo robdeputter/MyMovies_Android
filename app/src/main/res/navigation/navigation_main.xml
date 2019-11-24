@@ -40,7 +40,7 @@
 
     <fragment
         android:id="@+id/favoritsFragment"
-        android:name="com.example.mymovies.screens.favorits.FavoritsFragment"
+        android:name="com.example.mymovies.screens.favorites.FavoritesFragment"
         android:label="FavoritsFragment"
         tools:layout="@layout/fragment_favorits">
         <!-- just for testing!!-->

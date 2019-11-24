@@ -1,27 +1,24 @@
-package com.example.mymovies.screens.favorits
+package com.example.mymovies.screens.favorites
 
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mymovies.databinding.FavoritViewItemBinding
-import com.example.mymovies.databinding.MovieSerieViewItemBinding
-import com.example.mymovies.models.MovieSerie
 import com.example.mymovies.models.MovieSerieDetail
 
-class FavoritsAdapter(val clickListener: FavoritsListener):
-    ListAdapter<MovieSerieDetail, FavoritsAdapter.ViewHolder>(DiffCallback){
+class FavoritesAdapter(val clickListener: FavoritesListener):
+    ListAdapter<MovieSerieDetail, FavoritesAdapter.ViewHolder>(DiffCallback){
 
 
     class ViewHolder private constructor(val binding: FavoritViewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
             item: MovieSerieDetail,
-            clickListener: FavoritsAdapter.FavoritsListener
+            clickListener: FavoritesListener
         ) {
             binding.movieSerieDetail = item
             binding.executePendingBindings()
@@ -57,7 +54,7 @@ class FavoritsAdapter(val clickListener: FavoritsListener):
     }
 
 
-    class FavoritsListener(val clickListener: (imdbId: String) -> Unit) {
+    class FavoritesListener(val clickListener: (imdbId: String) -> Unit) {
         fun onClick(movieSerie: MovieSerieDetail) = clickListener(movieSerie.imdbID)
     }
 }

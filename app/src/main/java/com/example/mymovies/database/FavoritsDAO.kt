@@ -22,7 +22,7 @@ interface FavoritsDAO{
     @Query("DELETE FROM databasemovieseriedetail")
     fun clear()
 
-    @Query("SELECT * FROM databasemovieseriedetail ORDER BY title DESC")
+    @Query("SELECT * FROM databasemovieseriedetail ORDER BY title ASC")
     fun getAllFavorits(): LiveData<List<DatabaseMovieSerieDetail>>
 
 }

@@ -8,4 +8,6 @@
     <string name="title">MovieTitle</string>
     <string name="testMovieSerie">Movie / Serie</string>
     <string name="title_MovieSerie">Title of movie / serie</string>
+    <string name="added_to_favorits">Added to favorits</string>
+    <string name="removed_to_favorits">Removed from favorits</string>
 </resources>

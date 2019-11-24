@@ -73,9 +73,4 @@ class SearchViewModel : ViewModel(){
     fun displayMovieSerieDetailsComplete(){
         _navigateToSelectedMovieSerie.value = null
     }
-
-
-
-
-
 }

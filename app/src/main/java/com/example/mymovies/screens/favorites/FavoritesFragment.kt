@@ -1,4 +1,4 @@
-package com.example.mymovies.screens.favorits
+package com.example.mymovies.screens.favorites
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,11 +12,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.mymovies.R
 import com.example.mymovies.database.FavoritsDatabase
 import com.example.mymovies.databinding.FragmentFavoritsBinding
-import com.example.mymovies.screens.search.SearchFragmentDirections
 
 
-class FavoritsFragment : Fragment(){
-
+class FavoritesFragment : Fragment() {
 
 
     override fun onCreateView(
@@ -26,7 +24,8 @@ class FavoritsFragment : Fragment(){
     ): View? {
 
         val binding: FragmentFavoritsBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_favorits, container, false)
+            inflater, R.layout.fragment_favorits, container, false
+        )
 
         binding.setLifecycleOwner(this)
 
@@ -35,23 +34,25 @@ class FavoritsFragment : Fragment(){
 
         val dataSource = FavoritsDatabase.getInstance(application)
 
-        val viewModelFactory = FavoritsViewModelFactory(application,dataSource)
+        val viewModelFactory = FavoritesViewModelFactory(application, dataSource)
 
         val viewModel =
             ViewModelProviders.of(
-                this, viewModelFactory).get(FavoritsViewModel::class.java)
+                this, viewModelFactory
+            ).get(FavoritesViewModel::class.java)
 
 
         binding.viewModel = viewModel
 
-        binding.favorits.adapter = FavoritsAdapter(FavoritsAdapter.FavoritsListener {
+        binding.favorits.adapter = FavoritesAdapter(FavoritesAdapter.FavoritesListener {
             viewModel.displayMovieSerieDetails(it)
         })
 
         viewModel.navigateToSelectedMovieSerie.observe(this, Observer {
-            if (it != null){
+            if (it != null) {
                 //this.findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToMovieFragment(it))
-                this.findNavController().navigate(FavoritsFragmentDirections.actionFavoritsFragmentToMovieFragment(it))
+                this.findNavController()
+                    .navigate(FavoritesFragmentDirections.actionFavoritsFragmentToMovieFragment(it))
                 viewModel.displayMovieSerieDetailsComplete()
             }
         })

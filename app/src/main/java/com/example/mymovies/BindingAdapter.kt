@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.mymovies.models.MovieSerie
 import com.example.mymovies.models.MovieSerieDetail
-import com.example.mymovies.screens.favorits.FavoritsAdapter
+import com.example.mymovies.screens.favorites.FavoritesAdapter
 import com.example.mymovies.screens.search.MovieSerieAdapter
 import com.example.mymovies.screens.search.MyMoviesApiStatus
 
@@ -21,7 +21,7 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<MovieSerie>?) {
 
 @BindingAdapter("listDataFavorits")
 fun bindRecyclerViewFavorits(recyclerView: RecyclerView, data: List<MovieSerieDetail>?) {
-    val adapter = recyclerView.adapter as FavoritsAdapter
+    val adapter = recyclerView.adapter as FavoritesAdapter
     adapter.submitList(data)
 }
 
