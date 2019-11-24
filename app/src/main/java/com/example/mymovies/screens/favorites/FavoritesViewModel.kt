@@ -3,14 +3,14 @@ package com.example.mymovies.screens.favorites
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.mymovies.database.FavoritsDatabase
+import com.example.mymovies.database.MyMoviesDatabase
 import com.example.mymovies.repository.FavoritsRepository
 
-class FavoritesViewModel(val database: FavoritsDatabase) : ViewModel(){
+class FavoritesViewModel(val database: MyMoviesDatabase) : ViewModel(){
 
     private val movieSerieRepository = FavoritsRepository(database)
 
-    val favoritsList = movieSerieRepository.favorits
+    val favoritesList = movieSerieRepository.favorits
 
 
     private val _navigateToSelectedMovieSerie = MutableLiveData<String>()

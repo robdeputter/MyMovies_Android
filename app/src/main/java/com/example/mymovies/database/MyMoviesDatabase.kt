@@ -6,19 +6,25 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.mymovies.models.MovieSerieDetail
 
-@Database(entities = [DatabaseMovieSerieDetail::class], version = 1, exportSchema = false)
-abstract class FavoritsDatabase : RoomDatabase(){
+@Database(
+    entities = [DatabaseMovieSerieDetail::class, DatabaseNewRelease::class],
+
+    version = 2,
+    exportSchema = false
+)
+abstract class MyMoviesDatabase : RoomDatabase() {
 
 
-    abstract val favoritsDAO:  FavoritsDAO
+    abstract val favoritesDAO: FavoritesDAO
+    abstract val newReleasesDAO : NewReleaseDAO
 
 
-    companion object{
+    companion object {
 
         @Volatile
-        private var INSTANCE: FavoritsDatabase? = null
+        private var INSTANCE: MyMoviesDatabase? = null
 
-        fun getInstance(context: Context): FavoritsDatabase {
+        fun getInstance(context: Context): MyMoviesDatabase {
             // Multiple threads can ask for the database at the same time, ensure we only initialize
             // it once by using synchronized. Only one thread may enter a synchronized block at a
             // time.
@@ -30,7 +36,7 @@ abstract class FavoritsDatabase : RoomDatabase(){
                 if (instance == null) {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
-                        FavoritsDatabase::class.java,
+                        MyMoviesDatabase::class.java,
                         "movie_serie_history"
                     )
                         // Wipes and rebuilds instead of migrating if no Migration object.
@@ -45,7 +51,7 @@ abstract class FavoritsDatabase : RoomDatabase(){
                 // Return instance; smart cast to be non-null.
                 return instance
             }
-    }
+        }
 
     }
 

@@ -9,7 +9,4 @@
         android:id="@+id/favoritsFragment"
         android:title="@string/favorites" />
 
-    <item
-        android:id="@+id/wantToWatchFragment"
-        android:title="@string/wantToWatch" />
 </menu>

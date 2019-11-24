@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.mymovies.R
-import com.example.mymovies.database.FavoritsDatabase
+import com.example.mymovies.database.MyMoviesDatabase
 import com.example.mymovies.databinding.FragmentFavoritsBinding
 
 
@@ -32,7 +32,7 @@ class FavoritesFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-        val dataSource = FavoritsDatabase.getInstance(application)
+        val dataSource = MyMoviesDatabase.getInstance(application)
 
         val viewModelFactory = FavoritesViewModelFactory(application, dataSource)
 
@@ -44,7 +44,7 @@ class FavoritesFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-        binding.favorits.adapter = FavoritesAdapter(FavoritesAdapter.FavoritesListener {
+        binding.favorites.adapter = FavoritesAdapter(FavoritesAdapter.FavoritesListener {
             viewModel.displayMovieSerieDetails(it)
         })
 

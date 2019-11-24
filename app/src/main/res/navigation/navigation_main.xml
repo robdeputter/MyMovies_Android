@@ -29,13 +29,7 @@
             app:destination="@id/searchFragment" />
         <action
             android:id="@+id/action_movieFragment_to_favoritsFragment"
-            app:destination="@id/favoritsFragment" />
-        <action
-            android:id="@+id/action_movieFragment_to_wantToWatchFragment"
-            app:destination="@id/wantToWatchFragment" />
-        <action
-            android:id="@+id/action_movieFragment_to_wantToWatchFragment2"
-            app:destination="@id/wantToWatchFragment" />
+            app:destination="@id/favoritsFragment"/>
     </fragment>
 
     <fragment
@@ -49,14 +43,5 @@
             app:destination="@id/movieFragment" />
     </fragment>
 
-    <fragment
-        android:id="@+id/wantToWatchFragment"
-        android:name="com.example.mymovies.screens.watchList.WatchListFragment"
-        android:label="WantToWatchFragment"
-        tools:layout="@layout/fragment_watch_list">
-        <action
-            android:id="@+id/action_wantToWatchFragment_to_movieFragment"
-            app:destination="@id/movieFragment" />
-    </fragment>
 
 </navigation>

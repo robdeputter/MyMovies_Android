@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mymovies.databinding.FavoritViewItemBinding
+import com.example.mymovies.databinding.FavoriteViewItemBinding
 import com.example.mymovies.models.MovieSerieDetail
 
 class FavoritesAdapter(val clickListener: FavoritesListener):
     ListAdapter<MovieSerieDetail, FavoritesAdapter.ViewHolder>(DiffCallback){
 
 
-    class ViewHolder private constructor(val binding: FavoritViewItemBinding) :
+    class ViewHolder private constructor(val binding: FavoriteViewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
             item: MovieSerieDetail,
@@ -28,7 +28,7 @@ class FavoritesAdapter(val clickListener: FavoritesListener):
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = FavoritViewItemBinding.inflate(layoutInflater, parent, false)
+                val binding = FavoriteViewItemBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }

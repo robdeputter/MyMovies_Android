@@ -3,10 +3,10 @@ package com.example.mymovies.screens.favorites
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.mymovies.database.FavoritsDatabase
+import com.example.mymovies.database.MyMoviesDatabase
 
 class  FavoritesViewModelFactory(val application: Application,
-                                val database: FavoritsDatabase) : ViewModelProvider.Factory{
+                                val database: MyMoviesDatabase) : ViewModelProvider.Factory{
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

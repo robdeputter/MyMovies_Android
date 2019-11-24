@@ -4,15 +4,11 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.mymovies.database.FavoritsDatabase
+import com.example.mymovies.database.MyMoviesDatabase
 import com.example.mymovies.models.MovieSerieDetail
-import com.example.mymovies.network.MyMoviesApi
 import com.example.mymovies.repository.FavoritsRepository
 import com.example.mymovies.repository.MovieSerieDetailRepository
-import kotlinx.android.synthetic.main.fragment_movie_serie.view.*
 import kotlinx.coroutines.*
-import java.lang.IllegalArgumentException
 
 
 enum class MovieSerieApiStatus { LOADING, ERROR, DONE }
@@ -45,7 +41,7 @@ class MovieSerieViewModel(
 
 
     private val movieSerieRepository = MovieSerieDetailRepository()
-    private val favoritsRepository = FavoritsRepository(FavoritsDatabase.getInstance(application.applicationContext))
+    private val favoritsRepository = FavoritsRepository(MyMoviesDatabase.getInstance(application.applicationContext))
 
     private var job = Job()
 

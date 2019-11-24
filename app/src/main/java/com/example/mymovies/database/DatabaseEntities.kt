@@ -3,6 +3,7 @@ package com.example.mymovies.database
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.mymovies.models.MovieSerieDetail
+import com.example.mymovies.models.NewRelease
 
 @Entity
 data class DatabaseMovieSerieDetail constructor(
@@ -52,3 +53,37 @@ fun DatabaseMovieSerieDetail.asDomainModel() : MovieSerieDetail{
         imdbVotes = imdbVotes
     )
 }
+
+@Entity
+data class DatabaseNewRelease constructor(
+    @PrimaryKey
+    val imdbID: String,
+    val title: String,
+    val released: String?,
+    val type: String,
+    val image: String?
+)
+
+fun DatabaseNewRelease.asDomainModel() : NewRelease{
+    return NewRelease(
+        imdbID = imdbID,
+        title = title,
+        released = released,
+        type = type,
+        image = image
+    )
+}
+
+fun List<DatabaseNewRelease>.asDomainModel_NewRelease(): List<NewRelease> {
+    return map {
+        NewRelease(
+            imdbID = it.imdbID,
+            title = it.title,
+            type = it.type,
+            image = it.image,
+            released = it.released
+        )
+    }
+}
+
+

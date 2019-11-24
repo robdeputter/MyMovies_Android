@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ScrollView
-            android:id="@+id/scrollViewFavorits"
+            android:id="@+id/scrollViewFavorites"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="32dp"
@@ -36,12 +36,12 @@
             app:layout_constraintTop_toBottomOf="@+id/title">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/favorits"
+                android:id="@+id/favorites"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/favorit_view_item"
-                app:listDataFavorits="@{viewModel.favoritsList}"/>
+                tools:listitem="@layout/favorite_view_item"
+                app:listDataFavorits="@{viewModel.favoritesList}"/>
         </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

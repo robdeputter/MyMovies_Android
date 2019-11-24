@@ -17,7 +17,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.mymovies.R
-import com.example.mymovies.database.FavoritsDatabase
+import com.example.mymovies.database.MyMoviesDatabase
 import com.example.mymovies.databinding.FragmentSearchBinding
 import com.example.mymovies.repository.FavoritsRepository
 import kotlinx.coroutines.CoroutineScope
