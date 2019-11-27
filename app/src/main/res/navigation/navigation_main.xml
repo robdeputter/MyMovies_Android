@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.mymovies.screens.search.SearchFragment"
-        android:label="SearchFragment"
+        android:label="Search"
         tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_searchFragment_to_movieFragment"
@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/movieFragment"
         android:name="com.example.mymovies.screens.movieSerie.MovieSerieFragment"
-        android:label="MovieFragment"
+        android:label="Details"
         tools:layout="@layout/fragment_movie_serie">
         <argument
             android:name="imdbId"
@@ -30,17 +30,31 @@
         <action
             android:id="@+id/action_movieFragment_to_favoritsFragment"
             app:destination="@id/favoritsFragment"/>
+        <action
+            android:id="@+id/action_movieFragment_to_newReleaseFragment"
+            app:destination="@id/newReleaseFragment" />
+
     </fragment>
 
     <fragment
         android:id="@+id/favoritsFragment"
         android:name="com.example.mymovies.screens.favorites.FavoritesFragment"
-        android:label="FavoritsFragment"
+        android:label="Favorites"
         tools:layout="@layout/fragment_favorits">
         <!-- just for testing!!-->
         <action
             android:id="@+id/action_favoritsFragment_to_movieFragment"
             app:destination="@id/movieFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/newReleaseFragment"
+        android:name="com.example.mymovies.screens.newRelease.NewReleaseFragment"
+        android:label="NewReleaseFragment"
+        tools:layout="@layout/fragment_new_releases">
+        <action
+            android:id="@+id/action_newReleaseFragment_to_movieFragment"
+            app:destination="@id/movieFragment"/>
     </fragment>
 
 

@@ -14,7 +14,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 
 private const val BASE_URL = "https://movie-database-imdb-alternative.p.rapidapi.com"
-private const val BASE_URL2 = "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi"
+private const val BASE_URL2 = "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi/"
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -30,7 +30,7 @@ private val retrofit = Retrofit.Builder()
 private val retrofit2 = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
     .addCallAdapterFactory(CoroutineCallAdapterFactory())
-    .baseUrl(BASE_URL)
+    .baseUrl(BASE_URL2)
     .build()
 
 interface MyMoviesApiService {
@@ -50,9 +50,11 @@ object MyMoviesApi {
 }
 
 
+// other api call for new releases
+
 interface NewReleasesApiService{
     @Headers("x-rapidapi-key: a5f6b222camsh8d8cf36d4842c16p1e1b3cjsnba17b5622d41")
-    @GET("/?q=get:new7:BE&p=1")
+    @GET("?q=get:new7:BE&p=1")
     fun getNewReleases() : Deferred<NewReleaseResponse>
 }
 

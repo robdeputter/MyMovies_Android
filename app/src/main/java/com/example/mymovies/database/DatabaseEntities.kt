@@ -18,7 +18,8 @@ data class DatabaseMovieSerieDetail constructor(
     val genre: String,
     val actors: String,
     val imdbRating: String,
-    val imdbVotes: String)
+    val imdbVotes: String,
+    val favoriteRating: Float?)
 
 fun List<DatabaseMovieSerieDetail>.asDomainModel(): List<MovieSerieDetail> {
     return map {
@@ -33,7 +34,8 @@ fun List<DatabaseMovieSerieDetail>.asDomainModel(): List<MovieSerieDetail> {
             genre = it.genre,
             actors = it.actors,
             imdbRating = it.imdbRating,
-            imdbVotes = it.imdbVotes
+            imdbVotes = it.imdbVotes,
+            favoriteRating = it.favoriteRating
         )
     }
 }
@@ -50,7 +52,8 @@ fun DatabaseMovieSerieDetail.asDomainModel() : MovieSerieDetail{
         genre = genre,
         actors = actors,
         imdbRating = imdbRating,
-        imdbVotes = imdbVotes
+        imdbVotes = imdbVotes,
+        favoriteRating = favoriteRating
     )
 }
 

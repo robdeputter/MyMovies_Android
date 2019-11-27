@@ -6,11 +6,13 @@ import com.example.mymovies.database.DatabaseNewRelease
 import com.example.mymovies.models.MovieSerieDetail
 import com.example.mymovies.models.NewRelease
 import com.squareup.moshi.JsonClass
+import retrofit2.http.GET
 import java.lang.Exception
 import java.nio.channels.NetworkChannel
 import java.security.spec.ECField
 
 
+// Movies and series that you can find on IMDB
 @JsonClass(generateAdapter = true)
 data class NetworkMovieSerieDetail(
     val imdbID: String,
@@ -23,7 +25,12 @@ data class NetworkMovieSerieDetail(
     val Genre: String,
     val Actors: String,
     val imdbRating: String,
-    val imdbVotes: String)
+    val imdbVotes: String
+    ){
+    var favoriteRating : Float = Float.NaN
+        get() = field
+        set(value){field = value}
+}
 
 fun NetworkMovieSerieDetail.asDomainModel(): MovieSerieDetail {
     return MovieSerieDetail(
@@ -37,7 +44,9 @@ fun NetworkMovieSerieDetail.asDomainModel(): MovieSerieDetail {
             genre = Genre,
             actors = Actors,
             imdbRating = imdbRating,
-            imdbVotes = imdbVotes)
+            imdbVotes = imdbVotes,
+            favoriteRating = favoriteRating
+            )
     }
 
 
@@ -53,25 +62,28 @@ fun NetworkMovieSerieDetail.asDatabaseModel(): DatabaseMovieSerieDetail{
             genre = Genre,
             actors = Actors,
             imdbRating = imdbRating,
-            imdbVotes = imdbVotes
+            imdbVotes = imdbVotes,
+            favoriteRating = favoriteRating
+
         )
 }
-@JsonClass(generateAdapter = true)
-data class NetworkNewReleases(val newReleases: List<NetworkNewRelease>)
+
+// New releases on netflix
+
 
 @JsonClass(generateAdapter = true)
 data class NetworkNewRelease(
-    val imdbID: String?,
+    val imdbid: String?,
     val title: String,
     val type: String,
     val image: String?,
     val released: String?)
 
-fun NetworkNewReleases.asDomainModel(): List<NewRelease?> {
-    return newReleases.map {
+fun List<NetworkNewRelease>.asDomainModel(): List<NewRelease?> {
+    return this.map {
         try {
             NewRelease(
-                imdbID = it.imdbID!!,
+                imdbID = it.imdbid!!,
                 title = it.title,
                 image = it.image,
                 released = it.released,
@@ -82,11 +94,11 @@ fun NetworkNewReleases.asDomainModel(): List<NewRelease?> {
     }
 }
 
-fun NetworkNewReleases.asDatabaseModel(): Array<DatabaseNewRelease?>{
-    return newReleases.map {
+fun List<NetworkNewRelease>.asDatabaseModel(): Array<DatabaseNewRelease?>{
+    return this.map {
         try {
             DatabaseNewRelease(
-                imdbID = it.imdbID!!,
+                imdbID = it.imdbid!!,
                 title = it.title,
                 image = it.image,
                 released = it.released,

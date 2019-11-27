@@ -22,6 +22,7 @@ class NewReleasesRepository(private val _database : MyMoviesDatabase) {
     suspend fun refreshNewReleases() {
         withContext(Dispatchers.IO) {
             //getting the objects from the API
+            val obj = NewReleasesApi.retrofitService.getNewReleases()
             val newReleases = NewReleasesApi.retrofitService.getNewReleases().await()
             //save in the DB
             _database.newReleasesDAO.insertAll(*newReleases.ITEMS.asDatabaseModel())}

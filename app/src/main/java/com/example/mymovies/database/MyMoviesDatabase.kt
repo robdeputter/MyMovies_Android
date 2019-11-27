@@ -9,7 +9,7 @@ import com.example.mymovies.models.MovieSerieDetail
 @Database(
     entities = [DatabaseMovieSerieDetail::class, DatabaseNewRelease::class],
 
-    version = 2,
+    version = 4,
     exportSchema = false
 )
 abstract class MyMoviesDatabase : RoomDatabase() {

@@ -7,6 +7,7 @@ import com.example.mymovies.models.MovieSerieDetail
 import com.example.mymovies.network.MyMoviesApi
 import com.example.mymovies.network.asDomainModel
 import com.example.mymovies.screens.movieSerie.MovieSerieApiStatus
+import kotlinx.coroutines.withContext
 
 class MovieSerieDetailRepository(){
 
@@ -18,7 +19,8 @@ class MovieSerieDetailRepository(){
 
 
     suspend fun getMovieSerieDetail(imdbId: String) : MovieSerieDetail?{
-        // Get the Deferred object for our Retrofit request
+        // Get the Deferred object for our Retrofit requestw
+
         var getPropertyDeferred = MyMoviesApi.retrofitService.getMovieSerieDetail(imdbId)
 
         // this will run on a thread managed by Retrofit

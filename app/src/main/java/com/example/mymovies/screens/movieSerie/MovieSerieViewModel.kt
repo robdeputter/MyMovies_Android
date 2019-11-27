@@ -27,21 +27,18 @@ class MovieSerieViewModel(
         get() = _movieSerieDetail;
 
     private var _inFavorits = MutableLiveData<Boolean>()
-    val inFavorits : LiveData<Boolean>
+    val inFavorits: LiveData<Boolean>
         get() = _inFavorits
 
     private var _showSnackbarEvent = MutableLiveData<Boolean>()
-    val showSnackbarEvent : LiveData<Boolean>
+    val showSnackbarEvent: LiveData<Boolean>
         get() = _showSnackbarEvent
 
 
-    private var _favoritsAction = MutableLiveData<Boolean>()
-    val favoritsAction : LiveData<Boolean>
-        get() = _favoritsAction
-
-
     private val movieSerieRepository = MovieSerieDetailRepository()
-    private val favoritsRepository = FavoritsRepository(MyMoviesDatabase.getInstance(application.applicationContext))
+    private val favoritsRepository =
+        FavoritsRepository(MyMoviesDatabase.getInstance(application.applicationContext))
+
 
     private var job = Job()
 
@@ -57,10 +54,17 @@ class MovieSerieViewModel(
             try {
                 _status.value = MovieSerieApiStatus.LOADING
                 // this will run on a thread managed by Retrofit
-                _movieSerieDetail.value = movieSerieRepository.getMovieSerieDetail(imdbId) //the movieSerieRepository is responsible for the data
+                if (favoritsRepository.getFavorit(imdbId) == null) {
+                    _inFavorits.value = false
+                    _movieSerieDetail.value =
+                        movieSerieRepository.getMovieSerieDetail(imdbId)
+
+                } else {
+                    _inFavorits.value = true
+                    _movieSerieDetail.value = favoritsRepository.getFavorit(imdbId)
+                }
                 _status.value = MovieSerieApiStatus.DONE
 
-                inFavorits()
             } catch (e: Exception) {
                 _status.value = MovieSerieApiStatus.ERROR
                 _movieSerieDetail.value = null
@@ -68,29 +72,25 @@ class MovieSerieViewModel(
         }
     }
 
-    fun addOrRemoveToFavorits(){
+    fun addToFavorits(rating: Float) {
         coroutineScope.launch {
-            if(!inFavorits()){
-                favoritsRepository.addFavorit(imdbId)
-                _showSnackbarEvent.value = true
-                _favoritsAction.value = !_favoritsAction.value!!
-            }
-            else{
-                favoritsRepository.removeFavorit(_movieSerieDetail.value!!)
-                _showSnackbarEvent.value = true
-                _favoritsAction.value = !_favoritsAction.value!!
-            }
+            favoritsRepository.addFavorit(imdbId, rating)
+            _showSnackbarEvent.value = true
+
+            //reloading
+            getMovieSerieDetailObject()
         }
     }
 
-    private suspend fun inFavorits(): Boolean{
-        _inFavorits.value = withContext(Dispatchers.IO){
-            var favorit = favoritsRepository.getFavorit(imdbId) != null
-            favorit
+    fun removeFromFavorits() {
+        coroutineScope.launch {
+            favoritsRepository.removeFavorit(_movieSerieDetail.value!!)
+            _showSnackbarEvent.value = true
+            //reloading
+            getMovieSerieDetailObject()
         }
-        _favoritsAction.value = _inFavorits.value //if in favorits ==> true , when star_button pressed ==> removed
-        return _inFavorits.value!!
     }
+
 
     fun doneShowingSnackbar() {
         _showSnackbarEvent.value = false
