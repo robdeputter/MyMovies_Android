@@ -1,6 +1,7 @@
 package com.example.mymovies.screens.search
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -21,6 +22,8 @@ import com.example.mymovies.R
 import com.example.mymovies.database.MyMoviesDatabase
 import com.example.mymovies.databinding.FragmentSearchBinding
 import com.example.mymovies.repository.FavoritsRepository
+import kotlinx.android.synthetic.main.fragment_filter.view.*
+import kotlinx.android.synthetic.main.new_release_item.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -84,10 +87,36 @@ class SearchFragment : Fragment(), CoroutineScope {
                         return@launch
 
                     // do our magic here
-                    viewModel.getMoviesSeriesForName(s.toString())
+                    viewModel.getMoviesSeriesForName(s.toString(),null,null)
                 }
             }
         })
+
+        binding.filterButton.setOnClickListener {view: View ->
+            val mDialogView = LayoutInflater.from(this.context).inflate(R.layout.fragment_filter, null);
+            val mBuilder = AlertDialog.Builder(this.context)
+                .setView(mDialogView)
+                .setTitle("Filter")
+
+            val mAlertDialog = mBuilder.show()
+
+            mDialogView.filter.setOnClickListener {
+                mAlertDialog.dismiss()
+                val type = mDialogView.typeSpinner.selectedItem.toString()
+                val year = mDialogView.yearText.text.toString()
+                //send request with filters
+                viewModel.getMoviesSeriesForName(binding.searchEditText.text.toString(),year,type)
+            }
+
+            mDialogView.clear.setOnClickListener{
+                mAlertDialog.dismiss()
+                mDialogView.typeSpinner.setSelection(-1)
+                mDialogView.yearText.text.clear()
+                //send request to reset te values of the recyclerview
+                viewModel.getMoviesSeriesForName(binding.searchEditText.text.toString(), "","")
+            }
+
+        }
 
         viewModel.navigateToSelectedMovieSerie.observe(this, Observer {
             if (it != null) {
@@ -100,8 +129,5 @@ class SearchFragment : Fragment(), CoroutineScope {
         })
         setHasOptionsMenu(true)
         return binding.root;
-
     }
-
-
 }

@@ -11,4 +11,9 @@
     <string name="added_to_favorits">Added to favorits</string>
     <string name="removed_to_favorits">Removed from favorits</string>
     <string name="new_releases">New Releases</string>
+    <string-array name="types">
+        <item>Movie</item>
+        <item>Series</item>
+        <item>Episode</item>
+    </string-array>
 </resources>

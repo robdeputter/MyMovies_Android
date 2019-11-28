@@ -8,7 +8,7 @@ import android.os.Parcelable
 
 data class MovieSerie(
     val imdbID: String,
-    val Title: String,
-    val Year: String,
-    val Type: String,
-    val Poster: String)
+    val title: String,
+    val year: String,
+    val type: String,
+    val poster: String)

@@ -3,6 +3,7 @@ package com.example.mymovies.network
 import androidx.room.Database
 import com.example.mymovies.database.DatabaseMovieSerieDetail
 import com.example.mymovies.database.DatabaseNewRelease
+import com.example.mymovies.models.MovieSerie
 import com.example.mymovies.models.MovieSerieDetail
 import com.example.mymovies.models.NewRelease
 import com.squareup.moshi.JsonClass
@@ -11,8 +12,39 @@ import java.lang.Exception
 import java.nio.channels.NetworkChannel
 import java.security.spec.ECField
 
+/*
 
-// Movies and series that you can find on IMDB
+data class MovieSerie(
+    val imdbID: String,
+    val Title: String,
+    val Year: String,
+    val Type: String,
+    val Poster: String)*/
+
+//Short information about a movie or serie
+@JsonClass(generateAdapter = true)
+data class NetworkMovieSerie(
+    val imdbID: String,
+    val Title: String,
+    val Year: String,
+    val Type: String,
+    val Poster: String
+)
+
+fun List<NetworkMovieSerie>.asDomainModel_MovieSerie() : List<MovieSerie>{
+    return this.map {
+        MovieSerie(
+            imdbID = it.imdbID,
+            type = it.Type,
+            year = it.Year,
+            title = it.Title,
+            poster = it.Poster
+        )
+    }
+}
+
+
+// Details of a Movie of Serie
 @JsonClass(generateAdapter = true)
 data class NetworkMovieSerieDetail(
     val imdbID: String,
@@ -69,8 +101,6 @@ fun NetworkMovieSerieDetail.asDatabaseModel(): DatabaseMovieSerieDetail{
 }
 
 // New releases on netflix
-
-
 @JsonClass(generateAdapter = true)
 data class NetworkNewRelease(
     val imdbid: String?,

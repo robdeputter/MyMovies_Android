@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mymovies.models.MovieSerie
 import com.example.mymovies.network.MyMoviesApi
+import com.example.mymovies.repository.MovieSerieRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -27,32 +28,27 @@ class SearchViewModel : ViewModel(){
     val navigateToSelectedMovieSerie : LiveData<String>
         get() = _navigateToSelectedMovieSerie
 
-    private val _searchedName = MutableLiveData<String>()
-    val searchedName : LiveData<String>
-        get() = _searchedName
-
-    fun setSearchedName(text : String){
-        _searchedName.value = text
-    }
-
-
-
+    private val yearFilter = MutableLiveData<String>("")
+    private val typeFilter = MutableLiveData<String>("")
 
     private var viewModelJob = Job();
 
     private var coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main);
 
-    fun getMoviesSeriesForName(name: String) {
+    private var movieSerieRepository = MovieSerieRepository()
+
+    fun getMoviesSeriesForName(name: String, year : String?, type : String?) {
+         
+        //why is are these MutbableLiveDataFields? --> If you change the name, the filters would disappear
+        yearFilter.value  = if (year != null) year else yearFilter.value
+        typeFilter.value = if (type != null) type else typeFilter.value
+
         coroutineScope.launch {
             // Get the Deferred object for our Retrofit request
-            var getMoviesSeriesDeferred = MyMoviesApi.retrofitService.getMovieSeriesForName(name)
             try {
                 _status.value = MyMoviesApiStatus.LOADING
                 // this will run on a thread managed by Retrofit
-                val listResult = getMoviesSeriesDeferred.await()
-
-
-                _moviesSeries.value = listResult.Search
+                _moviesSeries.value = movieSerieRepository.getMovieSeriesByFilter(name, yearFilter.value, typeFilter.value)
                 _status.value = MyMoviesApiStatus.DONE
             } catch (e: Exception) {
                 _status.value = MyMoviesApiStatus.ERROR
