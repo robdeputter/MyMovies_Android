@@ -22,10 +22,6 @@ class FavoritsRepository(private val _database: MyMoviesDatabase) { // meegeven 
             it.asDomainModel()
         }//from the db
 
-    private val _movieSerieDetail = MutableLiveData<MovieSerieDetail?>()
-    val movieSerieDetail: LiveData<MovieSerieDetail?>
-        get() = _movieSerieDetail
-
     suspend fun addFavorit(
         imdbId: String,
         rating: Float
@@ -38,7 +34,7 @@ class FavoritsRepository(private val _database: MyMoviesDatabase) { // meegeven 
     }
 
     suspend fun getFavorit(imdbId: String): MovieSerieDetail? {
-        _movieSerieDetail.value = withContext(Dispatchers.IO) {
+        return withContext(Dispatchers.IO) {
             try {
                 val obj =  _database.favoritesDAO.get(imdbId)!!.asDomainModel()
                 obj
@@ -47,8 +43,8 @@ class FavoritsRepository(private val _database: MyMoviesDatabase) { // meegeven 
                 null
             }
         }
-        return _movieSerieDetail.value
     }
+
     suspend fun removeFavorit(movieSerieDetail: MovieSerieDetail) {
         withContext(Dispatchers.IO) {
             _database.favoritesDAO.delete(movieSerieDetail.asDatabaseModel())

@@ -2,6 +2,7 @@ package com.example.mymovies
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -73,4 +74,50 @@ fun bindStatus(statusImageView: ImageView, status: MyMoviesApiStatus?) {
             statusImageView.setImageResource(R.drawable.ic_empty)
         }
     }
+}
+
+@BindingAdapter("headerText")
+fun bindCastText(textView: TextView,  status: MyMoviesApiStatus?) {
+    when (status) {
+        MyMoviesApiStatus.LOADING -> {
+            textView.visibility = View.GONE
+
+        }
+        MyMoviesApiStatus.ERROR -> {
+            textView.visibility = View.GONE
+
+        }
+        MyMoviesApiStatus.DONE -> {
+            textView.visibility = View.VISIBLE
+        }
+
+        MyMoviesApiStatus.EMPTY -> {
+            textView.visibility = View.GONE
+
+        }
+    }
+}
+
+@BindingAdapter("imdbRating")
+fun bindImdbRating(textView : TextView, rating: String?){
+    var resultString =  rating + "/10"
+    textView.text = resultString
+}
+
+@BindingAdapter("imdbVotes")
+fun bindImdbVotes(textView: TextView, votes: String?){
+    var resultString = " (based on " + votes + " votes)"
+    textView.text = resultString
+}
+
+@BindingAdapter("released")
+fun bindReleased(textView: TextView, released: String?){
+    var resultString = "Released: " + released
+    textView.text = resultString
+}
+
+@BindingAdapter("genre")
+fun bindGenres(textView: TextView, genre: String?){
+    var resultString = "Genre(s): " + genre
+    textView.text = resultString
 }

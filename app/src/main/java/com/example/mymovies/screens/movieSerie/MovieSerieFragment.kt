@@ -37,7 +37,7 @@ import java.net.URI
 public class MovieSerieFragment : Fragment() {
 
     private lateinit var viewModel: MovieSerieViewModel
-    private lateinit var binding : FragmentMovieSerieBinding
+    private lateinit var binding: FragmentMovieSerieBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,17 +72,20 @@ public class MovieSerieFragment : Fragment() {
         return binding.root;
     }
 
-    private fun favoritesAction(binding: FragmentMovieSerieBinding, viewModel: MovieSerieViewModel){
+    private fun favoritesAction(
+        binding: FragmentMovieSerieBinding,
+        viewModel: MovieSerieViewModel
+    ) {
         viewModel.inFavorits.observe(this, Observer {
             if (it == true) {
                 binding.addFavorit.setBackgroundResource(android.R.drawable.btn_star_big_on)
-                binding.ratingBar2.isVisible = true
+                binding.ratingBar2.visibility = View.VISIBLE
                 binding.addFavorit.setOnClickListener {
                     viewModel.removeFromFavorits()
                 }
             } else {
                 binding.addFavorit.setBackgroundResource(android.R.drawable.btn_star_big_off)
-                binding.ratingBar2.isVisible = false
+                binding.ratingBar2.visibility = View.GONE
                 binding.addFavorit.setOnClickListener { view: View ->
                     val mDialogView =
                         LayoutInflater.from(this.context).inflate(R.layout.fragment_rating, null);
@@ -107,7 +110,7 @@ public class MovieSerieFragment : Fragment() {
         })
     }
 
-    private fun showSnackbar(viewModel : MovieSerieViewModel){
+    private fun showSnackbar(viewModel: MovieSerieViewModel) {
 
         viewModel.showSnackbarEvent.observe(this, Observer {
             if (it == true) { // Observed state is true.
@@ -139,15 +142,19 @@ public class MovieSerieFragment : Fragment() {
 
     private fun getShareIntent(): Intent {
         //SOURCE: https://github.com/codepath/android_guides/wiki/Sharing-Content-with-Intents
-        val imgView : ImageView = binding.poster // getting the image from my xml --> glide downloaded this
+        val imgView: ImageView =
+            binding.poster // getting the image from my xml --> glide downloaded this
         val uri = getLocalBitmapUri(imgView)
         val shareIntent = Intent.createChooser(Intent().apply {
             action = Intent.ACTION_SEND
             type = "image/text/plain"
 
-            putExtra(Intent.EXTRA_TEXT, "Hey, you really should check this " +viewModel.movieSerie.value!!.type + ": "
-                    + viewModel.movieSerie.value!!.title + "." + "\n\n " + viewModel.movieSerie.value!!.plot)
-            putExtra(Intent.EXTRA_STREAM, uri )
+            putExtra(
+                Intent.EXTRA_TEXT,
+                "Hey, you really should check this " + viewModel.movieSerie.value!!.type + ": "
+                        + viewModel.movieSerie.value!!.title + "." + "\n\n " + viewModel.movieSerie.value!!.plot
+            )
+            putExtra(Intent.EXTRA_STREAM, uri)
             putExtra(Intent.EXTRA_LOCAL_ONLY, true)
 
             flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
@@ -155,20 +162,23 @@ public class MovieSerieFragment : Fragment() {
         return shareIntent
     }
 
-    private fun getLocalBitmapUri(imgView : ImageView): Uri?{
-        val drawable : Drawable = imgView.drawable
-        val  bmp : Bitmap
+    private fun getLocalBitmapUri(imgView: ImageView): Uri? {
+        val drawable: Drawable = imgView.drawable
+        val bmp: Bitmap
 
-        if (drawable is BitmapDrawable){
+        if (drawable is BitmapDrawable) {
             bmp = imgView.drawable.toBitmap()
-        }else{
+        } else {
             return null
         }
-        var bmpUri : Uri? = null
-        try{
-            val file = File(this.context!!.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_" + System.currentTimeMillis() + ".png")
+        var bmpUri: Uri? = null
+        try {
+            val file = File(
+                this.context!!.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                "share_image_" + System.currentTimeMillis() + ".png"
+            )
             val out = FileOutputStream(file)
-            bmp.compress(Bitmap.CompressFormat.PNG,90,out)
+            bmp.compress(Bitmap.CompressFormat.PNG, 90, out)
             out.close()
 
             // SOURCE: https://stackoverflow.com/questions/38200282/android-os-fileuriexposedexception-file-storage-emulated-0-test-txt-exposed
@@ -176,9 +186,13 @@ public class MovieSerieFragment : Fragment() {
             // I'm using another provider --> Since SDK 24 Uri.parse(uri) doesn't work anymore
             // I had to change the manifest and had to create a GenericFileProvider who's an inheritance of FileProvider
 
-            bmpUri = FileProvider.getUriForFile(this.context!!,this.context!!.packageName + ".provider",file)
+            bmpUri = FileProvider.getUriForFile(
+                this.context!!,
+                this.context!!.packageName + ".provider",
+                file
+            )
 
-        }catch (e : IOException){
+        } catch (e: IOException) {
             e.printStackTrace()
         }
         return bmpUri
@@ -187,7 +201,7 @@ public class MovieSerieFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        when (item!!.itemId) {
+        when (item.itemId) {
             R.id.share -> shareMovie()
         }
         return NavigationUI.onNavDestinationSelected(

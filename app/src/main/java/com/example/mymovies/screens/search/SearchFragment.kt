@@ -52,7 +52,7 @@ class SearchFragment : Fragment(), CoroutineScope {
         binding.setLifecycleOwner(this)
 
         binding.viewModel = viewModel
-        
+
         binding.moviesSeriesList.adapter = MovieSerieAdapter(MovieSerieAdapter.MovieSerieListener {
             viewModel.displayMovieSerieDetails(it)
         })
