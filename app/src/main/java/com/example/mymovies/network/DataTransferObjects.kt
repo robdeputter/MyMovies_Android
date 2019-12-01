@@ -57,7 +57,8 @@ data class NetworkMovieSerieDetail(
     val Genre: String,
     val Actors: String,
     val imdbRating: String,
-    val imdbVotes: String
+    val imdbVotes: String,
+    val Plot : String?
     ){
     var favoriteRating : Float = Float.NaN
         get() = field
@@ -77,7 +78,8 @@ fun NetworkMovieSerieDetail.asDomainModel(): MovieSerieDetail {
             actors = Actors,
             imdbRating = imdbRating,
             imdbVotes = imdbVotes,
-            favoriteRating = favoriteRating
+            favoriteRating = favoriteRating,
+            plot = Plot
             )
     }
 
@@ -95,7 +97,8 @@ fun NetworkMovieSerieDetail.asDatabaseModel(): DatabaseMovieSerieDetail{
             actors = Actors,
             imdbRating = imdbRating,
             imdbVotes = imdbVotes,
-            favoriteRating = favoriteRating
+            favoriteRating = favoriteRating,
+            plot = Plot
 
         )
 }

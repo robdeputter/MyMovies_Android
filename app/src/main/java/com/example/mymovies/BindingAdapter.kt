@@ -53,7 +53,7 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
  * displays a broken image to reflect the connection error.  When the request is finished, it
  * hides the image view.
  */
-@BindingAdapter("marsApiStatus")
+@BindingAdapter("apiStatus")
 fun bindStatus(statusImageView: ImageView, status: MyMoviesApiStatus?) {
     when (status) {
         MyMoviesApiStatus.LOADING -> {

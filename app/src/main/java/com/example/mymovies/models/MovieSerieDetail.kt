@@ -21,7 +21,8 @@ data class MovieSerieDetail(
     val actors: String,
     val imdbRating: String,
     val imdbVotes: String,
-    val favoriteRating : Float?)
+    val favoriteRating : Float?,
+    val plot : String?)
 
 fun MovieSerieDetail.asDatabaseModel() : DatabaseMovieSerieDetail{
     return DatabaseMovieSerieDetail(
@@ -36,6 +37,7 @@ fun MovieSerieDetail.asDatabaseModel() : DatabaseMovieSerieDetail{
         actors = actors,
         imdbRating = imdbRating,
         imdbVotes = imdbVotes,
-        favoriteRating = favoriteRating
+        favoriteRating = favoriteRating,
+        plot = plot
     )
 }
