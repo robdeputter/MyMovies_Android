@@ -82,5 +82,7 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$version_glide"
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.1.0'
 
+    //Material design
+    implementation 'com.google.android.material:material:1.2.0-alpha02'
 
 }

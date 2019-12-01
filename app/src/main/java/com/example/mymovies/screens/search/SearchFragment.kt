@@ -52,19 +52,66 @@ class SearchFragment : Fragment(), CoroutineScope {
         binding.setLifecycleOwner(this)
 
         binding.viewModel = viewModel
-
-
-
+        
         binding.moviesSeriesList.adapter = MovieSerieAdapter(MovieSerieAdapter.MovieSerieListener {
             viewModel.displayMovieSerieDetails(it)
         })
 
-        val editText: EditText = binding.searchEditText
 
+        observeEditText(viewModel,binding)
 
+        observeFilterButton(viewModel,binding)
+
+        navigateToSelectedMovie(viewModel,binding)
+
+        setHasOptionsMenu(true)
+        return binding.root;
+    }
+
+    private fun navigateToSelectedMovie(viewModel: SearchViewModel, binding: FragmentSearchBinding){
+        viewModel.navigateToSelectedMovieSerie.observe(this, Observer {
+            if (it != null) {
+                //this.findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToMovieFragment(it))
+                this.findNavController()
+                    .navigate(SearchFragmentDirections.actionSearchFragmentToMovieFragment(it))
+                viewModel.displayMovieSerieDetailsComplete()
+                binding.searchEditText.text = null
+            }
+        })
+    }
+
+    private fun observeFilterButton(viewModel: SearchViewModel, binding: FragmentSearchBinding){
+        binding.filterButton.setOnClickListener {view: View ->
+            val mDialogView = LayoutInflater.from(this.context).inflate(R.layout.fragment_filter, null);
+            val mBuilder = AlertDialog.Builder(this.context)
+                .setView(mDialogView)
+                .setTitle("Filter")
+
+            val mAlertDialog = mBuilder.show()
+
+            mDialogView.filter.setOnClickListener {
+                mAlertDialog.dismiss()
+                val type = mDialogView.typeSpinner.selectedItem.toString()
+                val year = mDialogView.yearText.text.toString()
+                //send request with filters
+                viewModel.getMoviesSeriesForName(binding.searchEditText.text.toString(),year,type)
+            }
+
+            mDialogView.clear.setOnClickListener{
+                mAlertDialog.dismiss()
+                mDialogView.typeSpinner.setSelection(-1)
+                mDialogView.yearText.text.clear()
+                //send request to reset te values of the recyclerview
+                viewModel.getMoviesSeriesForName(binding.searchEditText.text.toString(), "","")
+            }
+
+        }
+    }
+
+    private fun observeEditText(viewModel: SearchViewModel,binding: FragmentSearchBinding){
         //SOURCE: https://medium.com/@pro100svitlo/edittext-debounce-with-kotlin-coroutines-fd134d54f4e9
         // --> Tim Geldof gave me this URL
-        editText.addTextChangedListener(object : TextWatcher {
+        binding.searchEditText.addTextChangedListener(object : TextWatcher {
             private var searchFor = ""
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
 
@@ -91,43 +138,5 @@ class SearchFragment : Fragment(), CoroutineScope {
                 }
             }
         })
-
-        binding.filterButton.setOnClickListener {view: View ->
-            val mDialogView = LayoutInflater.from(this.context).inflate(R.layout.fragment_filter, null);
-            val mBuilder = AlertDialog.Builder(this.context)
-                .setView(mDialogView)
-                .setTitle("Filter")
-
-            val mAlertDialog = mBuilder.show()
-
-            mDialogView.filter.setOnClickListener {
-                mAlertDialog.dismiss()
-                val type = mDialogView.typeSpinner.selectedItem.toString()
-                val year = mDialogView.yearText.text.toString()
-                //send request with filters
-                viewModel.getMoviesSeriesForName(binding.searchEditText.text.toString(),year,type)
-            }
-
-            mDialogView.clear.setOnClickListener{
-                mAlertDialog.dismiss()
-                mDialogView.typeSpinner.setSelection(-1)
-                mDialogView.yearText.text.clear()
-                //send request to reset te values of the recyclerview
-                viewModel.getMoviesSeriesForName(binding.searchEditText.text.toString(), "","")
-            }
-
-        }
-
-        viewModel.navigateToSelectedMovieSerie.observe(this, Observer {
-            if (it != null) {
-                //this.findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToMovieFragment(it))
-                this.findNavController()
-                    .navigate(SearchFragmentDirections.actionSearchFragmentToMovieFragment(it))
-                viewModel.displayMovieSerieDetailsComplete()
-                binding.searchEditText.text = null
-            }
-        })
-        setHasOptionsMenu(true)
-        return binding.root;
     }
 }

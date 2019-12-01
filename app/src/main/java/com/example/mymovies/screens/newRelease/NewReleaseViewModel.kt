@@ -4,11 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mymovies.database.MyMoviesDatabase
+import com.example.mymovies.models.NewRelease
 import com.example.mymovies.repository.NewReleasesRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
+import com.example.mymovies.screens.search.MyMoviesApiStatus
+import kotlinx.coroutines.*
 
 class NewReleaseViewModel(private val _database : MyMoviesDatabase) : ViewModel(){
 
@@ -16,6 +15,10 @@ class NewReleaseViewModel(private val _database : MyMoviesDatabase) : ViewModel(
     private val newReleaseRepository = NewReleasesRepository(_database)
 
     private val viewModelJob = SupervisorJob()
+
+    private val _status = MutableLiveData<MyMoviesApiStatus>()
+    val status : LiveData<MyMoviesApiStatus>
+        get() = _status
 
     /**
      * This is the main scope for all coroutines launched by MainViewModel.
@@ -49,5 +52,6 @@ class NewReleaseViewModel(private val _database : MyMoviesDatabase) : ViewModel(
 
     override fun onCleared() {
         super.onCleared()
+        viewModelScope.cancel()
     }
 }

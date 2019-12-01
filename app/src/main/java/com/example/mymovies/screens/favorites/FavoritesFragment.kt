@@ -29,7 +29,6 @@ class FavoritesFragment : Fragment() {
 
         binding.setLifecycleOwner(this)
 
-
         val application = requireNotNull(this.activity).application
 
         val dataSource = MyMoviesDatabase.getInstance(application)
@@ -48,6 +47,14 @@ class FavoritesFragment : Fragment() {
             viewModel.displayMovieSerieDetails(it)
         })
 
+        navigateToSelectedMovieSerie(viewModel)
+
+        return binding.root;
+    }
+
+
+
+    private fun navigateToSelectedMovieSerie(viewModel : FavoritesViewModel){
         viewModel.navigateToSelectedMovieSerie.observe(this, Observer {
             if (it != null) {
                 //this.findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToMovieFragment(it))
@@ -56,11 +63,6 @@ class FavoritesFragment : Fragment() {
                 viewModel.displayMovieSerieDetailsComplete()
             }
         })
-
-
-
-        return binding.root;
-
     }
 
 

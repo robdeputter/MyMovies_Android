@@ -6,20 +6,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mymovies.database.MyMoviesDatabase
 import com.example.mymovies.models.MovieSerieDetail
+import com.example.mymovies.network.MyMoviesApiService
 import com.example.mymovies.repository.FavoritsRepository
 import com.example.mymovies.repository.MovieSerieDetailRepository
+import com.example.mymovies.screens.search.MyMoviesApiStatus
 import kotlinx.coroutines.*
 
-
-enum class MovieSerieApiStatus { LOADING, ERROR, DONE }
 
 class MovieSerieViewModel(
     val imdbId: String,
     private val application: Application
 ) : ViewModel() {
 
-    private val _status = MutableLiveData<MovieSerieApiStatus>();
-    val status: LiveData<MovieSerieApiStatus>
+    private val _status = MutableLiveData<MyMoviesApiStatus>();
+    val status: LiveData<MyMoviesApiStatus>
         get() = _status
 
     private var _movieSerieDetail = MutableLiveData<MovieSerieDetail>()
@@ -52,7 +52,7 @@ class MovieSerieViewModel(
     private fun getMovieSerieDetailObject() {
         coroutineScope.launch {
             try {
-                _status.value = MovieSerieApiStatus.LOADING
+                _status.value = MyMoviesApiStatus.LOADING
                 // this will run on a thread managed by Retrofit
                 if (favoritsRepository.getFavorit(imdbId) == null) {
                     _inFavorits.value = false
@@ -63,10 +63,10 @@ class MovieSerieViewModel(
                     _inFavorits.value = true
                     _movieSerieDetail.value = favoritsRepository.getFavorit(imdbId)
                 }
-                _status.value = MovieSerieApiStatus.DONE
+                _status.value = MyMoviesApiStatus.DONE
 
             } catch (e: Exception) {
-                _status.value = MovieSerieApiStatus.ERROR
+                _status.value = MyMoviesApiStatus.ERROR
                 _movieSerieDetail.value = null
             }
         }
@@ -76,7 +76,6 @@ class MovieSerieViewModel(
         coroutineScope.launch {
             favoritsRepository.addFavorit(imdbId, rating)
             _showSnackbarEvent.value = true
-
             //reloading
             getMovieSerieDetailObject()
         }

@@ -26,7 +26,4 @@ class FavoritesViewModel(val database: MyMoviesDatabase) : ViewModel(){
         _navigateToSelectedMovieSerie.value = null
     }
 
-    override fun onCleared() {
-        super.onCleared()
-    }
 }

@@ -29,7 +29,6 @@ class NewReleaseFragment : Fragment() {
 
         binding.setLifecycleOwner(this)
 
-
         val application = requireNotNull(this.activity).application
 
         val dataSource = MyMoviesDatabase.getInstance(application)
@@ -48,6 +47,12 @@ class NewReleaseFragment : Fragment() {
             viewModel.displayMovieSerieDetails(it)
         })
 
+        navigateToSelectedMovie(viewModel)
+
+        return binding.root;
+    }
+
+    private fun navigateToSelectedMovie(viewModel : NewReleaseViewModel){
         viewModel.navigateToSelectedMovieSerie.observe(this, Observer {
             if (it != null) {
                 //this.findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToMovieFragment(it))
@@ -56,8 +61,6 @@ class NewReleaseFragment : Fragment() {
                 viewModel.displayMovieSerieDetailsComplete()
             }
         })
-
-        return binding.root;
     }
 
 

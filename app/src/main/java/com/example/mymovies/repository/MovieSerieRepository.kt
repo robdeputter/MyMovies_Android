@@ -7,7 +7,7 @@ import com.example.mymovies.network.asDomainModel_MovieSerie
 class MovieSerieRepository {
 
 
-    suspend fun getMovieSeriesByFilter(name: String, year: String? , type : String?) : List<MovieSerie>{
+    suspend fun getMovieSeriesByFilter(name: String, year: String? , type : String?) : List<MovieSerie>?{
         // Get the Deferred object for our Retrofit requestw
 
         var getPropertyDeferred = MyMoviesApi.retrofitService.getMovieSeriesForName(name, year, type)

@@ -7,12 +7,13 @@ import androidx.lifecycle.ViewModel
 import com.example.mymovies.models.MovieSerie
 import com.example.mymovies.network.MyMoviesApi
 import com.example.mymovies.repository.MovieSerieRepository
+import com.squareup.moshi.JsonDataException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-enum class MyMoviesApiStatus { LOADING, ERROR, DONE }
+enum class MyMoviesApiStatus { LOADING, ERROR, DONE , EMPTY}
 
 class SearchViewModel : ViewModel(){
 
@@ -37,6 +38,10 @@ class SearchViewModel : ViewModel(){
 
     private var movieSerieRepository = MovieSerieRepository()
 
+    init {
+        _status.value = MyMoviesApiStatus.EMPTY
+    }
+
     fun getMoviesSeriesForName(name: String, year : String?, type : String?) {
          
         //why is are these MutbableLiveDataFields? --> If you change the name, the filters would disappear
@@ -50,7 +55,11 @@ class SearchViewModel : ViewModel(){
                 // this will run on a thread managed by Retrofit
                 _moviesSeries.value = movieSerieRepository.getMovieSeriesByFilter(name, yearFilter.value, typeFilter.value)
                 _status.value = MyMoviesApiStatus.DONE
-            } catch (e: Exception) {
+            } catch (jsond: JsonDataException) {
+                _moviesSeries.value = ArrayList()
+                _status.value = MyMoviesApiStatus.EMPTY
+            }
+            catch (e: Exception) {
                 _status.value = MyMoviesApiStatus.ERROR
                 _moviesSeries.value = ArrayList()
             }

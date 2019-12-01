@@ -2,14 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:icon="@android:drawable/ic_menu_search"
         android:id="@+id/searchFragment"
         android:title="@string/search" />
 
     <item
+       android:icon="@android:drawable/star_big_on"
         android:id="@+id/favoritsFragment"
         android:title="@string/favorites" />
 
     <item
+        android:icon="@drawable/ic_new_release"
         android:id="@+id/newReleaseFragment"
         android:title="@string/new_releases"
         />

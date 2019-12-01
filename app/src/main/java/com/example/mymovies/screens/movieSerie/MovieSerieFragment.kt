@@ -51,20 +51,28 @@ public class MovieSerieFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-
         val arguments = MovieSerieFragmentArgs.fromBundle(arguments!!)
             .imdbId // I need to get the imdbId from arguments!!!!!
+
         val viewModelFactory = MovieSerieViewModelFactory(arguments, application)
 
         viewModel =
             ViewModelProviders.of(this, viewModelFactory).get(MovieSerieViewModel::class.java)
 
-
         binding.setLifecycleOwner(this);
 
         binding.viewModel = viewModel
 
+        favoritesAction(binding, viewModel)
 
+        showSnackbar(viewModel)
+
+        setHasOptionsMenu(true)
+
+        return binding.root;
+    }
+
+    private fun favoritesAction(binding: FragmentMovieSerieBinding, viewModel: MovieSerieViewModel){
         viewModel.inFavorits.observe(this, Observer {
             if (it == true) {
                 binding.addFavorit.setBackgroundResource(android.R.drawable.btn_star_big_on)
@@ -97,6 +105,9 @@ public class MovieSerieFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun showSnackbar(viewModel : MovieSerieViewModel){
 
         viewModel.showSnackbarEvent.observe(this, Observer {
             if (it == true) { // Observed state is true.
@@ -119,21 +130,8 @@ public class MovieSerieFragment : Fragment() {
                 viewModel.doneShowingSnackbar()
             }
         })
-
-        setHasOptionsMenu(true)
-
-
-        return binding.root;
-
-
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.overflow_menu, menu)
-        inflater.inflate(R.menu.share_movie_menu, menu)
-
-    }
 
     private fun shareMovie() {
         startActivity(getShareIntent())
@@ -150,9 +148,9 @@ public class MovieSerieFragment : Fragment() {
             putExtra(Intent.EXTRA_TEXT, "Hey, you really should check this " +viewModel.movieSerie.value!!.type + ": "
                     + viewModel.movieSerie.value!!.title + "." + "\n\n " + viewModel.movieSerie.value!!.plot)
             putExtra(Intent.EXTRA_STREAM, uri )
-            putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-            flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+            putExtra(Intent.EXTRA_LOCAL_ONLY, true)
 
+            flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
         }, null)
         return shareIntent
     }
@@ -166,7 +164,6 @@ public class MovieSerieFragment : Fragment() {
         }else{
             return null
         }
-
         var bmpUri : Uri? = null
         try{
             val file = File(this.context!!.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_" + System.currentTimeMillis() + ".png")
@@ -175,6 +172,10 @@ public class MovieSerieFragment : Fragment() {
             out.close()
 
             // SOURCE: https://stackoverflow.com/questions/38200282/android-os-fileuriexposedexception-file-storage-emulated-0-test-txt-exposed
+            // Wrong file:// , good content://
+            // I'm using another provider --> Since SDK 24 Uri.parse(uri) doesn't work anymore
+            // I had to change the manifest and had to create a GenericFileProvider who's an inheritance of FileProvider
+
             bmpUri = FileProvider.getUriForFile(this.context!!,this.context!!.packageName + ".provider",file)
 
         }catch (e : IOException){
@@ -193,6 +194,13 @@ public class MovieSerieFragment : Fragment() {
             item,
             view!!.findNavController()
         ) || super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.overflow_menu, menu)
+        inflater.inflate(R.menu.share_movie_menu, menu)
+
     }
 
 

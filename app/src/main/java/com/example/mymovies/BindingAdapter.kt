@@ -67,5 +67,10 @@ fun bindStatus(statusImageView: ImageView, status: MyMoviesApiStatus?) {
         MyMoviesApiStatus.DONE -> {
             statusImageView.visibility = View.GONE
         }
+
+        MyMoviesApiStatus.EMPTY -> {
+            statusImageView.visibility = View.VISIBLE
+            statusImageView.setImageResource(R.drawable.ic_empty)
+        }
     }
 }
