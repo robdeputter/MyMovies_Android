@@ -4,6 +4,9 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
+/**
+ * Responsible for creating a [MovieSerieViewModel] instance
+ */
 class MovieSerieViewModelFactory(
     private val imdbId: String,
     private val application: Application

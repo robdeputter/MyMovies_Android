@@ -12,36 +12,60 @@ import com.example.mymovies.repository.MovieSerieDetailRepository
 import com.example.mymovies.screens.search.MyMoviesApiStatus
 import kotlinx.coroutines.*
 
-
+/**
+ * [ViewModel]
+ */
 class MovieSerieViewModel(
     val imdbId: String,
-    private val application: Application
+    val application: Application
 ) : ViewModel() {
 
+    /**
+     * Keeps track of the Api status
+     */
     private val _status = MutableLiveData<MyMoviesApiStatus>();
     val status: LiveData<MyMoviesApiStatus>
         get() = _status
 
+    /**
+     * The movie or serie that is showed
+     */
     private var _movieSerieDetail = MutableLiveData<MovieSerieDetail>()
     val movieSerie: LiveData<MovieSerieDetail>
         get() = _movieSerieDetail;
 
+    /**
+     * Keeps track if the [movieSerie] is in favorites
+     */
     private var _inFavorits = MutableLiveData<Boolean>()
     val inFavorits: LiveData<Boolean>
         get() = _inFavorits
 
+    /**
+     * Keeps track if a Snackbar has to be shown
+     */
     private var _showSnackbarEvent = MutableLiveData<Boolean>()
     val showSnackbarEvent: LiveData<Boolean>
         get() = _showSnackbarEvent
 
 
+    /**
+     * [MovieSerieDetailRepository]
+     */
     private val movieSerieRepository = MovieSerieDetailRepository()
     private val favoritsRepository =
         FavoritsRepository(MyMoviesDatabase.getInstance(application.applicationContext))
 
 
+    /**
+     * [Job] => Creates a new job object in an active state.
+     * A failure of any child of this job immediately causes this job to fail, too, and cancels the rest of its children.
+     */
     private var job = Job()
 
+    /**
+     * [CoroutineScope] => Defines a scope for new coroutines.
+     */
     private val coroutineScope = CoroutineScope(Dispatchers.Main + job)
 
 
@@ -49,11 +73,18 @@ class MovieSerieViewModel(
         getMovieSerieDetailObject()
     }
 
+    /**
+     * Calls getMovieSerieDetail method from [MovieSerieDetailRepository]
+     * Sets the Api status
+     * Loads the [MovieSerieDetail] object
+     *
+     * Is performed asynchronously on the main-thread => Network operation
+     * Otherwise => can cause a bad user experience (lag)
+     */
     private fun getMovieSerieDetailObject() {
         coroutineScope.launch {
             try {
                 _status.value = MyMoviesApiStatus.LOADING
-                // this will run on a thread managed by Retrofit
                 if (favoritsRepository.getFavorit(imdbId) == null) {
                     _inFavorits.value = false
                     _movieSerieDetail.value =
@@ -72,6 +103,12 @@ class MovieSerieViewModel(
         }
     }
 
+    /**
+     * Calls the addFavoriteMethod from the [FavoritsRepository]
+     * Is performed asynchronously on the main-thread => Database operation
+     *
+     * Reloads the [MovieSerieDetail] object to renew check if object is in favorites
+     */
     fun addToFavorits(rating: Float) {
         coroutineScope.launch {
             favoritsRepository.addFavorit(imdbId, rating)
@@ -81,6 +118,12 @@ class MovieSerieViewModel(
         }
     }
 
+    /**
+     * Calls the removeMethod from the [FavoritsRepository]
+     * Is performed asynchronously on the main-thread => Database operation
+     *
+     * Reloads the [MovieSerieDetail] object to renew check if object is in favorites
+     */
     fun removeFromFavorits() {
         coroutineScope.launch {
             favoritsRepository.removeFavorit(_movieSerieDetail.value!!)
@@ -90,12 +133,17 @@ class MovieSerieViewModel(
         }
     }
 
-
+    /**
+     * Sets showSnackbar to false
+     */
     fun doneShowingSnackbar() {
         _showSnackbarEvent.value = false
     }
 
 
+    /**
+     * Cancels [Job]
+     */
     override fun onCleared() {
         super.onCleared()
         job.cancel()

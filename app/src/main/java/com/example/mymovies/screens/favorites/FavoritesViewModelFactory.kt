@@ -5,6 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.mymovies.database.MyMoviesDatabase
 
+/**
+ * Responsible for creating a [FavoritesViewModel] instance
+ */
 class  FavoritesViewModelFactory(val application: Application,
                                 val database: MyMoviesDatabase) : ViewModelProvider.Factory{
 

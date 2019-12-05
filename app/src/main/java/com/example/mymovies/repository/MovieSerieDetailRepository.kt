@@ -9,11 +9,19 @@ import com.example.mymovies.network.MyMoviesApiService
 import com.example.mymovies.network.asDomainModel
 import com.example.mymovies.screens.search.MyMoviesApiStatus
 
+/**
+ * Responsible for getting [MovieSerieDetail] objects
+ */
+class MovieSerieDetailRepository{
 
-class MovieSerieDetailRepository(){
-
+    /**
+     * Get a MovieSerieDetail through a network call
+     * @return possible [MovieSerieDetail] object (if imdbId is unknown in the back-end => null)
+     *
+     * Why suspend? = you're calling an await() function on the [Deferred] object
+     */
     suspend fun getMovieSerieDetail(imdbId: String) : MovieSerieDetail?{
-        // Get the Deferred object for our Retrofit request
+
         var getPropertyDeferred = MyMoviesApi.retrofitService.getMovieSerieDetail(imdbId)
 
         return getPropertyDeferred.await().asDomainModel()

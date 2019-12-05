@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.mymovies.database.MyMoviesDatabase
 
-
+/**
+ * Responsible for creating a [NewReleaseViewModel] instance
+ */
 class  NewReleaseViewModelFactory(val application: Application,
                                  val database: MyMoviesDatabase
 ) : ViewModelProvider.Factory{

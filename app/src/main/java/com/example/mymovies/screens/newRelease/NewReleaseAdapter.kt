@@ -9,9 +9,15 @@ import com.example.mymovies.databinding.NewReleaseItemBinding
 import com.example.mymovies.databinding.NewReleaseItemGridBinding
 import com.example.mymovies.models.NewRelease
 
+/**
+ * Responsible for binding each item of the [RecyclerView] that represents the new releases
+ */
 class NewReleaseAdapter(val clickListener: NewReleaseListener):
     ListAdapter<NewRelease, NewReleaseAdapter.ViewHolder>(DiffCallback){
 
+    /**
+     * Describes an item view and metadata about its place within the RecyclerView.
+     */
     class ViewHolder private constructor(val binding: NewReleaseItemGridBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
@@ -32,6 +38,9 @@ class NewReleaseAdapter(val clickListener: NewReleaseListener):
         }
     }
 
+    /**
+     * Checks if there are different items
+     */
     companion object DiffCallback : DiffUtil.ItemCallback<NewRelease>() {
         override fun areItemsTheSame(oldItem: NewRelease, newItem: NewRelease): Boolean {
             return oldItem === newItem;
@@ -46,11 +55,17 @@ class NewReleaseAdapter(val clickListener: NewReleaseListener):
         return ViewHolder.from(parent)
     }
 
+    /**
+     * Binds each item
+     */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val newRelease = getItem(position)
         holder.bind(newRelease, clickListener)
     }
 
+    /**
+     * If an item was clicked, the NewReleaseListener sends the imdbId of that item
+     */
     class NewReleaseListener(val clickListener: (imdbId: String) -> Unit) {
         fun onClick(newRelease: NewRelease) = clickListener(newRelease.imdbID)
     }

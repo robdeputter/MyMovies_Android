@@ -34,7 +34,10 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.net.URI
 
-public class MovieSerieFragment : Fragment() {
+/**
+ * The [MovieSerieFragment] provides the user interface and handles user behaviour for a detailed page of a movie or serie
+ */
+class MovieSerieFragment : Fragment() {
 
     private lateinit var viewModel: MovieSerieViewModel
     private lateinit var binding: FragmentMovieSerieBinding
@@ -45,22 +48,41 @@ public class MovieSerieFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(
+        /**
+         * Creates an instance of [FragmentMovieSerieBindingt]
+         *
+         * [FragmentMovieSerieBindingt] => Responsible for binding MovieSerie XML files to your model classes
+         */        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_movie_serie, container, false
         )
 
         val application = requireNotNull(this.activity).application
 
+        /**
+         * Gets the imdbId argument that was sent by navigating to this page
+         */
         val arguments = MovieSerieFragmentArgs.fromBundle(arguments!!)
-            .imdbId // I need to get the imdbId from arguments!!!!!
+            .imdbId
 
         val viewModelFactory = MovieSerieViewModelFactory(arguments, application)
 
+        /**
+         * When the onCreate method is called again (Activity lifecycle), no new instance of [MovieSerieViewModel] will be created
+         */
         viewModel =
             ViewModelProviders.of(this, viewModelFactory).get(MovieSerieViewModel::class.java)
 
+        /**
+         * Sets the {@link LifecycleOwner} that should be used for observing changes of
+         * LiveData in this binding. If a {@link LiveData} is in one of the binding expressions
+         * and no LifecycleOwner is set, the LiveData will not be observed and updates to it
+         * will not be propagated to the UI.
+         */
         binding.setLifecycleOwner(this);
 
+        /**
+         * Binds the viewModel from the xml to the viewModel that has been created in this fragment
+         */
         binding.viewModel = viewModel
 
         favoritesAction(binding, viewModel)
@@ -72,11 +94,16 @@ public class MovieSerieFragment : Fragment() {
         return binding.root;
     }
 
+    /**
+     * Observes inFavorits, which tells if the displayed movie or serie is in favorites
+     * Sets the appropriate layout and interactions
+     */
     private fun favoritesAction(
         binding: FragmentMovieSerieBinding,
         viewModel: MovieSerieViewModel
     ) {
         viewModel.inFavorits.observe(this, Observer {
+
             if (it == true) {
                 binding.addFavorit.setBackgroundResource(R.drawable.ic_favorit)
                 binding.ratingBar2.visibility = View.VISIBLE
@@ -110,6 +137,9 @@ public class MovieSerieFragment : Fragment() {
         })
     }
 
+    /**
+     * Shows a snackbar if there was an interaction with the favorites
+     */
     private fun showSnackbar(viewModel: MovieSerieViewModel) {
 
         viewModel.showSnackbarEvent.observe(this, Observer {
@@ -135,11 +165,16 @@ public class MovieSerieFragment : Fragment() {
         })
     }
 
-
+    /**
+     * Starts shareintent
+     */
     private fun shareMovie() {
         startActivity(getShareIntent())
     }
 
+    /**
+     * Creates a shareIntent with it's content
+     */
     private fun getShareIntent(): Intent {
         //SOURCE: https://github.com/codepath/android_guides/wiki/Sharing-Content-with-Intents
         val imgView: ImageView =
@@ -162,6 +197,9 @@ public class MovieSerieFragment : Fragment() {
         return shareIntent
     }
 
+    /**
+     * Converts the drawable (poster) from a movie to a Uri
+     */
     private fun getLocalBitmapUri(imgView: ImageView): Uri? {
         val drawable: Drawable = imgView.drawable
         val bmp: Bitmap
@@ -198,7 +236,9 @@ public class MovieSerieFragment : Fragment() {
         return bmpUri
     }
 
-
+    /**
+     * Calls method shareMovie after sharemenuItem is pressed
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
@@ -210,11 +250,12 @@ public class MovieSerieFragment : Fragment() {
         ) || super.onOptionsItemSelected(item)
     }
 
+    /**
+     * Sets the layoutfile to the menu
+     */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.overflow_menu, menu)
         inflater.inflate(R.menu.share_movie_menu, menu)
-
     }
 
 
