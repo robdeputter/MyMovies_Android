@@ -2,6 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:icon="@drawable/ic_home"
+        android:id="@+id/dashboardFragment"
+        android:title="Dashboard"
+        />
+
+
+    <item
         android:icon="@android:drawable/ic_menu_search"
         android:id="@+id/searchFragment"
         android:title="@string/search" />

@@ -1,6 +1,7 @@
 package com.example.mymovies.screens.favorites
 
 
+import android.nfc.NfcAdapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 
@@ -10,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mymovies.databinding.FavoriteViewItemBinding
 import com.example.mymovies.models.MovieSerieDetail
 
-class FavoritesAdapter(val clickListener: FavoritesListener):
+class FavoritesAdapter(val clickListener: FavoritesListener, val removedListener: RemoveListener):
     ListAdapter<MovieSerieDetail, FavoritesAdapter.ViewHolder>(DiffCallback){
 
 
@@ -18,11 +19,13 @@ class FavoritesAdapter(val clickListener: FavoritesListener):
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
             item: MovieSerieDetail,
-            clickListener: FavoritesListener
+            clickListener: FavoritesListener,
+            removedListener: RemoveListener
         ) {
             binding.movieSerieDetail = item
             binding.executePendingBindings()
             binding.clickListener = clickListener
+            binding.removeClickListener = removedListener
         }
 
         companion object {
@@ -50,12 +53,16 @@ class FavoritesAdapter(val clickListener: FavoritesListener):
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movieSerie = getItem(position)
-        holder.bind(movieSerie, clickListener)
+        holder.bind(movieSerie, clickListener,removedListener)
     }
 
 
     class FavoritesListener(val clickListener: (imdbId: String) -> Unit) {
         fun onClick(movieSerie: MovieSerieDetail) = clickListener(movieSerie.imdbID)
+    }
+
+    class RemoveListener(val removedListener: (movieSerieDetail : MovieSerieDetail) -> Unit) {
+        fun onClick(movieSerie: MovieSerieDetail) = removedListener(movieSerie)
     }
 }
 

@@ -2,4 +2,9 @@
 <resources>
     <dimen name="header_dim" />
     <dimen name="header_dim2">18sp</dimen>
+    <dimen name="width_card_dashboard">220dp</dimen>
+    <dimen name="height_card_dashboard">150dp</dimen>
+    <dimen name="textSize_dashboard">24sp</dimen>
+    <dimen name="image_width_dashboard">100dp</dimen>
+    <dimen name="image_height_dashboard">80dp</dimen>
 </resources>

@@ -35,6 +35,8 @@ private val retrofit2 = Retrofit.Builder()
 
 interface MyMoviesApiService {
 
+    //Deferred = Awaits for completion of this value without blocking a thread and resumes when deferred computation is complete,
+    //* returning the resulting value or throwing the corresponding exception if the deferred was cancelled.
     @Headers("x-rapidapi-key: a5f6b222camsh8d8cf36d4842c16p1e1b3cjsnba17b5622d41")
     @GET("/")
     fun getMovieSeriesForName(
@@ -43,6 +45,8 @@ interface MyMoviesApiService {
         ) type: String?
     ): Deferred<MovieSerieResponse>
 
+    //Deferred = Awaits for completion of this value without blocking a thread and resumes when deferred computation is complete,
+    //     * returning the resulting value or throwing the corresponding exception if the deferred was cancelled.
     @Headers("x-rapidapi-key: a5f6b222camsh8d8cf36d4842c16p1e1b3cjsnba17b5622d41")
     @GET("/")
     fun getMovieSerieDetail(@Query("i") imdbID: String): Deferred<NetworkMovieSerieDetail>
@@ -54,8 +58,8 @@ object MyMoviesApi {
 }
 
 
-// other api call for new releases
-
+//Deferred = Awaits for completion of this value without blocking a thread and resumes when deferred computation is complete,
+//     * returning the resulting value or throwing the corresponding exception if the deferred was cancelled.
 interface NewReleasesApiService {
     @Headers("x-rapidapi-key: a5f6b222camsh8d8cf36d4842c16p1e1b3cjsnba17b5622d41")
     @GET("?q=get:new7:BE&p=1")

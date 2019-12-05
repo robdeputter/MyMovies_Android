@@ -6,12 +6,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mymovies.databinding.NewReleaseItemBinding
+import com.example.mymovies.databinding.NewReleaseItemGridBinding
 import com.example.mymovies.models.NewRelease
 
 class NewReleaseAdapter(val clickListener: NewReleaseListener):
     ListAdapter<NewRelease, NewReleaseAdapter.ViewHolder>(DiffCallback){
 
-    class ViewHolder private constructor(val binding: NewReleaseItemBinding) :
+    class ViewHolder private constructor(val binding: NewReleaseItemGridBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
             item: NewRelease,
@@ -25,7 +26,7 @@ class NewReleaseAdapter(val clickListener: NewReleaseListener):
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = NewReleaseItemBinding.inflate(layoutInflater, parent, false)
+                val binding = NewReleaseItemGridBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }

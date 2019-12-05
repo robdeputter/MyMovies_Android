@@ -45,7 +45,10 @@ class FavoritesFragment : Fragment() {
 
         binding.favorites.adapter = FavoritesAdapter(FavoritesAdapter.FavoritesListener {
             viewModel.displayMovieSerieDetails(it)
-        })
+        },
+            FavoritesAdapter.RemoveListener {
+                viewModel.removeFromFavorites(it)
+            })
 
         navigateToSelectedMovieSerie(viewModel)
 

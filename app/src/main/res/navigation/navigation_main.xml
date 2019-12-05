@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_main"
-    app:startDestination="@id/searchFragment">
+    app:startDestination="@id/dashboardFragment">
 
     <fragment
         android:id="@+id/searchFragment"
@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_searchFragment_to_movieFragment"
-            app:destination="@id/movieFragment" />
+            app:destination="@id/movieFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
 
     <fragment
@@ -26,7 +28,8 @@
             /> <!-- just for testing!! you have to take this line away if you want to give a parameter -->
         <action
             android:id="@+id/action_movieFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
+            app:destination="@id/searchFragment"
+            app:exitAnim="@anim/nav_default_exit_anim" />
         <action
             android:id="@+id/action_movieFragment_to_favoritsFragment"
             app:destination="@id/favoritsFragment"/>
@@ -44,17 +47,42 @@
         <!-- just for testing!!-->
         <action
             android:id="@+id/action_favoritsFragment_to_movieFragment"
-            app:destination="@id/movieFragment" />
+            app:destination="@id/movieFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
 
     <fragment
         android:id="@+id/newReleaseFragment"
         android:name="com.example.mymovies.screens.newRelease.NewReleaseFragment"
-        android:label="NewReleaseFragment"
+        android:label="New Releases (Netflix)"
         tools:layout="@layout/fragment_new_releases">
         <action
             android:id="@+id/action_newReleaseFragment_to_movieFragment"
-            app:destination="@id/movieFragment"/>
+            app:destination="@id/movieFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.example.mymovies.screens.dashboard.DashboardFragment"
+        android:label="Dashboard"
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_dashboardFragment_to_searchFragment"
+            app:destination="@id/searchFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_newReleaseFragment"
+            app:destination="@id/newReleaseFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_favoritsFragment"
+            app:destination="@id/favoritsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
 
 

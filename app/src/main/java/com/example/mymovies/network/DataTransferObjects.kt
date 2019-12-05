@@ -12,14 +12,6 @@ import java.lang.Exception
 import java.nio.channels.NetworkChannel
 import java.security.spec.ECField
 
-/*
-
-data class MovieSerie(
-    val imdbID: String,
-    val Title: String,
-    val Year: String,
-    val Type: String,
-    val Poster: String)*/
 
 //Short information about a movie or serie
 @JsonClass(generateAdapter = true)

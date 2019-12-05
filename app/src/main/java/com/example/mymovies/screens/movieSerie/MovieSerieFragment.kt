@@ -78,13 +78,13 @@ public class MovieSerieFragment : Fragment() {
     ) {
         viewModel.inFavorits.observe(this, Observer {
             if (it == true) {
-                binding.addFavorit.setBackgroundResource(android.R.drawable.btn_star_big_on)
+                binding.addFavorit.setBackgroundResource(R.drawable.ic_favorit)
                 binding.ratingBar2.visibility = View.VISIBLE
                 binding.addFavorit.setOnClickListener {
                     viewModel.removeFromFavorits()
                 }
             } else {
-                binding.addFavorit.setBackgroundResource(android.R.drawable.btn_star_big_off)
+                binding.addFavorit.setBackgroundResource(R.drawable.ic_not_favorit)
                 binding.ratingBar2.visibility = View.GONE
                 binding.addFavorit.setOnClickListener { view: View ->
                     val mDialogView =

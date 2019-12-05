@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mymovies.databinding.MovieSerieViewItemBinding
+import com.example.mymovies.databinding.MovieSerieViewItemGridBinding
 import com.example.mymovies.generated.callback.OnClickListener
 import com.example.mymovies.models.MovieSerie
 
@@ -15,7 +16,7 @@ class MovieSerieAdapter(val clickListener: MovieSerieListener):
         ListAdapter<MovieSerie, MovieSerieAdapter.ViewHolder>(DiffCallback){
 
 
-    class ViewHolder private constructor(val binding: MovieSerieViewItemBinding) :
+    class ViewHolder private constructor(val binding: MovieSerieViewItemGridBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
             item: MovieSerie,
@@ -29,7 +30,7 @@ class MovieSerieAdapter(val clickListener: MovieSerieListener):
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = MovieSerieViewItemBinding.inflate(layoutInflater, parent, false)
+                val binding = MovieSerieViewItemGridBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }
