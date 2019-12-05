@@ -7,4 +7,5 @@
     <dimen name="textSize_dashboard">24sp</dimen>
     <dimen name="image_width_dashboard">100dp</dimen>
     <dimen name="image_height_dashboard">80dp</dimen>
+    <dimen name="width_card_dashboard_landscape">190dp</dimen>
 </resources>

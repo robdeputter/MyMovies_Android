@@ -8,7 +8,9 @@ import com.example.mymovies.database.DatabaseMovieSerieDetail
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
-
+/**
+ * MovieSerieDetail is detailed list that describes a movie or serie
+ */
 data class MovieSerieDetail(
     val imdbID: String,
     val title: String,
@@ -24,6 +26,10 @@ data class MovieSerieDetail(
     val favoriteRating : Float?,
     val plot : String?)
 
+/**
+ * Converts a MovieSerieDetail to a databaseproperty
+ * This method is called when you want to add a favorite to the database
+ */
 fun MovieSerieDetail.asDatabaseModel() : DatabaseMovieSerieDetail{
     return DatabaseMovieSerieDetail(
         imdbID = imdbID,

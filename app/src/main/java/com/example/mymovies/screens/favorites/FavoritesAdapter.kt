@@ -39,11 +39,11 @@ class FavoritesAdapter(val clickListener: FavoritesListener, val removedListener
 
     companion object DiffCallback : DiffUtil.ItemCallback<MovieSerieDetail>() {
         override fun areItemsTheSame(oldItem: MovieSerieDetail, newItem: MovieSerieDetail): Boolean {
-            return oldItem === newItem;
+            return oldItem.imdbID == newItem.imdbID;
         }
 
         override fun areContentsTheSame(oldItem: MovieSerieDetail, newItem: MovieSerieDetail): Boolean {
-            return oldItem.imdbID == oldItem.imdbID
+            return oldItem == oldItem
         }
     }
 

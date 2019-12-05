@@ -13,7 +13,13 @@ import java.nio.channels.NetworkChannel
 import java.security.spec.ECField
 
 
-//Short information about a movie or serie
+/**
+ * The network version of [MovieSerie]
+ * Jsondata that's received from the imdb-network is parsed in this data class
+ *
+ *[JsonClass] -> Parses json data into a kotlin object (it will generate a JsonAdapter to handle serializing/deserializing to and from JSON of the specified type.)
+ *
+ */
 @JsonClass(generateAdapter = true)
 data class NetworkMovieSerie(
     val imdbID: String,
@@ -23,6 +29,9 @@ data class NetworkMovieSerie(
     val Poster: String
 )
 
+/**
+ * Converts a list of [NetworkMovieSerie] to a list of [MovieSerie]
+ */
 fun List<NetworkMovieSerie>.asDomainModel_MovieSerie() : List<MovieSerie>{
     return this.map {
         MovieSerie(
@@ -35,8 +44,12 @@ fun List<NetworkMovieSerie>.asDomainModel_MovieSerie() : List<MovieSerie>{
     }
 }
 
-
-// Details of a Movie of Serie
+/**
+ * The network version of [MovieSerieDetail]
+ *
+ *[JsonClass] -> Parses json data into a kotlin object
+ * (it will generate a JsonAdapter to handle serializing/deserializing to and from JSON of the specified type.)
+ */
 @JsonClass(generateAdapter = true)
 data class NetworkMovieSerieDetail(
     val imdbID: String,
@@ -57,6 +70,9 @@ data class NetworkMovieSerieDetail(
         set(value){field = value}
 }
 
+/**
+ * Converts a list of [NetworkMovieSerieDetail] to a list of [NetworkMovieSerie]
+ */
 fun NetworkMovieSerieDetail.asDomainModel(): MovieSerieDetail {
     return MovieSerieDetail(
             imdbID = imdbID,
@@ -75,7 +91,9 @@ fun NetworkMovieSerieDetail.asDomainModel(): MovieSerieDetail {
             )
     }
 
-
+/**
+ * Converts a list of [NetworkMovieSerieDetail] to a list of [DatabaseMovieSerieDetail]
+ */
 fun NetworkMovieSerieDetail.asDatabaseModel(): DatabaseMovieSerieDetail{
     return DatabaseMovieSerieDetail(
             imdbID = imdbID,
@@ -95,7 +113,12 @@ fun NetworkMovieSerieDetail.asDatabaseModel(): DatabaseMovieSerieDetail{
         )
 }
 
-// New releases on netflix
+/**
+ * The network version of [NewRelease]
+ *
+ *[JsonClass] -> Parses json data into a kotlin object
+ * (it will generate a JsonAdapter to handle serializing/deserializing to and from JSON of the specified type.)
+ */
 @JsonClass(generateAdapter = true)
 data class NetworkNewRelease(
     val imdbid: String?,
@@ -104,6 +127,9 @@ data class NetworkNewRelease(
     val image: String?,
     val released: String?)
 
+/**
+ * Converts a list of [NetworkNewRelease] to a list of [NewRelease]
+ */
 fun List<NetworkNewRelease>.asDomainModel(): List<NewRelease?> {
     return this.map {
         try {
@@ -119,6 +145,9 @@ fun List<NetworkNewRelease>.asDomainModel(): List<NewRelease?> {
     }
 }
 
+/**
+ * Converts a List of [NetworkNewRelease] to a Array of [DatabaseNewRelease]
+ */
 fun List<NetworkNewRelease>.asDatabaseModel(): Array<DatabaseNewRelease?>{
     return this.map {
         try {

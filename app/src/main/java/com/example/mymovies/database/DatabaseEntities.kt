@@ -5,6 +5,9 @@ import androidx.room.PrimaryKey
 import com.example.mymovies.models.MovieSerieDetail
 import com.example.mymovies.models.NewRelease
 
+/**
+ * Databaseproperty for the details of a movie or serie
+ */
 @Entity
 data class DatabaseMovieSerieDetail constructor(
     @PrimaryKey
@@ -22,6 +25,10 @@ data class DatabaseMovieSerieDetail constructor(
     val favoriteRating: Float?,
     val plot: String?)
 
+
+/**
+ * Converts a list of [DatabaseMovieSerieDetail] to a list of [MovieSerieDetail] (details of a movie or serie)
+ */
 fun List<DatabaseMovieSerieDetail>.asDomainModel(): List<MovieSerieDetail> {
     return map {
         MovieSerieDetail(
@@ -42,6 +49,9 @@ fun List<DatabaseMovieSerieDetail>.asDomainModel(): List<MovieSerieDetail> {
     }
 }
 
+/**
+ * Converts a [DatabaseMovieSerieDetail] to a [MovieSerieDetail]
+ */
 fun DatabaseMovieSerieDetail.asDomainModel() : MovieSerieDetail{
     return MovieSerieDetail(
         imdbID = imdbID,
@@ -60,6 +70,9 @@ fun DatabaseMovieSerieDetail.asDomainModel() : MovieSerieDetail{
     )
 }
 
+/**
+ * Databaseproperty for a new release (on Netflix)
+ */
 @Entity
 data class DatabaseNewRelease constructor(
     @PrimaryKey
@@ -70,16 +83,9 @@ data class DatabaseNewRelease constructor(
     val image: String?
 )
 
-fun DatabaseNewRelease.asDomainModel() : NewRelease{
-    return NewRelease(
-        imdbID = imdbID,
-        title = title,
-        released = released,
-        type = type,
-        image = image
-    )
-}
-
+/**
+ * Converts a list of [DatabaseNewRelease] to a list of [NewRelease]
+ */
 fun List<DatabaseNewRelease>.asDomainModel_NewRelease(): List<NewRelease> {
     return map {
         NewRelease(

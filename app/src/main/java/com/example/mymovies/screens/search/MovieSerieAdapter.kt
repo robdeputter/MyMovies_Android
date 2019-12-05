@@ -38,11 +38,11 @@ class MovieSerieAdapter(val clickListener: MovieSerieListener):
 
     companion object DiffCallback : DiffUtil.ItemCallback<MovieSerie>() {
         override fun areItemsTheSame(oldItem: MovieSerie, newItem: MovieSerie): Boolean {
-            return oldItem === newItem;
+            return oldItem.imdbID == newItem.imdbID;
         }
 
         override fun areContentsTheSame(oldItem: MovieSerie, newItem: MovieSerie): Boolean {
-            return oldItem.imdbID == oldItem.imdbID
+            return oldItem == oldItem
         }
     }
 
