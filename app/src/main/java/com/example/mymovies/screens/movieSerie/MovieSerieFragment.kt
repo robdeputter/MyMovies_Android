@@ -259,4 +259,6 @@ class MovieSerieFragment : Fragment() {
     }
 
 
+
+
 }

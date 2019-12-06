@@ -5,31 +5,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
-import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import org.hamcrest.Description
 import org.hamcrest.Matcher
-import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
-import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class AddHowIMetYourMotherToFavoritesThenDelete {
+class searchFriendsWithFilterAndClearFilter {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun addHowIMetYourMotherToFavoritesThenDelete() {
+    fun searchFriendsWithFilterAndClearFilter() {
         val materialCardView = onView(
             allOf(
                 withId(R.id.searchCardView),
@@ -58,43 +55,26 @@ class AddHowIMetYourMotherToFavoritesThenDelete {
                 isDisplayed()
             )
         )
-        textInputEditText.perform(replaceText("how i met your mother"), closeSoftKeyboard())
+        textInputEditText.perform(replaceText("Friends"), closeSoftKeyboard())
         Thread.sleep(7000)
-        val materialCardView2 = onView(
-            allOf(
-                childAtPosition(
-                    allOf(
-                        withId(R.id.movies_series_list),
-                        childAtPosition(
-                            withClassName(`is`("androidx.constraintlayout.widget.ConstraintLayout")),
-                            1
-                        )
-                    ),
-                    0
-                ),
-                isDisplayed()
-            )
-        )
-        materialCardView2.perform(click())
-        Thread.sleep(5000)
         val appCompatButton = onView(
             allOf(
-                withId(R.id.addFavorit),
+                withId(R.id.filterButton),
                 childAtPosition(
                     childAtPosition(
-                        withClassName(`is`("androidx.core.widget.NestedScrollView")),
+                        withId(R.id.nav_host_fragment),
                         0
                     ),
-                    2
+                    3
                 ),
                 isDisplayed()
             )
         )
         appCompatButton.perform(click())
-        Thread.sleep(3000)
-        val appCompatButton2 = onView(
+
+        val appCompatEditText = onView(
             allOf(
-                withId(R.id.addButton), withText("Add"),
+                withId(R.id.yearText),
                 childAtPosition(
                     childAtPosition(
                         withId(android.R.id.custom),
@@ -105,79 +85,45 @@ class AddHowIMetYourMotherToFavoritesThenDelete {
                 isDisplayed()
             )
         )
+        appCompatEditText.perform(replaceText("1994"), closeSoftKeyboard())
+
+        val appCompatButton2 = onView(
+            allOf(
+                withId(R.id.filter), withText("Filter"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(android.R.id.custom),
+                        0
+                    ),
+                    3
+                ),
+                isDisplayed()
+            )
+        )
         appCompatButton2.perform(click())
 
         Thread.sleep(3000)
-        val appCompatImageButton = onView(
+        val appCompatButton3 = onView(
             allOf(
-                withContentDescription("Navigate up"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.action_bar),
-                        childAtPosition(
-                            withId(R.id.action_bar_container),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatImageButton.perform(click())
-
-        val appCompatImageButton2 = onView(
-            allOf(
-                withContentDescription("Navigate up"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.action_bar),
-                        childAtPosition(
-                            withId(R.id.action_bar_container),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatImageButton2.perform(click())
-
-        val materialCardView3 = onView(
-            allOf(
-                withId(R.id.favoritesCardView),
+                withId(R.id.filterButton),
                 childAtPosition(
                     childAtPosition(
                         withId(R.id.nav_host_fragment),
                         0
                     ),
-                    1
+                    3
                 ),
                 isDisplayed()
             )
         )
-        materialCardView3.perform(click())
-        Thread.sleep(3000)
-        val textView = onView(
+        appCompatButton3.perform(click())
+
+        val appCompatButton4 = onView(
             allOf(
-                withId(R.id.title), withText("How I Met Your Mother"),
+                withId(R.id.clear), withText("Clear"),
                 childAtPosition(
                     childAtPosition(
-                        IsInstanceOf.instanceOf(android.widget.FrameLayout::class.java),
-                        0
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        textView.check(matches(withText("How I Met Your Mother")))
-        val appCompatImageView = onView(
-            allOf(
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("com.google.android.material.card.MaterialCardView")),
+                        withId(android.R.id.custom),
                         0
                     ),
                     2
@@ -185,8 +131,10 @@ class AddHowIMetYourMotherToFavoritesThenDelete {
                 isDisplayed()
             )
         )
-        appCompatImageView.perform(click())
+        appCompatButton4.perform(click())
+        Thread.sleep(4000)
     }
+
 
     private fun childAtPosition(
         parentMatcher: Matcher<View>, position: Int

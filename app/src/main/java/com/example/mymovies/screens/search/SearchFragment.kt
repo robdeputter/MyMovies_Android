@@ -1,27 +1,19 @@
 package com.example.mymovies.screens.search
 
-import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.view.size
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.mymovies.R
-import com.example.mymovies.database.MyMoviesDatabase
 import com.example.mymovies.databinding.FragmentSearchBinding
-import com.example.mymovies.repository.FavoritsRepository
 import kotlinx.android.synthetic.main.fragment_filter.view.*
 import kotlinx.android.synthetic.main.new_release_item.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -37,13 +29,13 @@ class SearchFragment : Fragment(), CoroutineScope {
 
     override val coroutineContext: CoroutineContext = Dispatchers.Main
 
-    /**
-     * When the onCreate method is called again (Activity lifecycle), no new instance of [SearchViewModel] will be created
-     * lazy => create when it's called
-     */
-    private val viewModel: SearchViewModel by lazy {
-        ViewModelProviders.of(this).get(SearchViewModel::class.java)
-    }
+    private var filterClicked : Boolean = false
+
+    private lateinit var viewModel : SearchViewModel
+
+    private lateinit var mDialogView : View
+
+    private lateinit var binding: FragmentSearchBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,7 +48,7 @@ class SearchFragment : Fragment(), CoroutineScope {
          *
          * [FragmentSearchBinding] => Responsible for binding Favorites XML files to your model classes
          */
-        val binding: FragmentSearchBinding = DataBindingUtil.inflate(
+        binding  = DataBindingUtil.inflate(
             inflater, R.layout.fragment_search, container, false
         )
 
@@ -68,6 +60,13 @@ class SearchFragment : Fragment(), CoroutineScope {
          */
         binding.setLifecycleOwner(this)
 
+        val viewModelFactory = SearchViewModelFactory()
+
+        /**
+         * When the onCreate method is called again (Activity lifecycle), no new instance of [SearchViewModel] will be created
+         */
+
+        viewModel = ViewModelProviders.of(this,viewModelFactory).get(SearchViewModel::class.java)
         /**
          * Binds the viewModel from the xml to the viewModel that has been created in this fragment
          */
@@ -119,40 +118,54 @@ class SearchFragment : Fragment(), CoroutineScope {
          * set initial value to spinner
          */
         binding.filterButton.setOnClickListener {view: View ->
-            val mDialogView = LayoutInflater.from(this.context).inflate(R.layout.fragment_filter, null);
-            val mBuilder = AlertDialog.Builder(this.context)
-                .setView(mDialogView)
-                .setTitle("Filter")
+            filterClicked = true
+            makeDialog(viewModel,binding)
+        }
+    }
 
-            val mAlertDialog = mBuilder.show()
+    /**
+     * Makes the dialog for filtering the movie -or serieslist
+     */
+    private fun makeDialog(viewModel: SearchViewModel, binding: FragmentSearchBinding){
+        mDialogView = LayoutInflater.from(this.context).inflate(R.layout.fragment_filter, null);
+        val mBuilder = AlertDialog.Builder(this.context)
+            .setView(mDialogView)
+            .setTitle("Filter")
 
-            /**
-             * When filter is clicked ->
-             * get value from spinner (type) and editText (year)
-             * dismiss dialog
-             * send a request to renew the movies and series
-             */
-            mDialogView.filter.setOnClickListener {
-                mAlertDialog.dismiss()
-                val type = mDialogView.typeSpinner.selectedItem.toString()
-                val year = mDialogView.yearText.text.toString()
-                //send request with filters
-                viewModel.getMoviesSeriesForName(binding.searchEditText.text.toString(),year,type)
-            }
+        if(viewModel.yearFilter.value != ""){
+            mDialogView.yearText.setText(viewModel.yearFilter.value)
+        }
 
-            /**
-             * When clear is clicked ->
-             * clear all fields and dismiss dialog
-             * send a new request to renew the movies and series
-             */
-            mDialogView.clear.setOnClickListener{
-                mAlertDialog.dismiss()
-                mDialogView.typeSpinner.setSelection(-1)
-                mDialogView.yearText.text.clear()
-                //send request to reset te values of the recyclerview
-                viewModel.getMoviesSeriesForName(binding.searchEditText.text.toString(), "","")
-            }
 
+        val mAlertDialog = mBuilder.show()
+
+        /**
+         * When filter is clicked ->
+         * get value from spinner (type) and editText (year)
+         * dismiss dialog
+         * send a request to renew the movies and series
+         */
+        mDialogView.filter.setOnClickListener {
+            mAlertDialog.dismiss()
+            val type = mDialogView.typeSpinner.selectedItem.toString()
+            val year = mDialogView.yearText.text.toString()
+            //send request with filters
+            viewModel.getMoviesSeriesForName(binding.searchEditText.text.toString(),year,type)
+            filterClicked = false
+        }
+
+        /**
+         * When clear is clicked ->
+         * clear all fields and dismiss dialog
+         * send a new request to renew the movies and series
+         */
+        mDialogView.clear.setOnClickListener{
+            mAlertDialog.dismiss()
+            mDialogView.typeSpinner.setSelection(-1)
+            mDialogView.yearText.text.clear()
+            //send request to reset te values of the recyclerview
+            viewModel.getMoviesSeriesForName(binding.searchEditText.text.toString(), "","")
+            filterClicked = false
         }
     }
 
@@ -194,4 +207,36 @@ class SearchFragment : Fragment(), CoroutineScope {
             }
         })
     }
+
+    /**
+     * Saves the current state of the page. If a dialog is opened, it will save "true" in outState
+     */
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean("FILTER_CLICKED", filterClicked)
+        if(mDialogView.yearText.text.isNotBlank()){
+            outState.putString("YEAR_TEXT",mDialogView.yearText.text.toString())
+        }
+    }
+
+    /**
+     * Makes it possible to rotate the screen and not losing the dialogview
+     */
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        if(savedInstanceState != null){
+            if (savedInstanceState.getBoolean("FILTER_CLICKED") == true) {
+                makeDialog(viewModel, binding)
+                filterClicked = true
+
+                if(savedInstanceState.getString("YEAR_TEXT") != null){
+                    mDialogView.yearText.setText(savedInstanceState.getString("YEAR_TEXT"))
+                }
+            }
+
+        }
+    }
+
+
+
 }

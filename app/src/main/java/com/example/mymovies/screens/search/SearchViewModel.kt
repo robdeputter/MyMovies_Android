@@ -45,8 +45,13 @@ class SearchViewModel : ViewModel(){
         get() = _navigateToSelectedMovieSerie
 
 
-    private val yearFilter = MutableLiveData<String>("")
-    private val typeFilter = MutableLiveData<String>("")
+    private val _yearFilter = MutableLiveData<String>("")
+    val yearFilter : LiveData<String>
+        get() = _yearFilter
+
+    private val _typeFilter = MutableLiveData<String>("")
+    val typeFilter : LiveData<String>
+        get() = _typeFilter
 
 
     /**
@@ -85,15 +90,15 @@ class SearchViewModel : ViewModel(){
     fun getMoviesSeriesForName(name: String, year : String?, type : String?) {
          
         //why is are these MutbableLiveDataFields? --> If you change the name, the filters would disappear
-        yearFilter.value  = if (year != null) year else yearFilter.value
-        typeFilter.value = if (type != null) type else typeFilter.value
+        _yearFilter.value  = if (year != null) year else _yearFilter.value
+        _typeFilter.value = if (type != null) type else _typeFilter.value
 
         coroutineScope.launch {
             // Get the Deferred object for our Retrofit request
             try {
                 _status.value = MyMoviesApiStatus.LOADING
                 // this will run on a thread managed by Retrofit
-                _moviesSeries.value = movieSerieRepository.getMovieSeriesByFilter(name, yearFilter.value, typeFilter.value)
+                _moviesSeries.value = movieSerieRepository.getMovieSeriesByFilter(name, _yearFilter.value, _typeFilter.value)
                 _status.value = MyMoviesApiStatus.DONE
             } catch (jsond: JsonDataException) {
                 _moviesSeries.value = ArrayList()

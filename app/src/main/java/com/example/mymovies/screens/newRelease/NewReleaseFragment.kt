@@ -21,6 +21,8 @@ import com.example.mymovies.databinding.FragmentNewReleasesBinding
 class NewReleaseFragment : Fragment() {
 
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -26,16 +26,6 @@
             android:name="imdbId"
             app:argType="string"
             /> <!-- just for testing!! you have to take this line away if you want to give a parameter -->
-        <action
-            android:id="@+id/action_movieFragment_to_searchFragment"
-            app:destination="@id/searchFragment"
-            app:exitAnim="@anim/nav_default_exit_anim" />
-        <action
-            android:id="@+id/action_movieFragment_to_favoritsFragment"
-            app:destination="@id/favoritsFragment"/>
-        <action
-            android:id="@+id/action_movieFragment_to_newReleaseFragment"
-            app:destination="@id/newReleaseFragment" />
 
     </fragment>
 
