@@ -9,6 +9,9 @@ import com.example.mymovies.repository.NewReleasesRepository
 import com.example.mymovies.screens.search.MyMoviesApiStatus
 import kotlinx.coroutines.*
 
+/**
+ * [ViewModel]
+ */
 class NewReleaseViewModel(private val _database : MyMoviesDatabase) : ViewModel(){
 
     /**
@@ -23,12 +26,16 @@ class NewReleaseViewModel(private val _database : MyMoviesDatabase) : ViewModel(
     val status : LiveData<MyMoviesApiStatus>
         get() = _status
 
+    /**
+     * [Job] => Creates a new job object in an active state.
+     * A failure of any child of this job immediately causes this job to fail, too, and cancels the rest of its children.
+     */
     private val viewModelJob = Job()
+
     /**
      * This is the main scope for all coroutines launched by MainViewModel.
      *
-     * Since we pass viewModelJob, you can cancel all coroutines launched by uiScope by calling
-     * viewModelJob.cancel()
+     * [CoroutineScope] => Defines a scope for new coroutines.
      */
     private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 

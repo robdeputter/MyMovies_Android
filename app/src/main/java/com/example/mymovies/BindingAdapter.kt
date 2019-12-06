@@ -16,24 +16,37 @@ import com.example.mymovies.screens.newRelease.NewReleaseAdapter
 import com.example.mymovies.screens.search.MovieSerieAdapter
 import com.example.mymovies.screens.search.MyMoviesApiStatus
 
+/**
+ * Submits list of [MovieSerie] to [MovieSerieAdapter]
+ */
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<MovieSerie>?) {
     val adapter = recyclerView.adapter as MovieSerieAdapter
     adapter.submitList(data)
 }
 
+/**
+ * Submits list of [MovieSerieDetail] to [FavoritesAdapter]
+ */
 @BindingAdapter("listDataFavorits")
 fun bindRecyclerViewFavorits(recyclerView: RecyclerView, data: List<MovieSerieDetail>?) {
     val adapter = recyclerView.adapter as FavoritesAdapter
     adapter.submitList(data)
 }
 
+/**
+ * Submits list of [NewRelease] to [NewReleaseAdapter]
+ */
 @BindingAdapter("listDataNewReleases")
 fun bindRecyclerViewNewReleases(recyclerView: RecyclerView, data: List<NewRelease>?) {
     val adapter = recyclerView.adapter as NewReleaseAdapter
     adapter.submitList(data)
 }
 
+/**
+ * Downloads imageUri with [Glide]
+ * Glide will set the imageUri in the imageView
+ */
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
     imgUrl?.let {
@@ -49,10 +62,10 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
 }
 
 /**
- * This binding adapter displays the [MarsApiStatus] of the network request in an image view.  When
+ * This binding adapter displays the [MyMoviesApiStatus] of the network request in an image view.  When
  * the request is loading, it displays a loading_animation.  If the request has an error, it
  * displays a broken image to reflect the connection error.  When the request is finished, it
- * hides the image view.
+ * hides the image view. When the status is EMPTY, it shows an appropriate image
  */
 @BindingAdapter("apiStatus")
 fun bindStatus(statusImageView: ImageView, status: MyMoviesApiStatus?) {
@@ -76,6 +89,10 @@ fun bindStatus(statusImageView: ImageView, status: MyMoviesApiStatus?) {
     }
 }
 
+/**
+ * When [MyMoviesApiStatus] shows that the request is done, then it makes the textView VISIBLE,
+ * in all other cases, it's GONE
+ */
 @BindingAdapter("headerText")
 fun bindCastText(textView: TextView,  status: MyMoviesApiStatus?) {
     when (status) {

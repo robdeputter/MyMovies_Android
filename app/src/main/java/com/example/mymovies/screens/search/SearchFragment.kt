@@ -30,11 +30,17 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
+/**
+ * The [SearchFragment] provides the user interface and handles user behaviour for searching to movies and series
+ */
 class SearchFragment : Fragment(), CoroutineScope {
 
     override val coroutineContext: CoroutineContext = Dispatchers.Main
 
-
+    /**
+     * When the onCreate method is called again (Activity lifecycle), no new instance of [SearchViewModel] will be created
+     * lazy => create when it's called
+     */
     private val viewModel: SearchViewModel by lazy {
         ViewModelProviders.of(this).get(SearchViewModel::class.java)
     }
@@ -45,18 +51,35 @@ class SearchFragment : Fragment(), CoroutineScope {
         savedInstanceState: Bundle?
     ): View? {
 
+        /**
+         * Creates an instance of [FragmentSearchBinding]
+         *
+         * [FragmentSearchBinding] => Responsible for binding Favorites XML files to your model classes
+         */
         val binding: FragmentSearchBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_search, container, false
         )
 
+        /**
+         * Sets the {@link LifecycleOwner} that should be used for observing changes of
+         * LiveData in this binding. If a {@link LiveData} is in one of the binding expressions
+         * and no LifecycleOwner is set, the LiveData will not be observed and updates to it
+         * will not be propagated to the UI.
+         */
         binding.setLifecycleOwner(this)
 
+        /**
+         * Binds the viewModel from the xml to the viewModel that has been created in this fragment
+         */
         binding.viewModel = viewModel
 
+
+        /**
+         * [MovieSerieAdapter.MovieSerieListener]  provides the navigation to the detailed page of the clicked movie or serie
+         */
         binding.moviesSeriesList.adapter = MovieSerieAdapter(MovieSerieAdapter.MovieSerieListener {
             viewModel.displayMovieSerieDetails(it)
         })
-
 
         observeEditText(viewModel,binding)
 
@@ -68,6 +91,11 @@ class SearchFragment : Fragment(), CoroutineScope {
         return binding.root;
     }
 
+    /**
+     * Provides the navigation to the detailed page of movie or serie
+     * it = imdbId
+     * [SearchFragmentDirections] contains all the directions that are created in the navigation xml file (NavGraph)
+     */
     private fun navigateToSelectedMovie(viewModel: SearchViewModel, binding: FragmentSearchBinding){
         viewModel.navigateToSelectedMovieSerie.observe(this, Observer {
             if (it != null) {
@@ -80,7 +108,16 @@ class SearchFragment : Fragment(), CoroutineScope {
         })
     }
 
+    /**
+     * Observes the filterButton
+     */
     private fun observeFilterButton(viewModel: SearchViewModel, binding: FragmentSearchBinding){
+
+        /**
+         * When the filterbutton is clicked ->
+         * show dialog
+         * set initial value to spinner
+         */
         binding.filterButton.setOnClickListener {view: View ->
             val mDialogView = LayoutInflater.from(this.context).inflate(R.layout.fragment_filter, null);
             val mBuilder = AlertDialog.Builder(this.context)
@@ -89,6 +126,12 @@ class SearchFragment : Fragment(), CoroutineScope {
 
             val mAlertDialog = mBuilder.show()
 
+            /**
+             * When filter is clicked ->
+             * get value from spinner (type) and editText (year)
+             * dismiss dialog
+             * send a request to renew the movies and series
+             */
             mDialogView.filter.setOnClickListener {
                 mAlertDialog.dismiss()
                 val type = mDialogView.typeSpinner.selectedItem.toString()
@@ -97,6 +140,11 @@ class SearchFragment : Fragment(), CoroutineScope {
                 viewModel.getMoviesSeriesForName(binding.searchEditText.text.toString(),year,type)
             }
 
+            /**
+             * When clear is clicked ->
+             * clear all fields and dismiss dialog
+             * send a new request to renew the movies and series
+             */
             mDialogView.clear.setOnClickListener{
                 mAlertDialog.dismiss()
                 mDialogView.typeSpinner.setSelection(-1)
@@ -108,6 +156,10 @@ class SearchFragment : Fragment(), CoroutineScope {
         }
     }
 
+
+    /**
+     * Observes editText
+     */
     private fun observeEditText(viewModel: SearchViewModel,binding: FragmentSearchBinding){
         //SOURCE: https://medium.com/@pro100svitlo/edittext-debounce-with-kotlin-coroutines-fd134d54f4e9
         // --> Tim Geldof gave me this URL
@@ -121,6 +173,9 @@ class SearchFragment : Fragment(), CoroutineScope {
 
             }
 
+            /**
+             * After text changed -> send new request to refresh the movies and series
+             */
             override fun afterTextChanged(s: Editable) {
                 val searchText = s.toString().trim()
                 if (searchText == searchFor)
@@ -133,7 +188,7 @@ class SearchFragment : Fragment(), CoroutineScope {
                     if (searchText != searchFor)
                         return@launch
 
-                    // do our magic here
+
                     viewModel.getMoviesSeriesForName(s.toString(),null,null)
                 }
             }

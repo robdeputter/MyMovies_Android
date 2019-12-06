@@ -23,12 +23,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this,R.layout.activity_main);
+
+        /**
+         * Binds drawerLayout
+         */
         drawerLayout = binding.drawerLayout;
+
+        /**
+         * Defines the navController with its host fragment
+         */
         val navController = this.findNavController(R.id.nav_host_fragment)
+
+        /**
+         * Sets up the actionbar with navController
+         */
         NavigationUI.setupActionBarWithNavController(this, navController ,drawerLayout)
+
 
         appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
 
+        /**
+         * Sets the drawerLayout menu
+         */
         navController.addOnDestinationChangedListener { nc: NavController, nd: NavDestination, bundle: Bundle? ->
             if (nd.id == nc.graph.startDestination) {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
