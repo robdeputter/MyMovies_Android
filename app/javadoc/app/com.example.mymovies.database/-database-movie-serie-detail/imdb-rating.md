@@ -1,5 +1,0 @@
-[app](../../index.md) / [com.example.mymovies.database](../index.md) / [DatabaseMovieSerieDetail](index.md) / [imdbRating](./imdb-rating.md)
-
-# imdbRating
-
-`val imdbRating: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)
