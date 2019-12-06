@@ -5,6 +5,4 @@ Furthermore, this app also offers the possibility to consult the latest releases
 
 If you like to let your friends know about a movie or series that you liked very much, you can share it through different platforms (mail, messages, messenger,...).
 
-Translated with www.DeepL.com/Translator (free version)
-
 [Dokkaa files](app/javadoc/app/index.md)
