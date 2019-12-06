@@ -1,0 +1,25 @@
+[app](../index.md) / [com.example.mymovies](./index.md)
+
+## Package com.example.mymovies
+
+### Types
+
+| Name | Summary |
+|---|---|
+| [GenericFileProvider](-generic-file-provider/index.md) | `class GenericFileProvider : FileProvider` |
+| [MainActivity](-main-activity/index.md) | `class MainActivity : AppCompatActivity` |
+
+### Functions
+
+| Name | Summary |
+|---|---|
+| [bindCastText](bind-cast-text.md) | `fun bindCastText(textView: `[`TextView`](https://developer.android.com/reference/android/widget/TextView.html)`, status: `[`MyMoviesApiStatus`](../com.example.mymovies.screens.search/-my-movies-api-status/index.md)`?): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>When [MyMoviesApiStatus](../com.example.mymovies.screens.search/-my-movies-api-status/index.md) shows that the request is done, then it makes the textView VISIBLE, in all other cases, it's GONE |
+| [bindGenres](bind-genres.md) | `fun bindGenres(textView: `[`TextView`](https://developer.android.com/reference/android/widget/TextView.html)`, genre: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`?): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
+| [bindImage](bind-image.md) | `fun bindImage(imgView: `[`ImageView`](https://developer.android.com/reference/android/widget/ImageView.html)`, imgUrl: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`?): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>Downloads imageUri with [Glide](#) Glide will set the imageUri in the imageView |
+| [bindImdbRating](bind-imdb-rating.md) | `fun bindImdbRating(textView: `[`TextView`](https://developer.android.com/reference/android/widget/TextView.html)`, rating: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`?): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
+| [bindImdbVotes](bind-imdb-votes.md) | `fun bindImdbVotes(textView: `[`TextView`](https://developer.android.com/reference/android/widget/TextView.html)`, votes: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`?): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
+| [bindRecyclerView](bind-recycler-view.md) | `fun bindRecyclerView(recyclerView: RecyclerView, data: `[`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)`<`[`MovieSerie`](../com.example.mymovies.models/-movie-serie/index.md)`>?): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>Submits list of [MovieSerie](../com.example.mymovies.models/-movie-serie/index.md) to [MovieSerieAdapter](../com.example.mymovies.screens.search/-movie-serie-adapter/index.md) |
+| [bindRecyclerViewFavorits](bind-recycler-view-favorits.md) | `fun bindRecyclerViewFavorits(recyclerView: RecyclerView, data: `[`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)`<`[`MovieSerieDetail`](../com.example.mymovies.models/-movie-serie-detail/index.md)`>?): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>Submits list of [MovieSerieDetail](../com.example.mymovies.models/-movie-serie-detail/index.md) to [FavoritesAdapter](../com.example.mymovies.screens.favorites/-favorites-adapter/index.md) |
+| [bindRecyclerViewNewReleases](bind-recycler-view-new-releases.md) | `fun bindRecyclerViewNewReleases(recyclerView: RecyclerView, data: `[`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)`<`[`NewRelease`](../com.example.mymovies.models/-new-release/index.md)`>?): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>Submits list of [NewRelease](../com.example.mymovies.models/-new-release/index.md) to [NewReleaseAdapter](../com.example.mymovies.screens.new-release/-new-release-adapter/index.md) |
+| [bindReleased](bind-released.md) | `fun bindReleased(textView: `[`TextView`](https://developer.android.com/reference/android/widget/TextView.html)`, released: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`?): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
+| [bindStatus](bind-status.md) | `fun bindStatus(statusImageView: `[`ImageView`](https://developer.android.com/reference/android/widget/ImageView.html)`, status: `[`MyMoviesApiStatus`](../com.example.mymovies.screens.search/-my-movies-api-status/index.md)`?): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>This binding adapter displays the [MyMoviesApiStatus](../com.example.mymovies.screens.search/-my-movies-api-status/index.md) of the network request in an image view.  When the request is loading, it displays a loading_animation.  If the request has an error, it displays a broken image to reflect the connection error.  When the request is finished, it hides the image view. When the status is EMPTY, it shows an appropriate image |

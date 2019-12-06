@@ -1,0 +1,9 @@
+[app](../../index.md) / [com.example.mymovies.network](../index.md) / [kotlin.collections.List](./index.md)
+
+### Extensions for kotlin.collections.List
+
+| Name | Summary |
+|---|---|
+| [asDatabaseModel](as-database-model.md) | `fun `[`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)`<`[`NetworkNewRelease`](../-network-new-release/index.md)`>.asDatabaseModel(): `[`Array`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html)`<`[`DatabaseNewRelease`](../../com.example.mymovies.database/-database-new-release/index.md)`?>`<br>Converts a List of [NetworkNewRelease](../-network-new-release/index.md) to a Array of [DatabaseNewRelease](../../com.example.mymovies.database/-database-new-release/index.md) |
+| [asDomainModel](as-domain-model.md) | `fun `[`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)`<`[`NetworkNewRelease`](../-network-new-release/index.md)`>.asDomainModel(): `[`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)`<`[`NewRelease`](../../com.example.mymovies.models/-new-release/index.md)`?>`<br>Converts a list of [NetworkNewRelease](../-network-new-release/index.md) to a list of [NewRelease](../../com.example.mymovies.models/-new-release/index.md) |
+| [asDomainModel_MovieSerie](as-domain-model_-movie-serie.md) | `fun `[`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)`<`[`NetworkMovieSerie`](../-network-movie-serie/index.md)`>.asDomainModel_MovieSerie(): `[`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)`<`[`MovieSerie`](../../com.example.mymovies.models/-movie-serie/index.md)`>`<br>Converts a list of [NetworkMovieSerie](../-network-movie-serie/index.md) to a list of [MovieSerie](../../com.example.mymovies.models/-movie-serie/index.md) |
