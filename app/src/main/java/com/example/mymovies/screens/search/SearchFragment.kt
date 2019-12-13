@@ -29,11 +29,11 @@ class SearchFragment : Fragment(), CoroutineScope {
 
     override val coroutineContext: CoroutineContext = Dispatchers.Main
 
-    private var filterClicked : Boolean = false
+    private var filterClicked: Boolean = false
 
-    private lateinit var viewModel : SearchViewModel
+    private lateinit var viewModel: SearchViewModel
 
-    private lateinit var mDialogView : View
+    private lateinit var mDialogView: View
 
     private lateinit var binding: FragmentSearchBinding
 
@@ -48,7 +48,7 @@ class SearchFragment : Fragment(), CoroutineScope {
          *
          * [FragmentSearchBinding] => Responsible for binding Favorites XML files to your model classes
          */
-        binding  = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_search, container, false
         )
 
@@ -66,12 +66,11 @@ class SearchFragment : Fragment(), CoroutineScope {
          * When the onCreate method is called again (Activity lifecycle), no new instance of [SearchViewModel] will be created
          */
 
-        viewModel = ViewModelProviders.of(this,viewModelFactory).get(SearchViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(SearchViewModel::class.java)
         /**
          * Binds the viewModel from the xml to the viewModel that has been created in this fragment
          */
         binding.viewModel = viewModel
-
 
         /**
          * [MovieSerieAdapter.MovieSerieListener]  provides the navigation to the detailed page of the clicked movie or serie
@@ -80,14 +79,14 @@ class SearchFragment : Fragment(), CoroutineScope {
             viewModel.displayMovieSerieDetails(it)
         })
 
-        observeEditText(viewModel,binding)
+        observeEditText(viewModel, binding)
 
-        observeFilterButton(viewModel,binding)
+        observeFilterButton(viewModel, binding)
 
-        navigateToSelectedMovie(viewModel,binding)
+        navigateToSelectedMovie(viewModel, binding)
 
         setHasOptionsMenu(true)
-        return binding.root;
+        return binding.root
     }
 
     /**
@@ -95,10 +94,10 @@ class SearchFragment : Fragment(), CoroutineScope {
      * it = imdbId
      * [SearchFragmentDirections] contains all the directions that are created in the navigation xml file (NavGraph)
      */
-    private fun navigateToSelectedMovie(viewModel: SearchViewModel, binding: FragmentSearchBinding){
+    private fun navigateToSelectedMovie(viewModel: SearchViewModel, binding: FragmentSearchBinding) {
         viewModel.navigateToSelectedMovieSerie.observe(this, Observer {
             if (it != null) {
-                //this.findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToMovieFragment(it))
+                // this.findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToMovieFragment(it))
                 this.findNavController()
                     .navigate(SearchFragmentDirections.actionSearchFragmentToMovieFragment(it))
                 viewModel.displayMovieSerieDetailsComplete()
@@ -110,32 +109,31 @@ class SearchFragment : Fragment(), CoroutineScope {
     /**
      * Observes the filterButton
      */
-    private fun observeFilterButton(viewModel: SearchViewModel, binding: FragmentSearchBinding){
+    private fun observeFilterButton(viewModel: SearchViewModel, binding: FragmentSearchBinding) {
 
         /**
          * When the filterbutton is clicked ->
          * show dialog
          * set initial value to spinner
          */
-        binding.filterButton.setOnClickListener {view: View ->
+        binding.filterButton.setOnClickListener { view: View ->
             filterClicked = true
-            makeDialog(viewModel,binding)
+            makeDialog(viewModel, binding)
         }
     }
 
     /**
      * Makes the dialog for filtering the movie -or serieslist
      */
-    private fun makeDialog(viewModel: SearchViewModel, binding: FragmentSearchBinding){
-        mDialogView = LayoutInflater.from(this.context).inflate(R.layout.fragment_filter, null);
+    private fun makeDialog(viewModel: SearchViewModel, binding: FragmentSearchBinding) {
+        mDialogView = LayoutInflater.from(this.context).inflate(R.layout.fragment_filter, null)
         val mBuilder = AlertDialog.Builder(this.context)
             .setView(mDialogView)
             .setTitle("Filter")
 
-        if(viewModel.yearFilter.value != ""){
+        if (viewModel.yearFilter.value != "") {
             mDialogView.yearText.setText(viewModel.yearFilter.value)
         }
-
 
         val mAlertDialog = mBuilder.show()
 
@@ -149,8 +147,8 @@ class SearchFragment : Fragment(), CoroutineScope {
             mAlertDialog.dismiss()
             val type = mDialogView.typeSpinner.selectedItem.toString()
             val year = mDialogView.yearText.text.toString()
-            //send request with filters
-            viewModel.getMoviesSeriesForName(binding.searchEditText.text.toString(),year,type)
+            // send request with filters
+            viewModel.getMoviesSeriesForName(binding.searchEditText.text.toString(), year, type)
             filterClicked = false
         }
 
@@ -159,31 +157,28 @@ class SearchFragment : Fragment(), CoroutineScope {
          * clear all fields and dismiss dialog
          * send a new request to renew the movies and series
          */
-        mDialogView.clear.setOnClickListener{
+        mDialogView.clear.setOnClickListener {
             mAlertDialog.dismiss()
             mDialogView.typeSpinner.setSelection(-1)
             mDialogView.yearText.text.clear()
-            //send request to reset te values of the recyclerview
-            viewModel.getMoviesSeriesForName(binding.searchEditText.text.toString(), "","")
+            // send request to reset te values of the recyclerview
+            viewModel.getMoviesSeriesForName(binding.searchEditText.text.toString(), "", "")
             filterClicked = false
         }
     }
 
-
     /**
      * Observes editText
      */
-    private fun observeEditText(viewModel: SearchViewModel,binding: FragmentSearchBinding){
-        //SOURCE: https://medium.com/@pro100svitlo/edittext-debounce-with-kotlin-coroutines-fd134d54f4e9
+    private fun observeEditText(viewModel: SearchViewModel, binding: FragmentSearchBinding) {
+        // SOURCE: https://medium.com/@pro100svitlo/edittext-debounce-with-kotlin-coroutines-fd134d54f4e9
         // --> Tim Geldof gave me this URL
         binding.searchEditText.addTextChangedListener(object : TextWatcher {
             private var searchFor = ""
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-
             }
 
             /**
@@ -197,12 +192,11 @@ class SearchFragment : Fragment(), CoroutineScope {
                 searchFor = searchText
 
                 launch {
-                    delay(600)  //debounce timeOut
+                    delay(600) // debounce timeOut
                     if (searchText != searchFor)
                         return@launch
 
-
-                    viewModel.getMoviesSeriesForName(s.toString(),null,null)
+                    viewModel.getMoviesSeriesForName(s.toString(), null, null)
                 }
             }
         })
@@ -214,8 +208,8 @@ class SearchFragment : Fragment(), CoroutineScope {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putBoolean("FILTER_CLICKED", filterClicked)
-        if(mDialogView.yearText.text.isNotBlank()){
-            outState.putString("YEAR_TEXT",mDialogView.yearText.text.toString())
+        if (mDialogView.yearText.text.isNotBlank()) {
+            outState.putString("YEAR_TEXT", mDialogView.yearText.text.toString())
         }
     }
 
@@ -224,19 +218,15 @@ class SearchFragment : Fragment(), CoroutineScope {
      */
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             if (savedInstanceState.getBoolean("FILTER_CLICKED") == true) {
                 makeDialog(viewModel, binding)
                 filterClicked = true
 
-                if(savedInstanceState.getString("YEAR_TEXT") != null){
+                if (savedInstanceState.getString("YEAR_TEXT") != null) {
                     mDialogView.yearText.setText(savedInstanceState.getString("YEAR_TEXT"))
                 }
             }
-
         }
     }
-
-
-
 }

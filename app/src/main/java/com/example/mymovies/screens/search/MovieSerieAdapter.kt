@@ -1,22 +1,19 @@
 package com.example.mymovies.screens.search
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mymovies.databinding.MovieSerieViewItemBinding
 import com.example.mymovies.databinding.MovieSerieViewItemGridBinding
-import com.example.mymovies.generated.callback.OnClickListener
 import com.example.mymovies.models.MovieSerie
 
 /**
  * Responsible for binding each item of the [RecyclerView] that represents the new releases
  */
-class MovieSerieAdapter(val clickListener: MovieSerieListener):
-        ListAdapter<MovieSerie, MovieSerieAdapter.ViewHolder>(DiffCallback){
+class MovieSerieAdapter(val clickListener: MovieSerieListener) :
+        ListAdapter<MovieSerie, MovieSerieAdapter.ViewHolder>(DiffCallback) {
 
     /**
      * Describes an item view and metadata about its place within the RecyclerView.
@@ -46,7 +43,7 @@ class MovieSerieAdapter(val clickListener: MovieSerieListener):
      */
     companion object DiffCallback : DiffUtil.ItemCallback<MovieSerie>() {
         override fun areItemsTheSame(oldItem: MovieSerie, newItem: MovieSerie): Boolean {
-            return oldItem.imdbID == newItem.imdbID;
+            return oldItem.imdbID == newItem.imdbID
         }
 
         override fun areContentsTheSame(oldItem: MovieSerie, newItem: MovieSerie): Boolean {
@@ -73,4 +70,3 @@ class MovieSerieAdapter(val clickListener: MovieSerieListener):
         fun onClick(movieSerie: MovieSerie) = clickListener(movieSerie.imdbID)
     }
 }
-

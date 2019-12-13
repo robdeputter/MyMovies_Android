@@ -1,9 +1,7 @@
 package com.example.mymovies.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.example.mymovies.database.DatabaseMovieSerieDetail
 import com.example.mymovies.database.MyMoviesDatabase
 import com.example.mymovies.database.asDomainModel
 import com.example.mymovies.models.MovieSerieDetail
@@ -12,7 +10,6 @@ import com.example.mymovies.network.MyMoviesApi
 import com.example.mymovies.network.asDatabaseModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
 import java.lang.Exception
 
@@ -32,7 +29,6 @@ class FavoritsRepository(private val _database: MyMoviesDatabase) {
         Transformations.map(_database.favoritesDAO.getAllFavorits()) {
             it.asDomainModel()
         }
-
 
     /**
      * Add a favorite with its rating to the database
@@ -65,15 +61,13 @@ class FavoritsRepository(private val _database: MyMoviesDatabase) {
     suspend fun getFavorit(imdbId: String): MovieSerieDetail? {
         return withContext(Dispatchers.IO) {
             try {
-                val obj =  _database.favoritesDAO.get(imdbId)!!.asDomainModel()
+                val obj = _database.favoritesDAO.get(imdbId)!!.asDomainModel()
                 obj
-
             } catch (e: Exception) {
                 null
             }
         }
     }
-
 
     /**
      * Remove a favorite from the database
@@ -87,8 +81,5 @@ class FavoritsRepository(private val _database: MyMoviesDatabase) {
         withContext(Dispatchers.IO) {
             _database.favoritesDAO.delete(movieSerieDetail.asDatabaseModel())
         }
-
     }
-
-
 }

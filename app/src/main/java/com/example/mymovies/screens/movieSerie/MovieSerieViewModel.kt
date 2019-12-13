@@ -6,11 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mymovies.database.MyMoviesDatabase
 import com.example.mymovies.models.MovieSerieDetail
-import com.example.mymovies.network.MyMoviesApiService
 import com.example.mymovies.repository.FavoritsRepository
 import com.example.mymovies.repository.MovieSerieDetailRepository
 import com.example.mymovies.screens.search.MyMoviesApiStatus
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 /**
  * [ViewModel]
@@ -23,7 +25,7 @@ class MovieSerieViewModel(
     /**
      * Keeps track of the Api status
      */
-    private val _status = MutableLiveData<MyMoviesApiStatus>();
+    private val _status = MutableLiveData<MyMoviesApiStatus>()
     val status: LiveData<MyMoviesApiStatus>
         get() = _status
 
@@ -32,7 +34,7 @@ class MovieSerieViewModel(
      */
     private var _movieSerieDetail = MutableLiveData<MovieSerieDetail>()
     val movieSerie: LiveData<MovieSerieDetail>
-        get() = _movieSerieDetail;
+        get() = _movieSerieDetail
 
     /**
      * Keeps track if the [movieSerie] is in favorites
@@ -48,14 +50,12 @@ class MovieSerieViewModel(
     val showSnackbarEvent: LiveData<Boolean>
         get() = _showSnackbarEvent
 
-
     /**
      * [MovieSerieDetailRepository]
      */
     private val movieSerieRepository = MovieSerieDetailRepository()
     private val favoritsRepository =
         FavoritsRepository(MyMoviesDatabase.getInstance(application.applicationContext))
-
 
     /**
      * [Job] => Creates a new job object in an active state.
@@ -67,7 +67,6 @@ class MovieSerieViewModel(
      * [CoroutineScope] => Defines a scope for new coroutines.
      */
     private val coroutineScope = CoroutineScope(Dispatchers.Main + job)
-
 
     init {
         getMovieSerieDetailObject()
@@ -89,13 +88,11 @@ class MovieSerieViewModel(
                     _inFavorits.value = false
                     _movieSerieDetail.value =
                         movieSerieRepository.getMovieSerieDetail(imdbId)
-
                 } else {
                     _inFavorits.value = true
                     _movieSerieDetail.value = favoritsRepository.getFavorit(imdbId)
                 }
                 _status.value = MyMoviesApiStatus.DONE
-
             } catch (e: Exception) {
                 _status.value = MyMoviesApiStatus.ERROR
                 _movieSerieDetail.value = null
@@ -113,7 +110,7 @@ class MovieSerieViewModel(
         coroutineScope.launch {
             favoritsRepository.addFavorit(imdbId, rating)
             _showSnackbarEvent.value = true
-            //reloading
+            // reloading
             getMovieSerieDetailObject()
         }
     }
@@ -128,7 +125,7 @@ class MovieSerieViewModel(
         coroutineScope.launch {
             favoritsRepository.removeFavorit(_movieSerieDetail.value!!)
             _showSnackbarEvent.value = true
-            //reloading
+            // reloading
             getMovieSerieDetailObject()
         }
     }
@@ -139,7 +136,6 @@ class MovieSerieViewModel(
     fun doneShowingSnackbar() {
         _showSnackbarEvent.value = false
     }
-
 
     /**
      * Cancels [Job]

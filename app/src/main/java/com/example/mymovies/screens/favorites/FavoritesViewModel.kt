@@ -3,7 +3,6 @@ package com.example.mymovies.screens.favorites
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.mymovies.database.DatabaseMovieSerieDetail
 import com.example.mymovies.database.MyMoviesDatabase
 import com.example.mymovies.models.MovieSerieDetail
 import com.example.mymovies.repository.FavoritsRepository
@@ -15,10 +14,9 @@ import kotlinx.coroutines.launch
 /**
  * [ViewModel]
  */
-class FavoritesViewModel(val database: MyMoviesDatabase) : ViewModel(){
+class FavoritesViewModel(val database: MyMoviesDatabase) : ViewModel() {
 
     private val movieSerieRepository = FavoritsRepository(database)
-
 
     /**
      * [FavoritsRepository]
@@ -46,20 +44,20 @@ class FavoritesViewModel(val database: MyMoviesDatabase) : ViewModel(){
      * [LiveData] is a data holder class that can be observed within a given lifecycle.
      * Keeps track if there's a movie or serie that has been clicked
      */
-    val navigateToSelectedMovieSerie : LiveData<String>
+    val navigateToSelectedMovieSerie: LiveData<String>
         get() = _navigateToSelectedMovieSerie
 
     /**
      * Sets the imdbId of the clicked movie or serie
      */
-    fun displayMovieSerieDetails(imdbId: String){
+    fun displayMovieSerieDetails(imdbId: String) {
         _navigateToSelectedMovieSerie.value = imdbId
     }
 
     /**
      * This method is called after the navigation to the detailed page
      */
-    fun displayMovieSerieDetailsComplete(){
+    fun displayMovieSerieDetailsComplete() {
         _navigateToSelectedMovieSerie.value = null
     }
 
@@ -67,11 +65,10 @@ class FavoritesViewModel(val database: MyMoviesDatabase) : ViewModel(){
      * Calls the removeMethod from the [FavoritsRepository]
      * Is performed asynchronously on the main-thread => Database operation
      */
-    fun removeFromFavorites(movieSerieDetail: MovieSerieDetail){
+    fun removeFromFavorites(movieSerieDetail: MovieSerieDetail) {
         coroutineScope.launch {
             movieSerieRepository.removeFavorit(movieSerieDetail)
         }
-
     }
 
     /**

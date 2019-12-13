@@ -23,8 +23,8 @@ data class DatabaseMovieSerieDetail constructor(
     val imdbRating: String,
     val imdbVotes: String,
     val favoriteRating: Float?,
-    val plot: String?)
-
+    val plot: String?
+)
 
 /**
  * Converts a list of [DatabaseMovieSerieDetail] to a list of [MovieSerieDetail] (details of a movie or serie)
@@ -52,7 +52,7 @@ fun List<DatabaseMovieSerieDetail>.asDomainModel(): List<MovieSerieDetail> {
 /**
  * Converts a [DatabaseMovieSerieDetail] to a [MovieSerieDetail]
  */
-fun DatabaseMovieSerieDetail.asDomainModel() : MovieSerieDetail{
+fun DatabaseMovieSerieDetail.asDomainModel(): MovieSerieDetail {
     return MovieSerieDetail(
         imdbID = imdbID,
         title = title,
@@ -97,5 +97,3 @@ fun List<DatabaseNewRelease>.asDomainModel_NewRelease(): List<NewRelease> {
         )
     }
 }
-
-

@@ -1,9 +1,7 @@
 package com.example.mymovies
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -16,19 +14,17 @@ import com.example.mymovies.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
-    private lateinit var appBarConfiguration : AppBarConfiguration
-
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this,R.layout.activity_main);
-
+        val binding =
+            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         /**
          * Binds drawerLayout
          */
-        drawerLayout = binding.drawerLayout;
-
+        drawerLayout = binding.drawerLayout
         /**
          * Defines the navController with its host fragment
          */
@@ -37,8 +33,7 @@ class MainActivity : AppCompatActivity() {
         /**
          * Sets up the actionbar with navController
          */
-        NavigationUI.setupActionBarWithNavController(this, navController ,drawerLayout)
-
+        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
 
         appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
 
@@ -54,7 +49,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         NavigationUI.setupWithNavController(binding.navView, navController)
-
     }
 
     override fun onSupportNavigateUp(): Boolean {

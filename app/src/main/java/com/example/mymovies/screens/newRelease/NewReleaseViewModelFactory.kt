@@ -8,9 +8,10 @@ import com.example.mymovies.database.MyMoviesDatabase
 /**
  * Responsible for creating a [NewReleaseViewModel] instance
  */
-class  NewReleaseViewModelFactory(val application: Application,
-                                 val database: MyMoviesDatabase
-) : ViewModelProvider.Factory{
+class NewReleaseViewModelFactory(
+    val application: Application,
+    val database: MyMoviesDatabase
+) : ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

@@ -4,8 +4,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.mymovies.models.MovieSerieDetail
-
 
 /**
  * The database holds your favorites and the latest releases from Netflix
@@ -34,8 +32,6 @@ import com.example.mymovies.models.MovieSerieDetail
  * abstract -> Abstract classes are not instantiated directly.
  */
 abstract class MyMoviesDatabase : RoomDatabase() {
-
-
     abstract val favoritesDAO: FavoritesDAO
     abstract val newReleasesDAO: NewReleaseDAO
 
@@ -87,7 +83,5 @@ abstract class MyMoviesDatabase : RoomDatabase() {
                 return instance
             }
         }
-
     }
-
 }

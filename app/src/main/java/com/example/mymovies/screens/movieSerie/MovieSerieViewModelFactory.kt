@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 class MovieSerieViewModelFactory(
     private val imdbId: String,
     private val application: Application
-) : ViewModelProvider.Factory{
+) : ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

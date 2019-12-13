@@ -14,7 +14,7 @@ import com.example.mymovies.databinding.FragmentDashboardBinding
  * Represents the behavior of the user interface in a [Fragment]
  * The [DashboardFragment] provides the possbility to navigate through the app
  */
-class DashboardFragment : Fragment(){
+class DashboardFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,7 +50,7 @@ class DashboardFragment : Fragment(){
     /**
      * Navigates to SearchFragment if the searchCardView is clicked
      */
-    private fun onSearchClicked(binding: FragmentDashboardBinding){
+    private fun onSearchClicked(binding: FragmentDashboardBinding) {
         binding.searchCardView.setOnClickListener {
             this.findNavController()
                 .navigate(DashboardFragmentDirections.actionDashboardFragmentToSearchFragment())
@@ -60,7 +60,7 @@ class DashboardFragment : Fragment(){
     /**
      * Navigates to FavoritesFragment if the favoritesCardView is clicked
      */
-    private fun onFavoritesClicked(binding: FragmentDashboardBinding){
+    private fun onFavoritesClicked(binding: FragmentDashboardBinding) {
         binding.favoritesCardView.setOnClickListener {
             this.findNavController()
                 .navigate(DashboardFragmentDirections.actionDashboardFragmentToFavoritsFragment())
@@ -70,7 +70,7 @@ class DashboardFragment : Fragment(){
     /**
      * Navigates to NewReleasesFragment if the newReleasesCardView is clicked
      */
-    private fun onNewReleasesClicked(binding: FragmentDashboardBinding){
+    private fun onNewReleasesClicked(binding: FragmentDashboardBinding) {
         binding.newReleasesCardView.setOnClickListener {
             this.findNavController()
                 .navigate(DashboardFragmentDirections.actionDashboardFragmentToNewReleaseFragment())

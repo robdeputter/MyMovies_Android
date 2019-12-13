@@ -8,10 +8,11 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
-
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Headers
+import retrofit2.http.Query
 
 /**
  * imDB URL to get detailed information of movies and series
@@ -51,7 +52,6 @@ private val retrofit2 = Retrofit.Builder()
     .baseUrl(BASE_URL2)
     .build()
 
-
 /**
  * Contains all the network calls to get [MovieSerieDetail] and [MovieSerie] properties
  */
@@ -67,11 +67,10 @@ interface MyMoviesApiService {
     @Headers("x-rapidapi-key: a5f6b222camsh8d8cf36d4842c16p1e1b3cjsnba17b5622d41")
     @GET("/")
     fun getMovieSeriesForName(
-        @Query("s") nameOfMovieSerie: String, @Query("y") year: String?, @Query(
-            "type"
-        ) type: String?
+        @Query("s") nameOfMovieSerie: String,
+        @Query("y") year: String?,
+        @Query("type") type: String?
     ): Deferred<MovieSerieResponse>
-
     /**
      * [GET] request to get a movie or serie for a specific imdbId
      *
@@ -84,7 +83,6 @@ interface MyMoviesApiService {
     @Headers("x-rapidapi-key: a5f6b222camsh8d8cf36d4842c16p1e1b3cjsnba17b5622d41")
     @GET("/")
     fun getMovieSerieDetail(@Query("i") imdbID: String): Deferred<NetworkMovieSerieDetail>
-
 }
 
 /**
@@ -95,8 +93,6 @@ interface MyMoviesApiService {
 object MyMoviesApi {
     val retrofitService: MyMoviesApiService by lazy { retrofit.create(MyMoviesApiService::class.java) }
 }
-
-
 
 interface NewReleasesApiService {
 

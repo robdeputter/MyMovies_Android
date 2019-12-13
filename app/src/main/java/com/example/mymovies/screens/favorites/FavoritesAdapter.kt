@@ -1,7 +1,5 @@
 package com.example.mymovies.screens.favorites
 
-
-import android.nfc.NfcAdapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 
@@ -14,8 +12,8 @@ import com.example.mymovies.models.MovieSerieDetail
 /**
  * Responsible for binding each item of the [RecyclerView] that represents the favorites
  */
-class FavoritesAdapter(val clickListener: FavoritesListener, val removedListener: RemoveListener):
-    ListAdapter<MovieSerieDetail, FavoritesAdapter.ViewHolder>(DiffCallback){
+class FavoritesAdapter(val clickListener: FavoritesListener, val removedListener: RemoveListener) :
+    ListAdapter<MovieSerieDetail, FavoritesAdapter.ViewHolder>(DiffCallback) {
 
     /**
      * Describes an item view and metadata about its place within the RecyclerView.
@@ -47,7 +45,7 @@ class FavoritesAdapter(val clickListener: FavoritesListener, val removedListener
      */
     companion object DiffCallback : DiffUtil.ItemCallback<MovieSerieDetail>() {
         override fun areItemsTheSame(oldItem: MovieSerieDetail, newItem: MovieSerieDetail): Boolean {
-            return oldItem.imdbID == newItem.imdbID;
+            return oldItem.imdbID == newItem.imdbID
         }
 
         override fun areContentsTheSame(oldItem: MovieSerieDetail, newItem: MovieSerieDetail): Boolean {
@@ -64,7 +62,7 @@ class FavoritesAdapter(val clickListener: FavoritesListener, val removedListener
      */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movieSerie = getItem(position)
-        holder.bind(movieSerie, clickListener,removedListener)
+        holder.bind(movieSerie, clickListener, removedListener)
     }
 
     /**
@@ -77,8 +75,7 @@ class FavoritesAdapter(val clickListener: FavoritesListener, val removedListener
     /**
      * If an item is clicked, the RemoveListener sends the [MovieSerieDetail] object of that item
      */
-    class RemoveListener(val removedListener: (movieSerieDetail : MovieSerieDetail) -> Unit) {
+    class RemoveListener(val removedListener: (movieSerieDetail: MovieSerieDetail) -> Unit) {
         fun onClick(movieSerie: MovieSerieDetail) = removedListener(movieSerie)
     }
 }
-

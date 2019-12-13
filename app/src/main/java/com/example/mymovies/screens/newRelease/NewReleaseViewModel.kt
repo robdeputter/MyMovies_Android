@@ -4,15 +4,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mymovies.database.MyMoviesDatabase
-import com.example.mymovies.models.NewRelease
 import com.example.mymovies.repository.NewReleasesRepository
 import com.example.mymovies.screens.search.MyMoviesApiStatus
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.cancel
 
 /**
  * [ViewModel]
  */
-class NewReleaseViewModel(private val _database : MyMoviesDatabase) : ViewModel(){
+class NewReleaseViewModel(private val _database: MyMoviesDatabase) : ViewModel() {
 
     /**
      * Instance of [NewReleasesRepository]
@@ -23,7 +26,7 @@ class NewReleaseViewModel(private val _database : MyMoviesDatabase) : ViewModel(
      * Keeps track of the Api status
      */
     private val _status = MutableLiveData<MyMoviesApiStatus>()
-    val status : LiveData<MyMoviesApiStatus>
+    val status: LiveData<MyMoviesApiStatus>
         get() = _status
 
     /**
@@ -57,20 +60,20 @@ class NewReleaseViewModel(private val _database : MyMoviesDatabase) : ViewModel(
      * Keeps track if there's a movie or serie that has been clicked
      */
     private val _navigateToSelectedMovieSerie = MutableLiveData<String>()
-    val navigateToSelectedMovieSerie : LiveData<String>
+    val navigateToSelectedMovieSerie: LiveData<String>
         get() = _navigateToSelectedMovieSerie
 
     /**
      * Sets the imdId value of the clicked item
      */
-    fun displayMovieSerieDetails(imdbId: String){
+    fun displayMovieSerieDetails(imdbId: String) {
         _navigateToSelectedMovieSerie.value = imdbId
     }
 
     /**
      * Reset to null if the navigation is complete
      */
-    fun displayMovieSerieDetailsComplete(){
+    fun displayMovieSerieDetailsComplete() {
         _navigateToSelectedMovieSerie.value = null
     }
 

@@ -55,8 +55,9 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
             .load(imgUri)
             .apply(
                 RequestOptions()
-                .placeholder(R.drawable.loading_animation)
-                .error(R.drawable.ic_broken_image))
+                    .placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.ic_broken_image)
+            )
             .into(imgView)
     }
 }
@@ -94,47 +95,43 @@ fun bindStatus(statusImageView: ImageView, status: MyMoviesApiStatus?) {
  * in all other cases, it's GONE
  */
 @BindingAdapter("headerText")
-fun bindCastText(textView: TextView,  status: MyMoviesApiStatus?) {
+fun bindCastText(textView: TextView, status: MyMoviesApiStatus?) {
     when (status) {
         MyMoviesApiStatus.LOADING -> {
             textView.visibility = View.GONE
-
         }
         MyMoviesApiStatus.ERROR -> {
             textView.visibility = View.GONE
-
         }
         MyMoviesApiStatus.DONE -> {
             textView.visibility = View.VISIBLE
         }
-
         MyMoviesApiStatus.EMPTY -> {
             textView.visibility = View.GONE
-
         }
     }
 }
 
 @BindingAdapter("imdbRating")
-fun bindImdbRating(textView : TextView, rating: String?){
-    var resultString =  rating + "/10"
+fun bindImdbRating(textView: TextView, rating: String?) {
+    var resultString = rating + "/10"
     textView.text = resultString
 }
 
 @BindingAdapter("imdbVotes")
-fun bindImdbVotes(textView: TextView, votes: String?){
+fun bindImdbVotes(textView: TextView, votes: String?) {
     var resultString = " (based on " + votes + " votes)"
     textView.text = resultString
 }
 
 @BindingAdapter("released")
-fun bindReleased(textView: TextView, released: String?){
+fun bindReleased(textView: TextView, released: String?) {
     var resultString = "Released: " + released
     textView.text = resultString
 }
 
 @BindingAdapter("genre")
-fun bindGenres(textView: TextView, genre: String?){
+fun bindGenres(textView: TextView, genre: String?) {
     var resultString = "Genre(s): " + genre
     textView.text = resultString
 }

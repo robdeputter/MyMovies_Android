@@ -1,18 +1,13 @@
 package com.example.mymovies.repository
 
-
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.mymovies.models.MovieSerieDetail
 import com.example.mymovies.network.MyMoviesApi
-import com.example.mymovies.network.MyMoviesApiService
 import com.example.mymovies.network.asDomainModel
-import com.example.mymovies.screens.search.MyMoviesApiStatus
 
 /**
  * Responsible for getting [MovieSerieDetail] objects
  */
-class MovieSerieDetailRepository{
+class MovieSerieDetailRepository {
 
     /**
      * Get a MovieSerieDetail through a network call
@@ -20,7 +15,7 @@ class MovieSerieDetailRepository{
      *
      * Why suspend? = you're calling an await() function on the [Deferred] object
      */
-    suspend fun getMovieSerieDetail(imdbId: String) : MovieSerieDetail?{
+    suspend fun getMovieSerieDetail(imdbId: String): MovieSerieDetail? {
 
         var getPropertyDeferred = MyMoviesApi.retrofitService.getMovieSerieDetail(imdbId)
 

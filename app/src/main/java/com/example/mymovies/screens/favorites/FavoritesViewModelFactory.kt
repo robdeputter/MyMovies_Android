@@ -8,8 +8,10 @@ import com.example.mymovies.database.MyMoviesDatabase
 /**
  * Responsible for creating a [FavoritesViewModel] instance
  */
-class  FavoritesViewModelFactory(val application: Application,
-                                val database: MyMoviesDatabase) : ViewModelProvider.Factory{
+class FavoritesViewModelFactory(
+    val application: Application,
+    val database: MyMoviesDatabase
+) : ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

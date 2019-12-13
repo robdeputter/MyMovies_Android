@@ -8,31 +8,28 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.FileProvider
 import androidx.core.graphics.drawable.toBitmap
-import androidx.core.net.toUri
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.SimpleTarget
 import com.example.mymovies.R
-//import com.example.mymovies.database.MovieSerieDatabase
 import com.example.mymovies.databinding.FragmentMovieSerieBinding
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_filter.view.*
-import kotlinx.android.synthetic.main.fragment_movie_serie.*
 import kotlinx.android.synthetic.main.fragment_rating.view.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.net.URI
 
 /**
  * The [MovieSerieFragment] provides the user interface and handles user behaviour for a detailed page of a movie or serie
@@ -52,7 +49,7 @@ class MovieSerieFragment : Fragment() {
          * Creates an instance of [FragmentMovieSerieBindingt]
          *
          * [FragmentMovieSerieBindingt] => Responsible for binding MovieSerie XML files to your model classes
-         */        binding = DataBindingUtil.inflate(
+         */ binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_movie_serie, container, false
         )
 
@@ -78,7 +75,7 @@ class MovieSerieFragment : Fragment() {
          * and no LifecycleOwner is set, the LiveData will not be observed and updates to it
          * will not be propagated to the UI.
          */
-        binding.setLifecycleOwner(this);
+        binding.setLifecycleOwner(this)
 
         /**
          * Binds the viewModel from the xml to the viewModel that has been created in this fragment
@@ -91,7 +88,7 @@ class MovieSerieFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
-        return binding.root;
+        return binding.root
     }
 
     /**
@@ -115,7 +112,7 @@ class MovieSerieFragment : Fragment() {
                 binding.ratingBar2.visibility = View.GONE
                 binding.addFavorit.setOnClickListener { view: View ->
                     val mDialogView =
-                        LayoutInflater.from(this.context).inflate(R.layout.fragment_rating, null);
+                        LayoutInflater.from(this.context).inflate(R.layout.fragment_rating, null)
                     val mBuilder = AlertDialog.Builder(this.context)
                         .setView(mDialogView)
                         .setTitle("Add rating to favorite")
@@ -131,7 +128,6 @@ class MovieSerieFragment : Fragment() {
                     mDialogView.cancelButton.setOnClickListener {
                         mAlertDialog.dismiss()
                     }
-
                 }
             }
         })
@@ -176,7 +172,7 @@ class MovieSerieFragment : Fragment() {
      * Creates a shareIntent with it's content
      */
     private fun getShareIntent(): Intent {
-        //SOURCE: https://github.com/codepath/android_guides/wiki/Sharing-Content-with-Intents
+        // SOURCE: https://github.com/codepath/android_guides/wiki/Sharing-Content-with-Intents
         val imgView: ImageView =
             binding.poster // getting the image from my xml --> glide downloaded this
         val uri = getLocalBitmapUri(imgView)
@@ -186,8 +182,8 @@ class MovieSerieFragment : Fragment() {
 
             putExtra(
                 Intent.EXTRA_TEXT,
-                "Hey, you really should check this " + viewModel.movieSerie.value!!.type + ": "
-                        + viewModel.movieSerie.value!!.title + "." + "\n\n " + viewModel.movieSerie.value!!.plot
+                "Hey, you really should check this " + viewModel.movieSerie.value!!.type + ": " +
+                        viewModel.movieSerie.value!!.title + "." + "\n\n " + viewModel.movieSerie.value!!.plot
             )
             putExtra(Intent.EXTRA_STREAM, uri)
             putExtra(Intent.EXTRA_LOCAL_ONLY, true)
@@ -229,7 +225,6 @@ class MovieSerieFragment : Fragment() {
                 this.context!!.packageName + ".provider",
                 file
             )
-
         } catch (e: IOException) {
             e.printStackTrace()
         }
@@ -257,8 +252,4 @@ class MovieSerieFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.share_movie_menu, menu)
     }
-
-
-
-
 }

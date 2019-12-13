@@ -41,7 +41,6 @@ class FavoritesFragment : Fragment() {
          */
         binding.setLifecycleOwner(this)
 
-
         val application = requireNotNull(this.activity).application
 
         val dataSource = MyMoviesDatabase.getInstance(application)
@@ -75,16 +74,15 @@ class FavoritesFragment : Fragment() {
 
         navigateToSelectedMovieSerie(viewModel)
 
-        return binding.root;
+        return binding.root
     }
-
 
     /**
      * Provides the navigation to the detailed page of movie or serie
      * it = imdbId
      * [FavoritesFragmentDirections] contains all the directions that are created in the navigation xml file (NavGraph)
      */
-    private fun navigateToSelectedMovieSerie(viewModel : FavoritesViewModel){
+    private fun navigateToSelectedMovieSerie(viewModel: FavoritesViewModel) {
         viewModel.navigateToSelectedMovieSerie.observe(this, Observer {
             if (it != null) {
                 this.findNavController()
@@ -93,6 +91,4 @@ class FavoritesFragment : Fragment() {
             }
         })
     }
-
-
 }

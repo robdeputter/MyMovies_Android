@@ -1,7 +1,6 @@
 package com.example.mymovies.repository
 
 import com.example.mymovies.models.MovieSerie
-import com.example.mymovies.models.MovieSerieDetail
 import com.example.mymovies.network.MyMoviesApi
 import com.example.mymovies.network.asDomainModel_MovieSerie
 
@@ -16,7 +15,7 @@ class MovieSerieRepository {
      *
      * Why suspend? = you're calling an await() function on the [Deferred] object
      */
-    suspend fun getMovieSeriesByFilter(name: String, year: String? , type : String?) : List<MovieSerie>?{
+    suspend fun getMovieSeriesByFilter(name: String, year: String?, type: String?): List<MovieSerie>? {
         // Get the Deferred object for our Retrofit requestw
         var getPropertyDeferred = MyMoviesApi.retrofitService.getMovieSeriesForName(name, year, type)
 

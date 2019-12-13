@@ -5,11 +5,8 @@ import androidx.lifecycle.Transformations
 import com.example.mymovies.database.MyMoviesDatabase
 import com.example.mymovies.database.asDomainModel_NewRelease
 import com.example.mymovies.models.NewRelease
-import com.example.mymovies.models.NewReleaseResponse
 import com.example.mymovies.network.NewReleasesApi
-import com.example.mymovies.network.NewReleasesApiService
 import com.example.mymovies.network.asDatabaseModel
-import com.example.mymovies.network.asDomainModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -17,7 +14,7 @@ import kotlinx.coroutines.withContext
 /**
  * Responsible for getting [NewRelease] objects
  */
-class NewReleasesRepository(private val _database : MyMoviesDatabase) {
+class NewReleasesRepository(private val _database: MyMoviesDatabase) {
 
     /**
      * Get all the new releases that are currently in the database
@@ -26,7 +23,7 @@ class NewReleasesRepository(private val _database : MyMoviesDatabase) {
      * This means that an {@link Observer} can be added in a pair with a {@link LifecycleOwner}, and
      * this observer will be notified about modifications of the wrapped data only if the paired
      */
-    val newReleases : LiveData<List<NewRelease>> = Transformations.map(_database.newReleasesDAO.getAllNewReleases()){
+    val newReleases: LiveData<List<NewRelease>> = Transformations.map(_database.newReleasesDAO.getAllNewReleases()) {
         it.asDomainModel_NewRelease()
     }
 
@@ -40,10 +37,10 @@ class NewReleasesRepository(private val _database : MyMoviesDatabase) {
      */
     suspend fun refreshNewReleases() {
         withContext(Dispatchers.IO) {
-            //getting the objects from the API
+            // getting the objects from the API
             val obj = NewReleasesApi.retrofitService.getNewReleases()
             val newReleases = NewReleasesApi.retrofitService.getNewReleases().await()
-            //save in the DB
-            _database.newReleasesDAO.insertAll(*newReleases.ITEMS.asDatabaseModel())}
+            // save in the DB
+            _database.newReleasesDAO.insertAll(*newReleases.ITEMS.asDatabaseModel()) }
     }
 }

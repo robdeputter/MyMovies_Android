@@ -1,17 +1,12 @@
 package com.example.mymovies.network
 
-import androidx.room.Database
 import com.example.mymovies.database.DatabaseMovieSerieDetail
 import com.example.mymovies.database.DatabaseNewRelease
 import com.example.mymovies.models.MovieSerie
 import com.example.mymovies.models.MovieSerieDetail
 import com.example.mymovies.models.NewRelease
 import com.squareup.moshi.JsonClass
-import retrofit2.http.GET
 import java.lang.Exception
-import java.nio.channels.NetworkChannel
-import java.security.spec.ECField
-
 
 /**
  * The network version of [MovieSerie]
@@ -32,7 +27,7 @@ data class NetworkMovieSerie(
 /**
  * Converts a list of [NetworkMovieSerie] to a list of [MovieSerie]
  */
-fun List<NetworkMovieSerie>.asDomainModel_MovieSerie() : List<MovieSerie>{
+fun List<NetworkMovieSerie>.asDomainModel_MovieSerie(): List<MovieSerie> {
     return this.map {
         MovieSerie(
             imdbID = it.imdbID,
@@ -63,11 +58,13 @@ data class NetworkMovieSerieDetail(
     val Actors: String,
     val imdbRating: String,
     val imdbVotes: String,
-    val Plot : String?
-    ){
-    var favoriteRating : Float = Float.NaN
+    val Plot: String?
+) {
+    var favoriteRating: Float = Float.NaN
         get() = field
-        set(value){field = value}
+        set(value) {
+            field = value
+        }
 }
 
 /**
@@ -75,42 +72,42 @@ data class NetworkMovieSerieDetail(
  */
 fun NetworkMovieSerieDetail.asDomainModel(): MovieSerieDetail {
     return MovieSerieDetail(
-            imdbID = imdbID,
-            title = Title,
-            year = Year,
-            type = Type,
-            poster = Poster,
-            released = Released,
-            runTime = Runtime,
-            genre = Genre,
-            actors = Actors,
-            imdbRating = imdbRating,
-            imdbVotes = imdbVotes,
-            favoriteRating = favoriteRating,
-            plot = Plot
-            )
-    }
+        imdbID = imdbID,
+        title = Title,
+        year = Year,
+        type = Type,
+        poster = Poster,
+        released = Released,
+        runTime = Runtime,
+        genre = Genre,
+        actors = Actors,
+        imdbRating = imdbRating,
+        imdbVotes = imdbVotes,
+        favoriteRating = favoriteRating,
+        plot = Plot
+    )
+}
 
 /**
  * Converts a list of [NetworkMovieSerieDetail] to a list of [DatabaseMovieSerieDetail]
  */
-fun NetworkMovieSerieDetail.asDatabaseModel(): DatabaseMovieSerieDetail{
+fun NetworkMovieSerieDetail.asDatabaseModel(): DatabaseMovieSerieDetail {
     return DatabaseMovieSerieDetail(
-            imdbID = imdbID,
-            title = Title,
-            year = Year,
-            type = Type,
-            poster = Poster,
-            released = Released,
-            runTime = Runtime,
-            genre = Genre,
-            actors = Actors,
-            imdbRating = imdbRating,
-            imdbVotes = imdbVotes,
-            favoriteRating = favoriteRating,
-            plot = Plot
+        imdbID = imdbID,
+        title = Title,
+        year = Year,
+        type = Type,
+        poster = Poster,
+        released = Released,
+        runTime = Runtime,
+        genre = Genre,
+        actors = Actors,
+        imdbRating = imdbRating,
+        imdbVotes = imdbVotes,
+        favoriteRating = favoriteRating,
+        plot = Plot
 
-        )
+    )
 }
 
 /**
@@ -125,7 +122,8 @@ data class NetworkNewRelease(
     val title: String,
     val type: String,
     val image: String?,
-    val released: String?)
+    val released: String?
+)
 
 /**
  * Converts a list of [NetworkNewRelease] to a list of [NewRelease]
@@ -138,8 +136,9 @@ fun List<NetworkNewRelease>.asDomainModel(): List<NewRelease?> {
                 title = it.title,
                 image = it.image,
                 released = it.released,
-                type = it.type)
-        }catch (e : Exception){
+                type = it.type
+            )
+        } catch (e: Exception) {
             null
         }
     }
@@ -148,7 +147,7 @@ fun List<NetworkNewRelease>.asDomainModel(): List<NewRelease?> {
 /**
  * Converts a List of [NetworkNewRelease] to a Array of [DatabaseNewRelease]
  */
-fun List<NetworkNewRelease>.asDatabaseModel(): Array<DatabaseNewRelease?>{
+fun List<NetworkNewRelease>.asDatabaseModel(): Array<DatabaseNewRelease?> {
     return this.map {
         try {
             DatabaseNewRelease(
@@ -158,7 +157,7 @@ fun List<NetworkNewRelease>.asDatabaseModel(): Array<DatabaseNewRelease?>{
                 released = it.released,
                 type = it.type
             )
-        }catch (e : Exception){
+        } catch (e: Exception) {
             null
         }
     }.toTypedArray()

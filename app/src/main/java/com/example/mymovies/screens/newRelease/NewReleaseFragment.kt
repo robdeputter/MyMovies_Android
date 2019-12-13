@@ -1,6 +1,5 @@
 package com.example.mymovies.screens.newRelease
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,9 +19,6 @@ import com.example.mymovies.databinding.FragmentNewReleasesBinding
  */
 class NewReleaseFragment : Fragment() {
 
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,7 +32,6 @@ class NewReleaseFragment : Fragment() {
         val binding: FragmentNewReleasesBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_new_releases, container, false)
 
-
         /**
          * Sets the {@link LifecycleOwner} that should be used for observing changes of
          * LiveData in this binding. If a {@link LiveData} is in one of the binding expressions
@@ -44,7 +39,6 @@ class NewReleaseFragment : Fragment() {
          * will not be propagated to the UI.
          */
         binding.setLifecycleOwner(this)
-
 
         val application = requireNotNull(this.activity).application
 
@@ -60,7 +54,6 @@ class NewReleaseFragment : Fragment() {
                 this, viewModelFactory
             ).get(NewReleaseViewModel::class.java)
 
-
         /**
          * Binds the viewModel from the xml to the viewModel that has been created in this fragment
          */
@@ -75,7 +68,7 @@ class NewReleaseFragment : Fragment() {
 
         navigateToSelectedMovie(viewModel)
 
-        return binding.root;
+        return binding.root
     }
 
     /**

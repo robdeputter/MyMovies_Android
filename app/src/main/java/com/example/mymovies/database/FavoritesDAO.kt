@@ -1,8 +1,11 @@
 package com.example.mymovies.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
-import com.example.mymovies.models.MovieSerieDetail
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Update
+import androidx.room.Query
 
 /**
  * FavoritesDAO is an interface that provides all the methods that are necessary to manipulate the favorites
@@ -12,7 +15,7 @@ import com.example.mymovies.models.MovieSerieDetail
  * They can include a variety of query methods.
  */
 @Dao
-interface FavoritesDAO{
+interface FavoritesDAO {
 
     /**
      * Add a detailed object of a movie or serie to the database.
@@ -53,5 +56,4 @@ interface FavoritesDAO{
      */
     @Query("SELECT * FROM databasemovieseriedetail ORDER BY favoriteRating DESC")
     fun getAllFavorits(): LiveData<List<DatabaseMovieSerieDetail>>
-
 }
