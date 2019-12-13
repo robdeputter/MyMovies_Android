@@ -6,8 +6,8 @@
 
     <Spinner
         android:id="@+id/typeSpinner"
-        android:layout_width="225dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/dialogContentWidth"
+        android:layout_height="@dimen/dialogContentHeight"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
@@ -18,8 +18,8 @@
 
     <EditText
         android:id="@+id/yearText"
-        android:layout_width="225dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/dialogContentWidth"
+        android:layout_height="@dimen/dialogContentHeight"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Year"
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Clear"
+        android:text="@string/dialogButtonClear"
         app:layout_constraintStart_toStartOf="@+id/yearText"
         app:layout_constraintTop_toBottomOf="@+id/yearText" />
 
@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Filter"
+        android:text="@string/dialogButtonFilter"
         app:layout_constraintEnd_toEndOf="@+id/yearText"
         app:layout_constraintTop_toBottomOf="@+id/yearText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

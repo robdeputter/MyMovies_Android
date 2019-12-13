@@ -21,8 +21,8 @@
             android:layout_height="@dimen/height_card_dashboard"
             android:layout_margin="8dp"
             android:layout_marginTop="50dp"
-            app:cardCornerRadius="6dp"
-            app:cardElevation="6dp"
+            app:cardCornerRadius="@dimen/matCardRadius"
+            app:cardElevation="@dimen/cardElevation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -45,9 +45,9 @@
                     android:id="@+id/searchTxt_dashboard"
                     android:layout_width="140dp"
                     android:layout_height="37dp"
+                    android:layout_gravity="center"
                     android:text="@string/searchtext_dashboard"
                     android:textAlignment="center"
-                    android:layout_gravity="center"
                     android:textSize="@dimen/textSize_dashboard" />
 
             </LinearLayout>
@@ -61,8 +61,8 @@
             android:layout_height="@dimen/height_card_dashboard"
             android:layout_margin="8dp"
             android:layout_marginTop="24dp"
-            app:cardCornerRadius="6dp"
-            app:cardElevation="6dp"
+            app:cardCornerRadius="@dimen/matCardRadius"
+            app:cardElevation="@dimen/cardElevation"
             app:layout_constraintTop_toBottomOf="@+id/searchCardView">
 
             <LinearLayout
@@ -100,8 +100,8 @@
             android:layout_width="@dimen/width_card_dashboard"
             android:layout_height="@dimen/height_card_dashboard"
             android:layout_margin="8dp"
-            app:cardCornerRadius="6dp"
-            app:cardElevation="6dp"
+            app:cardCornerRadius="@dimen/matCardRadius"
+            app:cardElevation="@dimen/cardElevation"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 

@@ -22,8 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:onClick="@{() -> clickListener.onClick(movieSerie)}"
-        app:cardCornerRadius="6dp"
-        android:elevation="6dp">
+        app:cardCornerRadius="@dimen/matCardRadius"
+        app:cardElevation="@dimen/cardElevation">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
@@ -32,9 +32,8 @@
 
             <ImageView
                 android:id="@+id/poster"
-                android:layout_width="123dp"
-                android:layout_height="138dp"
-
+                android:layout_width="@dimen/posterGridView_width"
+                android:layout_height="@dimen/posterGridview_height"
                 app:imageUrl="@{movieSerie.poster}"
                 tools:srcCompat="@tools:sample/avatars" />
 
@@ -45,7 +44,7 @@
                 android:layout_gravity="center"
                 android:text="@{movieSerie.title}"
                 android:textAlignment="center"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

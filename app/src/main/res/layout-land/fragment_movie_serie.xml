@@ -113,21 +113,15 @@
 
             <TextView
                 android:id="@+id/descriptionHeader"
+                style="@style/header"
                 headerText="@{viewModel.status}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
                 android:text="Description"
-                android:textAppearance="@style/header"
-                android:textSize="@dimen/header_dim2"
-                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/title"
                 app:layout_constraintTop_toTopOf="@+id/poster" />
 
             <TextView
                 android:id="@+id/plot"
-                android:layout_width="339dp"
+                android:layout_width="@dimen/detailsWidth"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.movieSerie.plot}"
                 app:layout_constraintStart_toStartOf="@+id/descriptionHeader"
@@ -136,21 +130,16 @@
 
             <TextView
                 android:id="@+id/castHeader"
+                style="@style/header"
                 headerText="@{viewModel.status}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
                 android:text="Cast"
-                android:textAppearance="@style/header"
-                android:textSize="@dimen/header_dim2"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/cast"
                 app:layout_constraintTop_toBottomOf="@+id/plot" />
 
 
             <TextView
                 android:id="@+id/cast"
-                android:layout_width="339dp"
+                android:layout_width="@dimen/detailsWidth"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.movieSerie.actors}"
                 app:layout_constraintEnd_toEndOf="@+id/plot"
@@ -160,68 +149,57 @@
 
             <TextView
                 android:id="@+id/imdbRatingHeader"
+                style="@style/header"
                 headerText="@{viewModel.status}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
                 android:text="ImDB-rating"
-                android:textAppearance="@style/header"
-                android:textSize="@dimen/header_dim2"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/cast"
                 app:layout_constraintTop_toBottomOf="@+id/cast" />
 
             <TextView
                 android:id="@+id/ratingImdb"
+                headerText="@{viewModel.status}"
                 imdbRating="@{viewModel.movieSerie.imdbRating}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@+id/imdbRatingHeader"
-                app:layout_constraintTop_toBottomOf="@+id/imdbRatingHeader"
-                headerText="@{viewModel.status}"/>
+                app:layout_constraintTop_toBottomOf="@+id/imdbRatingHeader" />
 
             <TextView
                 android:id="@+id/votesImdb"
+                headerText="@{viewModel.status}"
                 imdbVotes="@{viewModel.movieSerie.imdbVotes}"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/detailsWidth"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="@+id/ratingImdb"
-                app:layout_constraintStart_toEndOf="@+id/ratingImdb"
-                headerText="@{viewModel.status}"/>
+                app:layout_constraintStart_toEndOf="@+id/ratingImdb" />
 
             <TextView
                 android:id="@+id/ExtraInformationHeader"
+                style="@style/header"
                 headerText="@{viewModel.status}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
                 android:text="Extra information"
-                android:textAppearance="@style/header"
-                android:textSize="@dimen/header_dim2"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/imdbRatingHeader"
                 app:layout_constraintTop_toBottomOf="@+id/votesImdb" />
 
             <TextView
                 android:id="@+id/released"
+                headerText="@{viewModel.status}"
                 released="@{viewModel.movieSerie.released}"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/detailsWidth"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@+id/ExtraInformationHeader"
-                app:layout_constraintTop_toBottomOf="@+id/ExtraInformationHeader"
-                headerText="@{viewModel.status}"/>
+                app:layout_constraintTop_toBottomOf="@+id/ExtraInformationHeader" />
 
             <TextView
                 android:id="@+id/genres"
                 genre="@{viewModel.movieSerie.genre}"
-                android:layout_width="wrap_content"
+                headerText="@{viewModel.status}"
+                android:layout_width="@dimen/detailsWidth"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/released"
-                app:layout_constraintTop_toBottomOf="@+id/released"
-                headerText="@{viewModel.status}"/>
-
+                app:layout_constraintTop_toBottomOf="@+id/released" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

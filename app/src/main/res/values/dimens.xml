@@ -8,4 +8,15 @@
     <dimen name="image_width_dashboard">100dp</dimen>
     <dimen name="image_height_dashboard">80dp</dimen>
     <dimen name="width_card_dashboard_landscape">190dp</dimen>
+    <dimen name="matCardRadius">6dp</dimen>
+    <dimen name="cardElevation">2dp</dimen>
+    <dimen name="dialogContentWidth">225dp</dimen>
+    <dimen name="dialogContentHeight">40dp</dimen>
+    <dimen name="favorite_button_width">53dp</dimen>
+    <dimen name="favorite_button_height">53dp</dimen>
+    <dimen name="posterDetailsWidth">154dp</dimen>
+    <dimen name="posterDetailsHeight">176dp</dimen>
+    <dimen name="posterGridView_width">123dp</dimen>
+    <dimen name="posterGridview_height">138dp</dimen>
+    <dimen name="detailsWidth">350dp</dimen>
 </resources>

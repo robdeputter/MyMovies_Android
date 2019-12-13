@@ -12,7 +12,7 @@
 
         <variable
             name="clickListener"
-            type="com.example.mymovies.screens.favorites.FavoritesAdapter.FavoritesListener"/>
+            type="com.example.mymovies.screens.favorites.FavoritesAdapter.FavoritesListener" />
 
         <variable
             name="removeClickListener"
@@ -25,15 +25,10 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:elevation="6dp"
+            style="@style/matCardNewRelease"
             android:onClick="@{() -> clickListener.onClick(movieSerieDetail)}"
-            app:cardCornerRadius="6dp"
+            app:cardCornerRadius="@dimen/matCardRadius"
+            app:cardElevation="@dimen/cardElevation"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.6"
@@ -47,11 +42,7 @@
 
                 <ImageView
                     android:id="@+id/poster"
-                    android:layout_width="66dp"
-                    android:layout_height="88dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
+                    style="@style/posterNewRelease"
                     app:imageUrl="@{movieSerieDetail.poster}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -73,37 +64,28 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginEnd="8dp"
+                    android:onClick="@{() -> removeClickListener.onClick(movieSerieDetail)}"
                     android:src="@drawable/ic_remove"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:onClick="@{() -> removeClickListener.onClick(movieSerieDetail)}"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/year"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    style="@style/releaseItem_subtitle"
                     android:text="@{movieSerieDetail.year}"
                     app:layout_constraintStart_toEndOf="@+id/poster"
                     app:layout_constraintTop_toBottomOf="@+id/title" />
 
                 <TextView
                     android:id="@+id/type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
+                    style="@style/releaseItem_subtitle"
                     android:text="@{movieSerieDetail.type}"
                     app:layout_constraintBottom_toBottomOf="@+id/poster"
                     app:layout_constraintStart_toEndOf="@+id/poster"
                     app:layout_constraintTop_toBottomOf="@+id/year" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </com.google.android.material.card.MaterialCardView>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

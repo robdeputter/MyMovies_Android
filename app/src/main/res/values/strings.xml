@@ -14,6 +14,12 @@
     <string name="searchtext_dashboard">Search</string>
     <string name="favoritestext_dashboard">Favorites</string>
     <string name="newReleasestext_dashboard">New releases</string>
+    <string name="dialogButtonClear">Clear</string>
+    <string name="dialogButtonFilter">Filter</string>
+    <string name="descriptionDetails">Description</string>
+    <string name="castDetails">Cast</string>
+    <string name="imdbRatingDetails">ImDB-rating</string>
+    <string name="extraInformationDetails">Extra information</string>
     <string-array name="types">
         <item>Movie</item>
         <item>Series</item>
