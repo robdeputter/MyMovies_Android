@@ -20,6 +20,7 @@ The database holds your favorites and the latest releases from Netflix
 |---|---|
 | [favoritesDAO](favorites-d-a-o.md) | `abstract val favoritesDAO: `[`FavoritesDAO`](../-favorites-d-a-o/index.md) |
 | [newReleasesDAO](new-releases-d-a-o.md) | `abstract val newReleasesDAO: `[`NewReleaseDAO`](../-new-release-d-a-o/index.md) |
+| [watchListDAO](watch-list-d-a-o.md) | `abstract val watchListDAO: `[`WatchListDAO`](../-watch-list-d-a-o/index.md) |
 
 ### Companion Object Functions
 

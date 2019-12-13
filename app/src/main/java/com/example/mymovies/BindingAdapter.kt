@@ -36,7 +36,7 @@ fun bindRecyclerViewFavorits(recyclerView: RecyclerView, data: List<MovieSerieDe
 }
 
 @BindingAdapter("listDataWatchlist")
-fun bindRecyclerViewWatchlist(recyclerView: RecyclerView, data : List<MovieSerieDetail>?){
+fun bindRecyclerViewWatchlist(recyclerView: RecyclerView, data: List<MovieSerieDetail>?) {
     val adapter = recyclerView.adapter as WatchlistAdapter
     adapter.submitList(data)
 }

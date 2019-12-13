@@ -18,10 +18,10 @@ data class MovieSerieDetail(
     val imdbRating: String,
     val imdbVotes: String,
     val plot: String?
-){
-    var inWatchList : Boolean = false
+) {
+    var inWatchList: Boolean = false
     get() = field
-    set(value){
+    set(value) {
         field = value
     }
     var favoriteRating: Float = Float.NaN

@@ -1,7 +1,12 @@
 package com.example.mymovies.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Update
+import androidx.room.Query
+import androidx.room.OnConflictStrategy
+import androidx.room.Delete
 
 /**
  * FavoritesDAO is an interface that provides all the methods that are necessary to manipulate the movies / series you want to watch

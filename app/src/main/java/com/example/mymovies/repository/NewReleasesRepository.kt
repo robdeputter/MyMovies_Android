@@ -1,25 +1,20 @@
 package com.example.mymovies.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.mymovies.database.MyMoviesDatabase
 import com.example.mymovies.database.asDomainModel_NewRelease
 import com.example.mymovies.models.NewRelease
 import com.example.mymovies.network.NewReleasesApi
 import com.example.mymovies.network.asDatabaseModel
-import com.example.mymovies.screens.search.MyMoviesApiStatus
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.lang.Exception
 
 /**
  * Responsible for getting [NewRelease] objects
  */
 class NewReleasesRepository(private val _database: MyMoviesDatabase) {
-
-
 
     /**
      * Get all the new releases that are currently in the database

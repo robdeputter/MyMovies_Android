@@ -42,17 +42,16 @@ class WatchListRepository(private val _database: MyMoviesDatabase) {
         imdbId: String
     ) { // bij ophalen van disk --> zeer belangrijk om dit te doen op de IO-thread
         withContext(Dispatchers.IO) {
-            if(_database.favoritesDAO.get(imdbId) != null){
+            if (_database.favoritesDAO.get(imdbId) != null) {
                 val result = _database.favoritesDAO.get(imdbId)
                 val movieSerieDetail = result!!.asDomainModel()
                 movieSerieDetail.inWatchList = true
                 _database.watchListDAO.update(movieSerieDetail.asDatabaseModel())
-            }else{
+            } else {
                 val movieSerieDetail = MyMoviesApi.retrofitService.getMovieSerieDetail(imdbId).await()
                 movieSerieDetail.inWatchList = true
                 _database.watchListDAO.insert(movieSerieDetail.asDatabaseModel())
             }
-
         }
     }
 
@@ -86,10 +85,9 @@ class WatchListRepository(private val _database: MyMoviesDatabase) {
      */
     suspend fun removeWatchListEntity(movieSerieDetail: MovieSerieDetail) {
         withContext(Dispatchers.IO) {
-            if(movieSerieDetail.favoriteRating.isNaN()){
+            if (movieSerieDetail.favoriteRating.isNaN()) {
                 _database.watchListDAO.delete(movieSerieDetail.asDatabaseModel())
-            }
-            else{
+            } else {
                 movieSerieDetail.inWatchList = false
                 _database.watchListDAO.update(movieSerieDetail.asDatabaseModel())
             }

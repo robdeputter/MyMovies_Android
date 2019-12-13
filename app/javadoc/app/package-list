@@ -10,8 +10,10 @@ com.example.mymovies.database
 com.example.mymovies.models
 com.example.mymovies.network
 com.example.mymovies.repository
+com.example.mymovies.screens.About
 com.example.mymovies.screens.dashboard
 com.example.mymovies.screens.favorites
 com.example.mymovies.screens.movieSerie
 com.example.mymovies.screens.newRelease
 com.example.mymovies.screens.search
+com.example.mymovies.screens.watchlist

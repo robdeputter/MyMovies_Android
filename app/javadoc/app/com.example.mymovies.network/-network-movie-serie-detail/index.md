@@ -32,6 +32,7 @@ The network version of [MovieSerieDetail](../../com.example.mymovies.models/-mov
 | [imdbID](imdb-i-d.md) | `val imdbID: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
 | [imdbRating](imdb-rating.md) | `val imdbRating: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
 | [imdbVotes](imdb-votes.md) | `val imdbVotes: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
+| [inWatchList](in-watch-list.md) | `var inWatchList: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
 
 ### Extension Functions
 

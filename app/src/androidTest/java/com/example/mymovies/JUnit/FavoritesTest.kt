@@ -1,6 +1,5 @@
 package com.example.mymovies.JUnit
 
-import android.graphics.Movie
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
@@ -17,15 +16,15 @@ import org.junit.runner.RunWith
 import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
-class FavoritesTest{
+class FavoritesTest {
 
     private lateinit var favoritesDAO: FavoritesDAO
-    private lateinit var database : MyMoviesDatabase
-    private var movieSerieDetail1 = MovieSerieDetail("12345","Friends" ,"1994","series","posterString","1994","24 min", "Comedy",
-        "Jennifer Anniston ,...", "9","23456","Very funny story")
+    private lateinit var database: MyMoviesDatabase
+    private var movieSerieDetail1 = MovieSerieDetail("12345", "Friends", "1994", "series", "posterString", "1994", "24 min", "Comedy",
+        "Jennifer Anniston ,...", "9", "23456", "Very funny story")
 
     @Before
-    fun createDatabase(){
+    fun createDatabase() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
 
         database = Room.inMemoryDatabaseBuilder(context, MyMoviesDatabase::class.java)
@@ -36,13 +35,13 @@ class FavoritesTest{
 
     @After
     @Throws(IOException::class)
-    fun closeDatabase(){
+    fun closeDatabase() {
         database.close()
     }
 
     @Test
     @Throws(IOException::class)
-    fun insertFavorite(){
+    fun insertFavorite() {
         val favorite = movieSerieDetail1
         favorite.favoriteRating = 5f
 
@@ -50,12 +49,12 @@ class FavoritesTest{
         val imdbId = favorite.imdbID
 
         var favoriteFromDatabase = favoritesDAO.get(imdbId)!!.asDomainModel()
-        Assert.assertEquals(favorite.title,favoriteFromDatabase.title)
+        Assert.assertEquals(favorite.title, favoriteFromDatabase.title)
     }
 
     @Test
     @Throws(IOException::class)
-    fun updateFavorite(){
+    fun updateFavorite() {
         val favorite = movieSerieDetail1
         favorite.favoriteRating = 4F
 
@@ -69,7 +68,7 @@ class FavoritesTest{
 
     @Test
     @Throws(IOException::class)
-    fun deleteFavorite(){
+    fun deleteFavorite() {
         val favorite = movieSerieDetail1
         favorite.favoriteRating = 4F
 

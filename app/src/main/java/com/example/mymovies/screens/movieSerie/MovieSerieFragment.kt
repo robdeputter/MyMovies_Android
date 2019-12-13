@@ -126,7 +126,7 @@ class MovieSerieFragment : Fragment() {
                     mDialogView.addButton.setOnClickListener {
                         mAlertDialog.dismiss()
                         val rating = mDialogView.ratingBar.rating
-                        //temporary setting of ratingbar
+                        // temporary setting of ratingbar
                         binding.ratingBar2.rating = rating
                         viewModel.addToFavorits(rating)
                     }
@@ -218,7 +218,6 @@ class MovieSerieFragment : Fragment() {
             }
         })
     }
-
 
     /**
      * Starts shareintent

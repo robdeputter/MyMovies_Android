@@ -4,6 +4,7 @@
 
 | Name | Summary |
 |---|---|
+| [com.example.mymovies.screens.About.AboutFragment](../com.example.mymovies.screens.-about/-about-fragment/index.md) |  |
 | [com.example.mymovies.screens.dashboard.DashboardFragment](../com.example.mymovies.screens.dashboard/-dashboard-fragment/index.md) | Represents the behavior of the user interface in a [Fragment](#) The [DashboardFragment](../com.example.mymovies.screens.dashboard/-dashboard-fragment/index.md) provides the possbility to navigate through the app |
 | [com.example.mymovies.database.DatabaseMovieSerieDetail](../com.example.mymovies.database/-database-movie-serie-detail/index.md) | Databaseproperty for the details of a movie or serie |
 | [com.example.mymovies.database.DatabaseNewRelease](../com.example.mymovies.database/-database-new-release/index.md) | Databaseproperty for a new release (on Netflix) |
@@ -46,3 +47,9 @@
 | [com.example.mymovies.screens.search.SearchFragment](../com.example.mymovies.screens.search/-search-fragment/index.md) | The [SearchFragment](../com.example.mymovies.screens.search/-search-fragment/index.md) provides the user interface and handles user behaviour for searching to movies and series |
 | [com.example.mymovies.screens.search.SearchViewModel](../com.example.mymovies.screens.search/-search-view-model/index.md) | [ViewModel](#) |
 | [com.example.mymovies.screens.search.SearchViewModelFactory](../com.example.mymovies.screens.search/-search-view-model-factory/index.md) | Responsible for creating a [SearchViewModel](../com.example.mymovies.screens.search/-search-view-model/index.md) instance |
+| [com.example.mymovies.database.WatchListDAO](../com.example.mymovies.database/-watch-list-d-a-o/index.md) | FavoritesDAO is an interface that provides all the methods that are necessary to manipulate the movies / series you want to watch in the database |
+| [com.example.mymovies.repository.WatchListRepository](../com.example.mymovies.repository/-watch-list-repository/index.md) | Responsible for manipulating and getting favorites |
+| [com.example.mymovies.screens.watchlist.WatchlistAdapter](../com.example.mymovies.screens.watchlist/-watchlist-adapter/index.md) | Responsible for binding each item of the [RecyclerView](#) that represents the watchlist |
+| [com.example.mymovies.screens.watchlist.WatchlistFragment](../com.example.mymovies.screens.watchlist/-watchlist-fragment/index.md) | The [FavoritesFragment](#) provides the user interface and handles user behaviour for the favorites |
+| [com.example.mymovies.screens.watchlist.WatchlistViewModel](../com.example.mymovies.screens.watchlist/-watchlist-view-model/index.md) | [ViewModel](#) |
+| [com.example.mymovies.screens.watchlist.WatchlistViewModelFactory](../com.example.mymovies.screens.watchlist/-watchlist-view-model-factory/index.md) | Responsible for creating a [FavoritesViewModel](#) instance |

@@ -34,7 +34,7 @@ import androidx.room.RoomDatabase
 abstract class MyMoviesDatabase : RoomDatabase() {
     abstract val favoritesDAO: FavoritesDAO
     abstract val newReleasesDAO: NewReleaseDAO
-    abstract val watchListDAO : WatchListDAO
+    abstract val watchListDAO: WatchListDAO
 
     /**
      * [companion] [object] An object which has the same name as the class

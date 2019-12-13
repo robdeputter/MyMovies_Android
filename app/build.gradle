@@ -52,6 +52,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    testImplementation "io.mockk:mockk:$version_mockk"
 
     //navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.1.0'
@@ -92,5 +93,10 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
     androidTestImplementation 'androidx.test:rules:1.3.0-alpha03'
+
+    // To test coroutines with blocking
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version_kotlin_coroutines"
+    // For InstantTaskExecutorRule to test LiveData
+    testImplementation "androidx.arch.core:core-testing:$version_lifecycle_extensions"
 
 }

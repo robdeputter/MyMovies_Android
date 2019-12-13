@@ -75,7 +75,7 @@ class WatchlistFragment : Fragment() {
 
         navigateToSelectedMovieSerie(viewModel)
 
-        showEmptywatchListInformation(viewModel,binding)
+        showEmptywatchListInformation(viewModel, binding)
 
         return binding.root
     }
@@ -92,7 +92,7 @@ class WatchlistFragment : Fragment() {
                 if (it.isEmpty()) {
                     binding.statusImage.setImageResource(R.drawable.ic_sad)
                     binding.statusImage.visibility = View.VISIBLE
-                    binding.statusText.text =  resources.getText(R.string.watchlist_empty)
+                    binding.statusText.text = resources.getText(R.string.watchlist_empty)
                 } else {
                     binding.statusImage.visibility = View.GONE
                     binding.statusText.text = ""
@@ -100,7 +100,6 @@ class WatchlistFragment : Fragment() {
             }
         })
     }
-
 
     /**
      * Provides the navigation to the detailed page of movie or serie

@@ -58,7 +58,6 @@ class MovieSerieViewModel(
     val showSnackbarEventFavorites: LiveData<Boolean>
         get() = _showSnackbarEventFavorites
 
-
     /**
      * Keeps track if a Snackbar for favorites has to be shown
      */
@@ -186,7 +185,6 @@ class MovieSerieViewModel(
             _inWatchlist.value = false
         }
     }
-
 
     /**
      * Sets showSnackbarFavorites to false

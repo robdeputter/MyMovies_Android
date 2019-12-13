@@ -43,18 +43,16 @@ class FavoritsRepository(private val _database: MyMoviesDatabase) {
         rating: Float
     ) { // bij ophalen van disk --> zeer belangrijk om dit te doen op de IO-thread
         withContext(Dispatchers.IO) {
-            if(_database.watchListDAO.get(imdbId) != null){
+            if (_database.watchListDAO.get(imdbId) != null) {
                 val result = _database.watchListDAO.get(imdbId)
                 val movieSerieDetail = result!!.asDomainModel()
                 movieSerieDetail.favoriteRating = rating
                 _database.favoritesDAO.update(movieSerieDetail.asDatabaseModel())
-            }
-            else{
+            } else {
                 val movieSerieDetail = MyMoviesApi.retrofitService.getMovieSerieDetail(imdbId).await()
                 movieSerieDetail.favoriteRating = rating
                 _database.favoritesDAO.insert(movieSerieDetail.asDatabaseModel())
             }
-
         }
     }
 
@@ -89,15 +87,12 @@ class FavoritsRepository(private val _database: MyMoviesDatabase) {
     suspend fun removeFavorit(movieSerieDetail: MovieSerieDetail) {
         withContext(Dispatchers.IO) {
 
-            if(movieSerieDetail.inWatchList == false){
+            if (movieSerieDetail.inWatchList == false) {
                 _database.favoritesDAO.delete(movieSerieDetail.asDatabaseModel())
-            }
-            else{
+            } else {
                 movieSerieDetail.favoriteRating = Float.NaN
                 _database.favoritesDAO.update(movieSerieDetail.asDatabaseModel())
             }
-
-
         }
     }
 }

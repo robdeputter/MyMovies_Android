@@ -10,3 +10,4 @@
 | [MovieSerieDetailRepository](-movie-serie-detail-repository/index.md) | `class MovieSerieDetailRepository`<br>Responsible for getting [MovieSerieDetail](../com.example.mymovies.models/-movie-serie-detail/index.md) objects |
 | [MovieSerieRepository](-movie-serie-repository/index.md) | `class MovieSerieRepository`<br>Responsible for getting [MovieSerie](../com.example.mymovies.models/-movie-serie/index.md) objects |
 | [NewReleasesRepository](-new-releases-repository/index.md) | `class NewReleasesRepository`<br>Responsible for getting [NewRelease](../com.example.mymovies.models/-new-release/index.md) objects |
+| [WatchListRepository](-watch-list-repository/index.md) | `class WatchListRepository`<br>Responsible for manipulating and getting favorites |

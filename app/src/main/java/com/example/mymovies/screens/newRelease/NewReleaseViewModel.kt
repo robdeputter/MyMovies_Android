@@ -50,12 +50,10 @@ class NewReleaseViewModel(private val _database: MyMoviesDatabase) : ViewModel()
         refreshNewReleases()
     }
 
-
     /**
      * Loads the new Releases from the database
      */
     val newReleases = newReleaseRepository.newReleases
-
 
     private fun refreshNewReleases() {
         viewModelScope.launch {

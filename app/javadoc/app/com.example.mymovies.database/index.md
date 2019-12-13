@@ -11,6 +11,7 @@
 | [FavoritesDAO](-favorites-d-a-o/index.md) | `interface FavoritesDAO`<br>FavoritesDAO is an interface that provides all the methods that are necessary to manipulate the favorites in the database |
 | [MyMoviesDatabase](-my-movies-database/index.md) | `abstract class MyMoviesDatabase : RoomDatabase`<br>The database holds your favorites and the latest releases from Netflix |
 | [NewReleaseDAO](-new-release-d-a-o/index.md) | `interface NewReleaseDAO`<br>NewReleasesDAO is an interface that provides all the methods that are necessary to manipulate the new releases (on Netflix) in the database |
+| [WatchListDAO](-watch-list-d-a-o/index.md) | `interface WatchListDAO`<br>FavoritesDAO is an interface that provides all the methods that are necessary to manipulate the movies / series you want to watch in the database |
 
 ### Extensions for External Classes
 

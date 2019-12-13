@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import com.example.mymovies.R
 import com.example.mymovies.databinding.FragmentAboutBinding
 
-
 class AboutFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -208,12 +208,11 @@ class SearchFragment : Fragment(), CoroutineScope {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putBoolean("FILTER_CLICKED", filterClicked)
-        if(filterClicked == true){
+        if (filterClicked == true) {
             if (mDialogView!!.yearText.text.isNotBlank()) {
                 outState.putString("YEAR_TEXT", mDialogView.yearText.text.toString())
             }
         }
-
     }
 
     /**

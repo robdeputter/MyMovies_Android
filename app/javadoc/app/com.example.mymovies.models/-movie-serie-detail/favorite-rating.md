@@ -2,4 +2,4 @@
 
 # favoriteRating
 
-`val favoriteRating: `[`Float`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html)`?`
+`var favoriteRating: `[`Float`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html)
