@@ -1,20 +1,25 @@
 package com.example.mymovies.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.mymovies.database.MyMoviesDatabase
 import com.example.mymovies.database.asDomainModel_NewRelease
 import com.example.mymovies.models.NewRelease
 import com.example.mymovies.network.NewReleasesApi
 import com.example.mymovies.network.asDatabaseModel
+import com.example.mymovies.screens.search.MyMoviesApiStatus
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.lang.Exception
 
 /**
  * Responsible for getting [NewRelease] objects
  */
 class NewReleasesRepository(private val _database: MyMoviesDatabase) {
+
+
 
     /**
      * Get all the new releases that are currently in the database
@@ -23,9 +28,10 @@ class NewReleasesRepository(private val _database: MyMoviesDatabase) {
      * This means that an {@link Observer} can be added in a pair with a {@link LifecycleOwner}, and
      * this observer will be notified about modifications of the wrapped data only if the paired
      */
-    val newReleases: LiveData<List<NewRelease>> = Transformations.map(_database.newReleasesDAO.getAllNewReleases()) {
-        it.asDomainModel_NewRelease()
-    }
+    val newReleases: LiveData<List<NewRelease>> =
+        Transformations.map(_database.newReleasesDAO.getAllNewReleases()) {
+            it.asDomainModel_NewRelease()
+        }
 
     /**
      * Refresh the database objects by the objects from the network (back-end)
@@ -41,6 +47,7 @@ class NewReleasesRepository(private val _database: MyMoviesDatabase) {
             val obj = NewReleasesApi.retrofitService.getNewReleases()
             val newReleases = NewReleasesApi.retrofitService.getNewReleases().await()
             // save in the DB
-            _database.newReleasesDAO.insertAll(*newReleases.ITEMS.asDatabaseModel()) }
+            _database.newReleasesDAO.insertAll(*newReleases.ITEMS.asDatabaseModel())
+        }
     }
 }

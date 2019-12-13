@@ -75,8 +75,32 @@ class WatchlistFragment : Fragment() {
 
         navigateToSelectedMovieSerie(viewModel)
 
+        showEmptywatchListInformation(viewModel,binding)
+
         return binding.root
     }
+
+    /**
+     * Displays extra information if the favorites are empty
+     */
+    private fun showEmptywatchListInformation(
+        viewModel: WatchlistViewModel,
+        binding: FragmentWatchlistBinding
+    ) {
+        viewModel.watchlistEntities.observe(this, Observer {
+            it?.let {
+                if (it.isEmpty()) {
+                    binding.statusImage.setImageResource(R.drawable.ic_sad)
+                    binding.statusImage.visibility = View.VISIBLE
+                    binding.statusText.text =  resources.getText(R.string.watchlist_empty)
+                } else {
+                    binding.statusImage.visibility = View.GONE
+                    binding.statusText.text = ""
+                }
+            }
+        })
+    }
+
 
     /**
      * Provides the navigation to the detailed page of movie or serie

@@ -21,7 +21,7 @@ class FavoritesViewModel(val database: MyMoviesDatabase) : ViewModel() {
     /**
      * [FavoritsRepository]
      */
-    val favoritesList = movieSerieRepository.favorits
+    val favoritesList : LiveData<List<MovieSerieDetail>> = movieSerieRepository.favorits
 
     /**
      * [Job] => Creates a new job object in an active state.

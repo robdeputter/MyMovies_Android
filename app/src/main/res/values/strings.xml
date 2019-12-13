@@ -27,6 +27,8 @@
         Furthermore, this app also offers the possibility to consult the latest releases of Netflix, so you can already look forward to a brand new season of your favorite series.
 
         If you like to let your friends know about a movie or series that you liked very much, you can share it through different platforms (mail, messages, messenger,...).</string>
+    <string name="favorites_empty">No favorites</string>
+    <string name="watchlist_empty">Watchlist is empty</string>
     <string-array name="types">
         <item>Movie</item>
         <item>Series</item>

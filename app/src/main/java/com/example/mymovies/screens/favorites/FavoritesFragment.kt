@@ -1,5 +1,6 @@
 package com.example.mymovies.screens.favorites
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -74,7 +75,30 @@ class FavoritesFragment : Fragment() {
 
         navigateToSelectedMovieSerie(viewModel)
 
+        showEmptyFavoritesInformation(viewModel,binding)
+
         return binding.root
+    }
+
+    /**
+     * Displays extra information if the favorites are empty
+     */
+    private fun showEmptyFavoritesInformation(
+        viewModel: FavoritesViewModel,
+        binding: FragmentFavoritsBinding
+    ) {
+        viewModel.favoritesList.observe(this, Observer {
+            it?.let {
+                if (it.isEmpty()) {
+                    binding.statusImage.setImageResource(R.drawable.ic_sad)
+                    binding.statusImage.visibility = View.VISIBLE
+                    binding.statusText.text =  resources.getText(R.string.favorites_empty)
+                } else {
+                    binding.statusImage.visibility = View.GONE
+                    binding.statusText.text = ""
+                }
+            }
+        })
     }
 
     /**

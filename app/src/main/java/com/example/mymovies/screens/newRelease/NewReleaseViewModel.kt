@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.cancel
+import java.lang.Exception
 
 /**
  * [ViewModel]
@@ -46,15 +47,27 @@ class NewReleaseViewModel(private val _database: MyMoviesDatabase) : ViewModel()
      * Refreshes the new releases at the construcion of the viewmodel
      */
     init {
-        viewModelScope.launch {
-            newReleaseRepository.refreshNewReleases()
-        }
+        refreshNewReleases()
     }
+
 
     /**
      * Loads the new Releases from the database
      */
     val newReleases = newReleaseRepository.newReleases
+
+
+    private fun refreshNewReleases() {
+        viewModelScope.launch {
+            try {
+                _status.value = MyMoviesApiStatus.LOADING
+                newReleaseRepository.refreshNewReleases()
+                _status.value = MyMoviesApiStatus.DONE
+            } catch (e: Exception) {
+                _status.value = MyMoviesApiStatus.ERROR
+            }
+        }
+    }
 
     /**
      * Keeps track if there's a movie or serie that has been clicked
