@@ -2,8 +2,8 @@
 <resources>
     <dimen name="header_dim" />
     <dimen name="header_dim2">18sp</dimen>
-    <dimen name="width_card_dashboard">220dp</dimen>
-    <dimen name="height_card_dashboard">150dp</dimen>
+    <dimen name="width_card_dashboard">200dp</dimen>
+    <dimen name="height_card_dashboard">130dp</dimen>
     <dimen name="textSize_dashboard">24sp</dimen>
     <dimen name="image_width_dashboard">100dp</dimen>
     <dimen name="image_height_dashboard">80dp</dimen>
@@ -12,11 +12,13 @@
     <dimen name="cardElevation">2dp</dimen>
     <dimen name="dialogContentWidth">225dp</dimen>
     <dimen name="dialogContentHeight">40dp</dimen>
-    <dimen name="favorite_button_width">53dp</dimen>
-    <dimen name="favorite_button_height">53dp</dimen>
+    <dimen name="favorite_button_width">40dp</dimen>
+    <dimen name="favorite_button_height">40dp</dimen>
     <dimen name="posterDetailsWidth">154dp</dimen>
     <dimen name="posterDetailsHeight">176dp</dimen>
     <dimen name="posterGridView_width">123dp</dimen>
     <dimen name="posterGridview_height">138dp</dimen>
     <dimen name="detailsWidth">350dp</dimen>
+    <dimen name="favorite_button_landscape_width">45dp</dimen>
+    <dimen name="favorite_button_landscape_height">45dp</dimen>
 </resources>

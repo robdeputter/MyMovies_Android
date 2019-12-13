@@ -18,7 +18,7 @@ import androidx.room.RoomDatabase
     /**
      * Defines the version of your, comes in handy if you want to go back to an older version of your database
      */
-    version = 5,
+    version = 6,
     /**
      * You can set the annotation processor argument ({@code room.schemaLocation}) to tell Room to
      * export the database schema into a folder. Even though it is not mandatory, it is a good
@@ -34,6 +34,7 @@ import androidx.room.RoomDatabase
 abstract class MyMoviesDatabase : RoomDatabase() {
     abstract val favoritesDAO: FavoritesDAO
     abstract val newReleasesDAO: NewReleaseDAO
+    abstract val watchListDAO : WatchListDAO
 
     /**
      * [companion] [object] An object which has the same name as the class

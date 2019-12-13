@@ -44,6 +44,8 @@ class DashboardFragment : Fragment() {
 
         onNewReleasesClicked(binding)
 
+        onWatchlistClicked(binding)
+
         return binding.root
     }
 
@@ -74,6 +76,16 @@ class DashboardFragment : Fragment() {
         binding.newReleasesCardView.setOnClickListener {
             this.findNavController()
                 .navigate(DashboardFragmentDirections.actionDashboardFragmentToNewReleaseFragment())
+        }
+    }
+
+    /**
+     * Navigates to WatchlistFragment if the watchlistCardView is clicked
+     */
+    private fun onWatchlistClicked(binding: FragmentDashboardBinding) {
+        binding.watchlistCardView.setOnClickListener {
+            this.findNavController()
+                .navigate(DashboardFragmentDirections.actionDashboardFragmentToWatchlistFragment())
         }
     }
 }

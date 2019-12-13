@@ -17,9 +17,19 @@ data class MovieSerieDetail(
     val actors: String,
     val imdbRating: String,
     val imdbVotes: String,
-    val favoriteRating: Float?,
     val plot: String?
-)
+){
+    var inWatchList : Boolean = false
+    get() = field
+    set(value){
+        field = value
+    }
+    var favoriteRating: Float = Float.NaN
+        get() = field
+        set(value) {
+            field = value
+        }
+}
 
 /**
  * Converts a MovieSerieDetail to a databaseproperty
@@ -39,6 +49,7 @@ fun MovieSerieDetail.asDatabaseModel(): DatabaseMovieSerieDetail {
         imdbRating = imdbRating,
         imdbVotes = imdbVotes,
         favoriteRating = favoriteRating,
-        plot = plot
+        plot = plot,
+        inWatchList = inWatchList
     )
 }

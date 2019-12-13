@@ -7,7 +7,6 @@
         android:title="Dashboard"
         />
 
-
     <item
         android:icon="@android:drawable/ic_menu_search"
         android:id="@+id/searchFragment"
@@ -19,10 +18,22 @@
         android:title="@string/favorites" />
 
     <item
+        android:icon="@drawable/ic_watchlist"
+        android:id="@+id/watchlistFragment"
+        android:title="Watchlist"/>
+
+    <item
         android:icon="@drawable/ic_new_release"
         android:id="@+id/newReleaseFragment"
         android:title="@string/new_releases"
         />
+
+    <item
+        android:icon="@drawable/ic_info"
+        android:id="@+id/aboutFragment2"
+        android:title="About"/>
+
+
 
 
 </menu>

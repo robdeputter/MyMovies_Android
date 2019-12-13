@@ -23,7 +23,8 @@ data class DatabaseMovieSerieDetail constructor(
     val imdbRating: String,
     val imdbVotes: String,
     val favoriteRating: Float?,
-    val plot: String?
+    val plot: String?,
+    val inWatchList : Boolean
 )
 
 /**
@@ -43,7 +44,6 @@ fun List<DatabaseMovieSerieDetail>.asDomainModel(): List<MovieSerieDetail> {
             actors = it.actors,
             imdbRating = it.imdbRating,
             imdbVotes = it.imdbVotes,
-            favoriteRating = it.favoriteRating,
             plot = it.plot
         )
     }
@@ -53,7 +53,7 @@ fun List<DatabaseMovieSerieDetail>.asDomainModel(): List<MovieSerieDetail> {
  * Converts a [DatabaseMovieSerieDetail] to a [MovieSerieDetail]
  */
 fun DatabaseMovieSerieDetail.asDomainModel(): MovieSerieDetail {
-    return MovieSerieDetail(
+    val movieserieDetail =  MovieSerieDetail(
         imdbID = imdbID,
         title = title,
         year = year,
@@ -65,9 +65,14 @@ fun DatabaseMovieSerieDetail.asDomainModel(): MovieSerieDetail {
         actors = actors,
         imdbRating = imdbRating,
         imdbVotes = imdbVotes,
-        favoriteRating = favoriteRating,
         plot = plot
     )
+    if(this.favoriteRating != null){
+        movieserieDetail.favoriteRating = this.favoriteRating
+    }
+    movieserieDetail.inWatchList = inWatchList
+    return movieserieDetail
+
 }
 
 /**

@@ -15,6 +15,7 @@ import com.example.mymovies.screens.favorites.FavoritesAdapter
 import com.example.mymovies.screens.newRelease.NewReleaseAdapter
 import com.example.mymovies.screens.search.MovieSerieAdapter
 import com.example.mymovies.screens.search.MyMoviesApiStatus
+import com.example.mymovies.screens.watchlist.WatchlistAdapter
 
 /**
  * Submits list of [MovieSerie] to [MovieSerieAdapter]
@@ -31,6 +32,12 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<MovieSerie>?) {
 @BindingAdapter("listDataFavorits")
 fun bindRecyclerViewFavorits(recyclerView: RecyclerView, data: List<MovieSerieDetail>?) {
     val adapter = recyclerView.adapter as FavoritesAdapter
+    adapter.submitList(data)
+}
+
+@BindingAdapter("listDataWatchlist")
+fun bindRecyclerViewWatchlist(recyclerView: RecyclerView, data : List<MovieSerieDetail>?){
+    val adapter = recyclerView.adapter as WatchlistAdapter
     adapter.submitList(data)
 }
 

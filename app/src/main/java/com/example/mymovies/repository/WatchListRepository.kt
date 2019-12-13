@@ -16,50 +16,48 @@ import java.lang.Exception
 /**
  * Responsible for manipulating and getting favorites
  */
-class FavoritsRepository(private val _database: MyMoviesDatabase) {
+class WatchListRepository(private val _database: MyMoviesDatabase) {
 
     /**
-     * Get all the favorites that are currently in the database
+     * Get all the watchlistEntities that are currently in the database
      *
      * [LiveData] => LiveData is a data holder class that can be observed within a given lifecycle.
      * This means that an {@link Observer} can be added in a pair with a {@link LifecycleOwner}, and
      * this observer will be notified about modifications of the wrapped data only if the paired
      */
-    val favorits: LiveData<List<MovieSerieDetail>> =
-        Transformations.map(_database.favoritesDAO.getAllFavorits()) {
+    val watchListentities: LiveData<List<MovieSerieDetail>> =
+        Transformations.map(_database.watchListDAO.getAllWatchListentities()) {
             it.asDomainModel()
         }
 
     /**
-     * Add a favorite with its rating to the database
+     * Add a movie / serie to the watchlist
      *
      * [withContext] => Calls the specified suspending block with a given coroutine context, suspends until it completes, and returns the result.
      * [Dispatchers.IO] => The [CoroutineDispatcher] that is designed for offloading blocking IO tasks to a shared pool of threads.
      *
      * Why suspend? => you're using [withContext]
      */
-    suspend fun addFavorit(
-        imdbId: String,
-        rating: Float
+    suspend fun addToWatchList(
+        imdbId: String
     ) { // bij ophalen van disk --> zeer belangrijk om dit te doen op de IO-thread
         withContext(Dispatchers.IO) {
-            if(_database.watchListDAO.get(imdbId) != null){
-                val result = _database.watchListDAO.get(imdbId)
+            if(_database.favoritesDAO.get(imdbId) != null){
+                val result = _database.favoritesDAO.get(imdbId)
                 val movieSerieDetail = result!!.asDomainModel()
-                movieSerieDetail.favoriteRating = rating
-                _database.favoritesDAO.update(movieSerieDetail.asDatabaseModel())
-            }
-            else{
+                movieSerieDetail.inWatchList = true
+                _database.watchListDAO.update(movieSerieDetail.asDatabaseModel())
+            }else{
                 val movieSerieDetail = MyMoviesApi.retrofitService.getMovieSerieDetail(imdbId).await()
-                movieSerieDetail.favoriteRating = rating
-                _database.favoritesDAO.insert(movieSerieDetail.asDatabaseModel())
+                movieSerieDetail.inWatchList = true
+                _database.watchListDAO.insert(movieSerieDetail.asDatabaseModel())
             }
 
         }
     }
 
     /**
-     * Get a possible favorite by its imdbId
+     * Get a possible watchListentity by its imdbId
      * @return a possible favorite ( = [MovieSerieDetail])
      *
      * [withContext] => Calls the specified suspending block with a given coroutine context, suspends until it completes, and returns the result.
@@ -67,10 +65,10 @@ class FavoritsRepository(private val _database: MyMoviesDatabase) {
      *
      * Why suspend? => you're using [withContext]
      */
-    suspend fun getFavorit(imdbId: String): MovieSerieDetail? {
+    suspend fun getWatchListentity(imdbId: String): MovieSerieDetail? {
         return withContext(Dispatchers.IO) {
             try {
-                val obj = _database.favoritesDAO.get(imdbId)!!.asDomainModel()
+                val obj = _database.watchListDAO.get(imdbId)!!.asDomainModel()
                 obj
             } catch (e: Exception) {
                 null
@@ -79,25 +77,22 @@ class FavoritsRepository(private val _database: MyMoviesDatabase) {
     }
 
     /**
-     * Remove a favorite from the database
+     * Remove a watchlistentity from the database if it's a favorite, just change the field to false
      *
      * [withContext] => Calls the specified suspending block with a given coroutine context, suspends until it completes, and returns the result.
      * [Dispatchers.IO] => The [CoroutineDispatcher] that is designed for offloading blocking IO tasks to a shared pool of threads.
      *
      * Why suspend? => you're using [withContext]
      */
-    suspend fun removeFavorit(movieSerieDetail: MovieSerieDetail) {
+    suspend fun removeWatchListEntity(movieSerieDetail: MovieSerieDetail) {
         withContext(Dispatchers.IO) {
-
-            if(movieSerieDetail.inWatchList == false){
-                _database.favoritesDAO.delete(movieSerieDetail.asDatabaseModel())
+            if(movieSerieDetail.favoriteRating.isNaN()){
+                _database.watchListDAO.delete(movieSerieDetail.asDatabaseModel())
             }
             else{
-                movieSerieDetail.favoriteRating = Float.NaN
-                _database.favoritesDAO.update(movieSerieDetail.asDatabaseModel())
+                movieSerieDetail.inWatchList = false
+                _database.watchListDAO.update(movieSerieDetail.asDatabaseModel())
             }
-
-
         }
     }
 }

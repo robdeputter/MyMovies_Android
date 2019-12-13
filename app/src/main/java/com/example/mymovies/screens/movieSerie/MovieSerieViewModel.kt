@@ -8,6 +8,7 @@ import com.example.mymovies.database.MyMoviesDatabase
 import com.example.mymovies.models.MovieSerieDetail
 import com.example.mymovies.repository.FavoritsRepository
 import com.example.mymovies.repository.MovieSerieDetailRepository
+import com.example.mymovies.repository.WatchListRepository
 import com.example.mymovies.screens.search.MyMoviesApiStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -44,11 +45,26 @@ class MovieSerieViewModel(
         get() = _inFavorits
 
     /**
-     * Keeps track if a Snackbar has to be shown
+     * Keeps track if the [movieSerie] is in watchList
      */
-    private var _showSnackbarEvent = MutableLiveData<Boolean>()
-    val showSnackbarEvent: LiveData<Boolean>
-        get() = _showSnackbarEvent
+    private var _inWatchlist = MutableLiveData<Boolean>()
+    val inWatchlist: LiveData<Boolean>
+        get() = _inWatchlist
+
+    /**
+     * Keeps track if a Snackbar for favorites has to be shown
+     */
+    private var _showSnackbarEventFavorites = MutableLiveData<Boolean>()
+    val showSnackbarEventFavorites: LiveData<Boolean>
+        get() = _showSnackbarEventFavorites
+
+
+    /**
+     * Keeps track if a Snackbar for favorites has to be shown
+     */
+    private var _showSnackbarEventWatchlist = MutableLiveData<Boolean>()
+    val showSnackbarEventWatchlist: LiveData<Boolean>
+        get() = _showSnackbarEventWatchlist
 
     /**
      * [MovieSerieDetailRepository]
@@ -56,6 +72,8 @@ class MovieSerieViewModel(
     private val movieSerieRepository = MovieSerieDetailRepository()
     private val favoritsRepository =
         FavoritsRepository(MyMoviesDatabase.getInstance(application.applicationContext))
+    private val watchListRepository =
+        WatchListRepository(MyMoviesDatabase.getInstance(application.applicationContext))
 
     /**
      * [Job] => Creates a new job object in an active state.
@@ -84,13 +102,22 @@ class MovieSerieViewModel(
         coroutineScope.launch {
             try {
                 _status.value = MyMoviesApiStatus.LOADING
-                if (favoritsRepository.getFavorit(imdbId) == null) {
+                if (favoritsRepository.getFavorit(imdbId) == null && watchListRepository.getWatchListentity(
+                        imdbId
+                    ) == null
+                ) {
                     _inFavorits.value = false
+                    _inWatchlist.value = false
                     _movieSerieDetail.value =
                         movieSerieRepository.getMovieSerieDetail(imdbId)
-                } else {
+                } else if (favoritsRepository.getFavorit(imdbId) != null) {
                     _inFavorits.value = true
+                    _inWatchlist.value = watchListRepository.getWatchListentity(imdbId) != null
                     _movieSerieDetail.value = favoritsRepository.getFavorit(imdbId)
+                } else if (watchListRepository.getWatchListentity(imdbId) != null) {
+                    _inFavorits.value = false
+                    _inWatchlist.value = true
+                    _movieSerieDetail.value = watchListRepository.getWatchListentity(imdbId)
                 }
                 _status.value = MyMoviesApiStatus.DONE
             } catch (e: Exception) {
@@ -109,9 +136,9 @@ class MovieSerieViewModel(
     fun addToFavorits(rating: Float) {
         coroutineScope.launch {
             favoritsRepository.addFavorit(imdbId, rating)
-            _showSnackbarEvent.value = true
+            _showSnackbarEventFavorites.value = true
             // reloading
-            getMovieSerieDetailObject()
+            _inFavorits.value = true
         }
     }
 
@@ -124,17 +151,55 @@ class MovieSerieViewModel(
     fun removeFromFavorits() {
         coroutineScope.launch {
             favoritsRepository.removeFavorit(_movieSerieDetail.value!!)
-            _showSnackbarEvent.value = true
+            _showSnackbarEventFavorites.value = true
             // reloading
-            getMovieSerieDetailObject()
+            _inFavorits.value = false
         }
+    }
+
+    /**
+     * Calls the addFavoriteMethod from the [WatchListRepository]
+     * Is performed asynchronously on the main-thread => Database operation
+     *
+     * Reloads the [MovieSerieDetail] object to renew check if object is in watchlist
+     */
+    fun addToWatchlist() {
+        coroutineScope.launch {
+            watchListRepository.addToWatchList(imdbId)
+            _showSnackbarEventWatchlist.value = true
+            // reloading
+            _inWatchlist.value = true
+        }
+    }
+
+    /**
+     * Calls the removeMethod from the [WatchListRepository]
+     * Is performed asynchronously on the main-thread => Database operation
+     *
+     * Reloads the [MovieSerieDetail] object to renew check if object is in watchlist
+     */
+    fun removeFromWatchlist() {
+        coroutineScope.launch {
+            watchListRepository.removeWatchListEntity(_movieSerieDetail.value!!)
+            _showSnackbarEventWatchlist.value = true
+            // reloading
+            _inWatchlist.value = false
+        }
+    }
+
+
+    /**
+     * Sets showSnackbarFavorites to false
+     */
+    fun doneShowingSnackbarFavorites() {
+        _showSnackbarEventFavorites.value = false
     }
 
     /**
      * Sets showSnackbar to false
      */
-    fun doneShowingSnackbar() {
-        _showSnackbarEvent.value = false
+    fun doneShowingSnackbarWatchlist() {
+        _showSnackbarEventWatchlist.value = false
     }
 
     /**

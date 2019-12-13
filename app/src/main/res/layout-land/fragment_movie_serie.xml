@@ -32,9 +32,9 @@
 
             <TextView
                 android:id="@+id/title"
-                android:layout_width="284dp"
+                android:layout_width="239dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
                 android:contentDescription="@string/title_MovieSerie"
                 android:text="@{viewModel.movieSerie.title}"
@@ -45,11 +45,20 @@
 
             <Button
                 android:id="@+id/addFavorit"
-                android:layout_width="53dp"
-                android:layout_height="53dp"
+                android:layout_width="@dimen/favorite_button_landscape_width"
+                android:layout_height="@dimen/favorite_button_landscape_height"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/addWatchList"
+                android:layout_width="@dimen/favorite_button_landscape_width"
+                android:layout_height="@dimen/favorite_button_landscape_height"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/addFavorit"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <RatingBar
@@ -81,7 +90,7 @@
                 android:id="@+id/year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
                 android:text="@{viewModel.movieSerie.year}"
                 app:layout_constraintStart_toStartOf="@+id/title"
@@ -105,7 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="50dp"
+                android:layout_marginEnd="32dp"
                 android:text="@{viewModel.movieSerie.type}"
                 app:layout_constraintEnd_toEndOf="@+id/title"
                 app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -115,8 +124,9 @@
                 android:id="@+id/descriptionHeader"
                 style="@style/header"
                 headerText="@{viewModel.status}"
+                android:layout_marginStart="90dp"
                 android:text="Description"
-                app:layout_constraintStart_toEndOf="@+id/title"
+                app:layout_constraintStart_toEndOf="@+id/poster"
                 app:layout_constraintTop_toTopOf="@+id/poster" />
 
             <TextView

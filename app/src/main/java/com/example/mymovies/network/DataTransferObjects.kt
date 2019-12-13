@@ -65,6 +65,11 @@ data class NetworkMovieSerieDetail(
         set(value) {
             field = value
         }
+    var inWatchList : Boolean = false
+        get() = field
+        set(value){
+            field = value
+        }
 }
 
 /**
@@ -83,7 +88,6 @@ fun NetworkMovieSerieDetail.asDomainModel(): MovieSerieDetail {
         actors = Actors,
         imdbRating = imdbRating,
         imdbVotes = imdbVotes,
-        favoriteRating = favoriteRating,
         plot = Plot
     )
 }
@@ -105,8 +109,8 @@ fun NetworkMovieSerieDetail.asDatabaseModel(): DatabaseMovieSerieDetail {
         imdbRating = imdbRating,
         imdbVotes = imdbVotes,
         favoriteRating = favoriteRating,
-        plot = Plot
-
+        plot = Plot,
+        inWatchList = inWatchList
     )
 }
 

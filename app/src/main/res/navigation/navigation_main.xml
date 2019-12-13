@@ -25,7 +25,7 @@
         <argument
             android:name="imdbId"
             app:argType="string"
-            /> <!-- just for testing!! you have to take this line away if you want to give a parameter -->
+            />
 
     </fragment>
 
@@ -73,7 +73,34 @@
             app:destination="@id/favoritsFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_watchlistFragment"
+            app:destination="@id/watchlistFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_aboutFragment2"
+            app:destination="@id/aboutFragment2"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
+
+    <fragment
+        android:id="@+id/watchlistFragment"
+        android:name="com.example.mymovies.screens.watchlist.WatchlistFragment"
+        android:label="WatchlistFragment"
+        tools:layout="@layout/fragment_watchlist">
+        <action
+            android:id="@+id/action_watchlistFragment_to_movieFragment"
+            app:destination="@id/movieFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment2"
+        android:name="com.example.mymovies.screens.About.AboutFragment"
+        android:label="AboutFragment"
+        tools:layout="@layout/fragment_about"/>
 
 
 </navigation>

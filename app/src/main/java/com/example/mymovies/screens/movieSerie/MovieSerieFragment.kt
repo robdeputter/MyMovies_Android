@@ -84,7 +84,11 @@ class MovieSerieFragment : Fragment() {
 
         favoritesAction(binding, viewModel)
 
-        showSnackbar(viewModel)
+        watchListAction(binding, viewModel)
+
+        showSnackbarFavorites(viewModel)
+
+        showSnackbarWatchlist(viewModel)
 
         setHasOptionsMenu(true)
 
@@ -134,11 +138,35 @@ class MovieSerieFragment : Fragment() {
     }
 
     /**
+     * Observes inFavorits, which tells if the displayed movie or serie is in favorites
+     * Sets the appropriate layout and interactions
+     */
+    private fun watchListAction(
+        binding: FragmentMovieSerieBinding,
+        viewModel: MovieSerieViewModel
+    ) {
+        viewModel.inWatchlist.observe(this, Observer {
+
+            if (it == true) {
+                binding.addWatchList.setBackgroundResource(R.drawable.ic_in_watchlist)
+                binding.addWatchList.setOnClickListener {
+                    viewModel.removeFromWatchlist()
+                }
+            } else {
+                binding.addWatchList.setBackgroundResource(R.drawable.ic_not_in_watchlist)
+                binding.addWatchList.setOnClickListener { view: View ->
+                    viewModel.addToWatchlist()
+                }
+            }
+        })
+    }
+
+    /**
      * Shows a snackbar if there was an interaction with the favorites
      */
-    private fun showSnackbar(viewModel: MovieSerieViewModel) {
+    private fun showSnackbarFavorites(viewModel: MovieSerieViewModel) {
 
-        viewModel.showSnackbarEvent.observe(this, Observer {
+        viewModel.showSnackbarEventFavorites.observe(this, Observer {
             if (it == true) { // Observed state is true.
                 if (!viewModel.inFavorits.value!!) {
                     Snackbar.make(
@@ -156,10 +184,39 @@ class MovieSerieFragment : Fragment() {
 
                 // Reset state to make sure the snackbar is only shown once, even if the device
                 // has a configuration change.
-                viewModel.doneShowingSnackbar()
+                viewModel.doneShowingSnackbarFavorites()
             }
         })
     }
+
+    /**
+     * Shows a snackbar if there was an interaction with the favorites
+     */
+    private fun showSnackbarWatchlist(viewModel: MovieSerieViewModel) {
+
+        viewModel.showSnackbarEventWatchlist.observe(this, Observer {
+            if (it == true) { // Observed state is true.
+                if (!viewModel.inWatchlist.value!!) {
+                    Snackbar.make(
+                        activity!!.findViewById(android.R.id.content),
+                        getString(R.string.added_to_watchlist),
+                        Snackbar.LENGTH_SHORT // How long to display the message.
+                    ).show()
+                } else {
+                    Snackbar.make(
+                        activity!!.findViewById(android.R.id.content),
+                        getString(R.string.removed_from_watchlist),
+                        Snackbar.LENGTH_SHORT // How long to display the message.
+                    ).show()
+                }
+
+                // Reset state to make sure the snackbar is only shown once, even if the device
+                // has a configuration change.
+                viewModel.doneShowingSnackbarWatchlist()
+            }
+        })
+    }
+
 
     /**
      * Starts shareintent

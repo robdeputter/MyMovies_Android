@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="movieSerieDetail"
+            type="com.example.mymovies.models.MovieSerieDetail" />
+
+        <variable
+            name="clickListener"
+            type="com.example.mymovies.screens.watchlist.WatchlistAdapter.WatchlistListener" />
+
+        <variable
+            name="removeClickListener"
+            type="com.example.mymovies.screens.watchlist.WatchlistAdapter.RemoveListener" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/matCardNewRelease"
+            android:onClick="@{() -> clickListener.onClick(movieSerieDetail)}"
+            app:cardCornerRadius="@dimen/matCardRadius"
+            app:cardElevation="@dimen/cardElevation"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/poster"
+                    style="@style/posterNewRelease"
+                    app:imageUrl="@{movieSerieDetail.poster}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="268dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@{movieSerieDetail.title}"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toEndOf="@+id/poster"
+                    app:layout_constraintTop_toTopOf="@+id/poster" />
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="8dp"
+                    android:onClick="@{() -> removeClickListener.onClick(movieSerieDetail)}"
+                    android:src="@drawable/ic_remove"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/year"
+                    style="@style/releaseItem_subtitle"
+                    android:text="@{movieSerieDetail.year}"
+                    app:layout_constraintStart_toEndOf="@+id/poster"
+                    app:layout_constraintTop_toBottomOf="@+id/title" />
+
+                <TextView
+                    android:id="@+id/type"
+                    style="@style/releaseItem_subtitle"
+                    android:text="@{movieSerieDetail.type}"
+                    app:layout_constraintBottom_toBottomOf="@+id/poster"
+                    app:layout_constraintStart_toEndOf="@+id/poster"
+                    app:layout_constraintTop_toBottomOf="@+id/year" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

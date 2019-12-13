@@ -52,6 +52,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <Button
+                android:id="@+id/addWatchList"
+                android:layout_width="@dimen/favorite_button_width"
+                android:layout_height="@dimen/favorite_button_height"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/addFavorit"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <RatingBar
                 android:id="@+id/ratingBar2"
                 style="@style/Widget.AppCompat.RatingBar.Small"

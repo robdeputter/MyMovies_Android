@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">MyMovies</string>
     <string name="searchTextview">Name of movie / serie</string>
-    <string name="about">About</string>
     <string name="search">Search</string>
     <string name="favorites">Favorites</string>
     <string name="wantToWatch">Watchlist</string>
@@ -20,6 +19,14 @@
     <string name="castDetails">Cast</string>
     <string name="imdbRatingDetails">ImDB-rating</string>
     <string name="extraInformationDetails">Extra information</string>
+    <string name="added_to_watchlist">Added to watchlist</string>
+    <string name="removed_from_watchlist">Removed from watchlist</string>
+    <string name="watchlisttext_dashboard">Watchlist</string>
+    <string name="about">MyMovies is an application where you can look up all movies and series. You can request a detailed list to provide more information about a particular film or series. There is also the possibility to add them to your favourites.
+
+        Furthermore, this app also offers the possibility to consult the latest releases of Netflix, so you can already look forward to a brand new season of your favorite series.
+
+        If you like to let your friends know about a movie or series that you liked very much, you can share it through different platforms (mail, messages, messenger,...).</string>
     <string-array name="types">
         <item>Movie</item>
         <item>Series</item>
