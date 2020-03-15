@@ -1,4 +1,4 @@
-Creator: Rob De Putter (HOGENT - Group: 3C)
+Creator: Rob De Putter (HOGENT - Group: 3C) - Result: 15/20
 
 # MyMovies - Android application
 
